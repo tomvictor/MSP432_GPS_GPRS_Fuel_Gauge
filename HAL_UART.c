@@ -133,12 +133,12 @@ void GPRSUART_init(void)
 
 /* Transmits String over UART */
 void UART_transmitString( char *pStr )
-{
-	while( *pStr )
-	{
-		UART_transmitData(EUSCI_A0_BASE, *pStr );
-		pStr++;
-	}
+{//comented to block the info serial printings
+//	while( *pStr )
+//	{
+//		UART_transmitData(EUSCI_A0_BASE, *pStr );
+//		pStr++;
+//	}
 }
 
 

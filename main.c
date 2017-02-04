@@ -18,7 +18,13 @@
 void CS_init(void);
 void GPIO_init(void);
 char *itoa(int, char*, int);
+void readBattery(void);
+void initBattGauge(void)    ;
 
+
+short result16 = 0;
+char str[64] ;
+unsigned int batt_percent,batt_remining, batt_voltage   ;
 
 void main(void)
 {
@@ -52,61 +58,22 @@ void main(void)
     UART_transmitStringGPS("This is the GPS Serial port test string\r\n");
     UART_transmitStringGPRS("This is the GPRS Serial port test string\r\n");
 
-    if (!BQ27441_initConfig())
-    {
-        UART_transmitString("Error initializing BQ27441 Config\r\n");
-        UART_transmitString("Make sure BOOSTXL-BATPAKMKII is connected and switch is flipped to \"CONNECTED\"\r\n");
-    }
 
-    while (!BQ27441_initOpConfig())
-    {
-        __delay_cycles(1000000);
-        UART_transmitString("Clearing BIE in Operation Configuration\r\n");
-    }
-
-    BQ27441_control(BAT_INSERT, 1000);
-    __delay_cycles(1000000);
+    initBattGauge()    ;
 
     /* Display Battery information */
     while(1)
     {
-
-
-        short result16 = 0;
-        char str[64];
-
-
-        /* Read Remaining Capacity */
-        if(!BQ27441_read16(REMAINING_CAPACITY, &result16, 1000))
-            UART_transmitString("Error Reading Remaining Capacity \r\n");
-        else
-        {
-            sprintf(str, "REMAINING_CAPACITY : %dmAh \r\n", result16);
-            UART_transmitString(str);
-        }
-
-        /* Read State Of Charge */
-        if(!BQ27441_read16(STATE_OF_CHARGE, &result16, 1000))
-            UART_transmitString("Error Reading State Of Charge \r\n");
-        else
-        {
-            sprintf(str, "State of Charge: %d%%\r\n", (unsigned short)result16);
-            //sprintf(str, "(%d%%)\r\n", (unsigned short)result16);
-            UART_transmitString(str);
-        }
-
-        /* Read Voltage */
-        if(!BQ27441_read16(VOLTAGE, &result16, 1000))
-            UART_transmitString("Error Reading Voltage \r\n");
-        else
-        {
-            sprintf(str, "Voltage: %dmV\r\n", result16);
-            UART_transmitString(str);
-        }
+        readBattery();
+        UART_transmitString1(batt_percent)  ;
+        UART_transmitString1("\n\r")  ;
+        UART_transmitString1( batt_voltage)     ;
+        UART_transmitString1("\n\r")  ;
+        UART_transmitString1(batt_remining)     ;
+        UART_transmitString1("\n\r")  ;
 
 
 
-        __delay_cycles(20000000);
     }
 }
 
@@ -144,4 +111,57 @@ void GPIO_init()
     MAP_GPIO_setOutputLowOnPin(GPIO_PORT_PC, PIN_ALL16);
     MAP_GPIO_setOutputLowOnPin(GPIO_PORT_PD, PIN_ALL16);
     MAP_GPIO_setOutputLowOnPin(GPIO_PORT_PE, PIN_ALL16);
+}
+
+
+
+void readBattery(void){
+    /* Read Remaining Capacity */
+    if(!BQ27441_read16(REMAINING_CAPACITY, &result16, 1000))
+        UART_transmitString("Error Reading Remaining Capacity \r\n");
+    else
+    {
+        sprintf(str, "REMAINING_CAPACITY : %dmAh \r\n", result16);
+        batt_remining = result16 ;
+        UART_transmitString(str);
+    }
+
+    /* Read State Of Charge */
+    if(!BQ27441_read16(STATE_OF_CHARGE, &result16, 1000))
+        UART_transmitString("Error Reading State Of Charge \r\n");
+    else
+    {
+        sprintf(str, "State of Charge: %d%%\r\n", (unsigned short)result16);
+        batt_percent = (unsigned short)result16 ;
+        UART_transmitString(str);
+    }
+
+    /* Read Voltage */
+    if(!BQ27441_read16(VOLTAGE, &result16, 1000))
+        UART_transmitString("Error Reading Voltage \r\n");
+    else
+    {
+        sprintf(str, "Voltage: %dmV\r\n", result16);
+        batt_voltage = result16  ;
+        UART_transmitString(str);
+    }
+    __delay_cycles(20000000);
+}
+
+
+void initBattGauge(void){
+    if (!BQ27441_initConfig())
+    {
+        UART_transmitString("Error initializing BQ27441 Config\r\n");
+        UART_transmitString("Make sure BOOSTXL-BATPAKMKII is connected and switch is flipped to \"CONNECTED\"\r\n");
+    }
+
+    while (!BQ27441_initOpConfig())
+    {
+        __delay_cycles(1000000);
+        UART_transmitString("Clearing BIE in Operation Configuration\r\n");
+    }
+
+    BQ27441_control(BAT_INSERT, 1000);
+    __delay_cycles(1000000);
 }
