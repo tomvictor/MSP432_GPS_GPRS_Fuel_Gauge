@@ -41,9 +41,13 @@
 
 void UART_initGPIO(void);
 void GPSUART_initGPIO(void);
+
 void UART_init(void);
 void GPSUART_init(void);
+void GPRSUART_init(void);
+
 void UART_transmitString( char *pStr );
 void UART_transmitStringGPS( char *pStr );
+void UART_transmitStringGPRS( char *pStr );
 
 #endif /* __HAL_UART_H_ */

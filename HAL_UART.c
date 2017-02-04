@@ -68,7 +68,7 @@ void UART_initGPIO()
 }
 
 
-/* Initializes Backchannel UART GPIO */
+/* Initializes GPS UART GPIO */
 void GPSUART_initGPIO()
 {
     /* Selecting P3.2 and P3.3 in UART mode */
@@ -77,6 +77,15 @@ void GPSUART_initGPIO()
 
 }
 
+
+/* Initializes GPRS UART GPIO */
+void GPRSUART_initGPIO()
+{
+    /* Selecting P3.2 and P3.3 in UART mode */
+    MAP_GPIO_setAsPeripheralModuleFunctionInputPin(GPIO_PORT_P9,
+        GPIO_PIN6 | GPIO_PIN7, GPIO_PRIMARY_MODULE_FUNCTION);
+
+}
 
 
 /***************************************************************************//**
@@ -108,6 +117,18 @@ void GPSUART_init(void)
     return;
 }
 
+void GPRSUART_init(void)
+{
+    /* Configuring UART Module */
+    MAP_UART_initModule(EUSCI_A3_BASE, &uartConfig);
+
+    /* Enable UART module */
+    MAP_UART_enableModule(EUSCI_A3_BASE);
+
+    return;
+}
+
+
 
 
 /* Transmits String over UART */
@@ -128,6 +149,17 @@ void UART_transmitStringGPS( char *pStr )
     while( *pStr )
     {
         UART_transmitData(EUSCI_A2_BASE, *pStr );
+        pStr++;
+    }
+}
+
+
+/* Transmits String over UART */
+void UART_transmitStringGPRS( char *pStr )
+{
+    while( *pStr )
+    {
+        UART_transmitData(EUSCI_A3_BASE, *pStr );
         pStr++;
     }
 }
