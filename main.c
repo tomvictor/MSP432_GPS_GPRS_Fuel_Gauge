@@ -22,9 +22,8 @@ void readBattery(void);
 void initBattGauge(void)    ;
 
 
-short result16 = 0;
-char str[64] ;
-unsigned int batt_percent,batt_remining, batt_voltage   ;
+short result16 = 0, batt_percent = 0,batt_remining = 0, batt_voltage = 0;
+char str[64], x[64];
 
 void main(void)
 {
@@ -65,6 +64,12 @@ void main(void)
     while(1)
     {
         readBattery();
+
+
+
+
+
+        __delay_cycles(20000000);
 
 
     }
@@ -110,35 +115,39 @@ void GPIO_init()
 
 void readBattery(void){
     /* Read Remaining Capacity */
-          if(!BQ27441_read16(REMAINING_CAPACITY, &result16, 1000))
-              UART_transmitString("Error Reading Remaining Capacity \r\n");
-          else
-          {
-              sprintf(str, "REMAINING_CAPACITY : %dmAh \r\n", result16);
-              batt_remining = result16 ;
-              UART_transmitString(str);
-          }
+    if(!BQ27441_read16(REMAINING_CAPACITY, &result16, 1000))
+        UART_transmitString("Error Reading Remaining Capacity \r\n");
+    else
+    {
+        sprintf(str, "REMAINING_CAPACITY : %dmAh \r\n", result16);
+        batt_remining = result16 ;
+        UART_transmitString(str);
+    }
 
-          /* Read State Of Charge */
-          if(!BQ27441_read16(STATE_OF_CHARGE, &result16, 1000))
-              UART_transmitString("Error Reading State Of Charge \r\n");
-          else
-          {
-              sprintf(str, "State of Charge: %d%%\r\n", (unsigned short)result16);
-              batt_percent = (unsigned short)result16 ;
-              UART_transmitString(str);
-          }
+    /* Read State Of Charge */
+    if(!BQ27441_read16(STATE_OF_CHARGE, &result16, 1000))
+        UART_transmitString("Error Reading State Of Charge \r\n");
+    else
+    {
+        sprintf(str, "State of Charge: %d%%\r\n", (unsigned short)result16);
+        batt_percent = result16 ;
+        UART_transmitString(str);
+    }
 
-          /* Read Voltage */
-          if(!BQ27441_read16(VOLTAGE, &result16, 1000))
-              UART_transmitString("Error Reading Voltage \r\n");
-          else
-          {
-              sprintf(str, "Voltage: %dmV\r\n", result16);
-              batt_voltage = result16  ;
-              UART_transmitString(str);
-          }
-          __delay_cycles(20000000);
+    /* Read Voltage */
+    if(!BQ27441_read16(VOLTAGE, &result16, 1000))
+        UART_transmitString("Error Reading Voltage \r\n");
+    else
+    {
+        sprintf(str, "Voltage: %dmV\r\n", result16);
+        batt_voltage = result16 ;
+        UART_transmitString(str);
+    }
+    __delay_cycles(20000000);
+
+    sprintf(x, "battery : %d%%\r\nremining : %dmAh\r\nvoltage : %dmV\r\n",batt_percent,batt_remining,batt_voltage);
+           UART_transmitString(x);
+
 }
 
 
