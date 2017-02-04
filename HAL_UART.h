@@ -47,6 +47,7 @@ void GPSUART_init(void);
 void GPRSUART_init(void);
 
 void UART_transmitString( char *pStr );
+void UART_transmitString1( char *pStr );
 void UART_transmitStringGPS( char *pStr );
 void UART_transmitStringGPRS( char *pStr );
 

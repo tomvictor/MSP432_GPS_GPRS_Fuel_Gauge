@@ -74,20 +74,7 @@ void main(void)
 
         short result16 = 0;
         char str[64];
-        UART_transmitString("\r\n");
-        UART_transmitString("\r\n");
-        UART_transmitString("*************************************\r\n");
-        UART_transmitString("Battery Information\r\n");
-        UART_transmitString("*************************************\r\n");
 
-        /* Read Design Capacity */
-        if(!BQ27441_read16(DESIGN_CAPACITY, &result16, 1000))
-            UART_transmitString("Error Reading Design Capacity \r\n");
-        else
-        {
-            sprintf(str, "Design Capacity: %dmAh\r\n", result16);
-            UART_transmitString(str);
-        }
 
         /* Read Remaining Capacity */
         if(!BQ27441_read16(REMAINING_CAPACITY, &result16, 1000))
@@ -108,15 +95,6 @@ void main(void)
             UART_transmitString(str);
         }
 
-        /* Read Temperature */
-        if(!BQ27441_read16(TEMPERATURE, &result16, 1000))
-            UART_transmitString("Error Reading Temperature \r\n");
-        else
-        {
-            sprintf(str, "Temperature: %dC\r\n", result16/10 - 273);
-            UART_transmitString(str);
-        }
-
         /* Read Voltage */
         if(!BQ27441_read16(VOLTAGE, &result16, 1000))
             UART_transmitString("Error Reading Voltage \r\n");
@@ -126,19 +104,7 @@ void main(void)
             UART_transmitString(str);
         }
 
-        /* Read Average Current */
-        if(!BQ27441_read16(AVERAGE_CURRENT, &result16, 1000))
-            UART_transmitString("Error Reading Average Current \r\n");
-        else
-        {
-            sprintf(str, "Average Current: %dmA\r\n", result16);
-            UART_transmitString(str);
-            if (result16 > 0) {
-                UART_transmitString("Status : charging\r\n");
-            } else {
-                UART_transmitString("Status : discharging\r\n");
-            }
-        }
+
 
         __delay_cycles(20000000);
     }

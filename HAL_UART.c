@@ -142,6 +142,16 @@ void UART_transmitString( char *pStr )
 }
 
 
+void UART_transmitString1( char *pStr )
+{
+    while( *pStr )
+    {
+        UART_transmitData(EUSCI_A0_BASE, *pStr );
+        pStr++;
+    }
+}
+
+
 
 /* Transmits String over UART */
 void UART_transmitStringGPS( char *pStr )
