@@ -37,12 +37,16 @@ void main(void)
 
 	/* Initialize UART */
 	UART_initGPIO();
+    /* Initialize UART for gps */
+	GPSUART_initGPIO();
+
 	UART_init();
+	GPSUART_init();
 
 	__delay_cycles(1000000);
-	//UART_transmitString("tom");
 
-//	UART_transmitData(EUSCI_A2_BASE, "t" );
+
+	UART_transmitStringGPS("This is the GPS Serial port test string\r\n");
 
 	if (!BQ27441_initConfig())
 	{

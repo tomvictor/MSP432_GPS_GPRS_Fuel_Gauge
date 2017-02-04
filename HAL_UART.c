@@ -65,11 +65,18 @@ void UART_initGPIO()
     /* Selecting P1.2 and P1.3 in UART mode */
     MAP_GPIO_setAsPeripheralModuleFunctionInputPin(GPIO_PORT_P1,
         GPIO_PIN2 | GPIO_PIN3, GPIO_PRIMARY_MODULE_FUNCTION);
-
-    /* Selecting P3.2 and P3.3 in UART mode */
-        MAP_GPIO_setAsPeripheralModuleFunctionInputPin(GPIO_PORT_P3,
-            GPIO_PIN2 | GPIO_PIN3, GPIO_PRIMARY_MODULE_FUNCTION);
 }
+
+
+/* Initializes Backchannel UART GPIO */
+void GPSUART_initGPIO()
+{
+    /* Selecting P3.2 and P3.3 in UART mode */
+    MAP_GPIO_setAsPeripheralModuleFunctionInputPin(GPIO_PORT_P3,
+        GPIO_PIN2 | GPIO_PIN3, GPIO_PRIMARY_MODULE_FUNCTION);
+
+}
+
 
 
 /***************************************************************************//**
@@ -86,14 +93,21 @@ void UART_init(void)
     /* Enable UART module */
     MAP_UART_enableModule(EUSCI_A0_BASE);
 
-    /* Configuring UART Module */
-       MAP_UART_initModule(EUSCI_A2_BASE, &uartConfig);
-
-       /* Enable UART module */
-       MAP_UART_enableModule(EUSCI_A2_BASE);
-
 	return;
 }
+
+
+void GPSUART_init(void)
+{
+    /* Configuring UART Module */
+    MAP_UART_initModule(EUSCI_A2_BASE, &uartConfig);
+
+    /* Enable UART module */
+    MAP_UART_enableModule(EUSCI_A2_BASE);
+
+    return;
+}
+
 
 
 /* Transmits String over UART */
@@ -109,7 +123,7 @@ void UART_transmitString( char *pStr )
 
 
 /* Transmits String over UART */
-void UART_transmitString1( char *pStr )
+void UART_transmitStringGPS( char *pStr )
 {
     while( *pStr )
     {
