@@ -64,9 +64,11 @@ void UART_initGPIO()
 {
     /* Selecting P1.2 and P1.3 in UART mode */
     MAP_GPIO_setAsPeripheralModuleFunctionInputPin(GPIO_PORT_P1,
-        GPIO_PIN2 | GPIO_PIN3, GPIO_PRIMARY_MODULE_FUNCTION);
-}
+        GPIO_PIN2 , GPIO_PRIMARY_MODULE_FUNCTION);
 
+    MAP_GPIO_setAsPeripheralModuleFunctionOutputPin(GPIO_PORT_P1,
+             GPIO_PIN3, GPIO_PRIMARY_MODULE_FUNCTION);
+}
 
 /* Initializes GPS UART GPIO */
 void GPSUART_initGPIO()
