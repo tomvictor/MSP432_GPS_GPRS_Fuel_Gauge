@@ -1,0 +1,1 @@
+"./HAL_BQ27441.obj" "./HAL_I2C.obj" "./HAL_UART.obj" "./main.obj" "./startup_msp432p401r_ccs.obj" "./system_msp432p401r.obj" "../msp432p401r.cmd" -llibc.a 
