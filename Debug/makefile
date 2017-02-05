@@ -167,7 +167,7 @@ BIN_OUTPUTS__QUOTED += \
 
 # All Target
 all: $(OBJS) $(CMD_SRCS) $(GEN_CMDS)
-	@$(MAKE) --no-print-directory -Onone "MSP432_GPS_GPRS_Fuel_Gauge.out" secondary-outputs
+	@$(MAKE) --no-print-directory -Onone "MSP432_GPS_GPRS_Fuel_Gauge.out"
 
 # Tool invocations
 MSP432_GPS_GPRS_Fuel_Gauge.out: $(OBJS) $(CMD_SRCS) $(GEN_CMDS)
@@ -190,8 +190,6 @@ clean:
 	-$(RM) "HAL_BQ27441.d" "HAL_I2C.d" "HAL_UART.d" "main.d" "startup_msp432p401r_ccs.d" "system_msp432p401r.d" "driverlib\MSP432P4xx\adc14.d" "driverlib\MSP432P4xx\aes256.d" "driverlib\MSP432P4xx\comp_e.d" "driverlib\MSP432P4xx\cpu.d" "driverlib\MSP432P4xx\crc32.d" "driverlib\MSP432P4xx\cs.d" "driverlib\MSP432P4xx\dma.d" "driverlib\MSP432P4xx\flash.d" "driverlib\MSP432P4xx\fpu.d" "driverlib\MSP432P4xx\gpio.d" "driverlib\MSP432P4xx\i2c.d" "driverlib\MSP432P4xx\interrupt.d" "driverlib\MSP432P4xx\mpu.d" "driverlib\MSP432P4xx\pcm.d" "driverlib\MSP432P4xx\pmap.d" "driverlib\MSP432P4xx\pss.d" "driverlib\MSP432P4xx\ref_a.d" "driverlib\MSP432P4xx\reset.d" "driverlib\MSP432P4xx\rtc_c.d" "driverlib\MSP432P4xx\spi.d" "driverlib\MSP432P4xx\sysctl.d" "driverlib\MSP432P4xx\systick.d" "driverlib\MSP432P4xx\timer32.d" "driverlib\MSP432P4xx\timer_a.d" "driverlib\MSP432P4xx\uart.d" "driverlib\MSP432P4xx\wdt_a.d" 
 	-@echo 'Finished clean'
 	-@echo ' '
-
-secondary-outputs: $(BIN_OUTPUTS)
 
 .PHONY: all clean dependents
 .SECONDARY:
