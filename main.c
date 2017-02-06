@@ -21,7 +21,6 @@ char *itoa(int, char*, int);
 void gprsInit(void);
 void gsmInit(void)  ;
 void gpsread(void)  ;
-
 char sleep[] = { "at+qsclk=1\n\r" },
         sleep_Check[]= { "at+qsclk?\n\r" },
         at[] = { "at\n\r"},ATV1[] = { "ATV1\n\r"},
@@ -44,18 +43,18 @@ char sleep[] = { "at+qsclk=1\n\r" },
 
 
 char gpsValid[]={"$GPRMC,182708.000,A,1018.8587,N,07614.6607,E,5.15,92.25,280916,,,A*5A"
-            "$GPVTG,92.25,T,,M,5.15,N,9.55,K,A*09"
-            "$GPGGA,182708.000,1018.8587,N,07614.6607,E,1,4,6.38,71.2,M,-93.3,M,,*48"
-            "$GPGSA,A,3,26,08,22,03,,,,,,,,,10.77,6.38,8.68*37"
-            "$GPGSV,2,1,07,44,72,226,,22,68,211,16,03,68,271,31,27,32,121,29*73"
-            "$GPGSV,2,2,07,08,26,164,15,26,26,034,29,193,,,*42"
-            "$GPGLL,1018.8587,N,07614.6607,E,182708.000,A,A*54"
-            "$GPTXT,01,01,02,ANTSTATUS=OPEN*2B"} ;
+                 "$GPVTG,92.25,T,,M,5.15,N,9.55,K,A*09"
+                 "$GPGGA,182708.000,1018.8587,N,07614.6607,E,1,4,6.38,71.2,M,-93.3,M,,*48"
+                 "$GPGSA,A,3,26,08,22,03,,,,,,,,,10.77,6.38,8.68*37"
+                 "$GPGSV,2,1,07,44,72,226,,22,68,211,16,03,68,271,31,27,32,121,29*73"
+                 "$GPGSV,2,2,07,08,26,164,15,26,26,034,29,193,,,*42"
+                 "$GPGLL,1018.8587,N,07614.6607,E,182708.000,A,A*54"
+                 "$GPTXT,01,01,02,ANTSTATUS=OPEN*2B"} ;
 
 
 
 int idx = 0;
-char c;
+char c, inRange = 0, outRange = 0;
 char gps_string[200];
 
 
@@ -104,80 +103,110 @@ void main(void)
     while(1)
     {
 
-        //
-        //		short result16 = 0;
-        //		char str[64];
-        //		UART_transmitString("\r\n");
-        //		UART_transmitString("\r\n");
-        //		UART_transmitString("*************************************\r\n");
-        //		UART_transmitString("Battery Information\r\n");
-        //		UART_transmitString("*************************************\r\n");
-        //
-        //		/* Read Design Capacity */
-        //		if(!BQ27441_read16(DESIGN_CAPACITY, &result16, 1000))
-        //			UART_transmitString("Error Reading Design Capacity \r\n");
-        //		else
-        //		{
-        //			sprintf(str, "Design Capacity: %dmAh\r\n", result16);
-        //			UART_transmitString(str);
-        //		}
-        //
-        //		/* Read Remaining Capacity */
-        //		if(!BQ27441_read16(REMAINING_CAPACITY, &result16, 1000))
-        //			UART_transmitString("Error Reading Remaining Capacity \r\n");
-        //		else
-        //		{
-        //			sprintf(str, "REMAINING_CAPACITY : %dmAh \r\n", result16);
-        //			UART_transmitString(str);
-        //		}
-        //
-        //		/* Read State Of Charge */
-        //		if(!BQ27441_read16(STATE_OF_CHARGE, &result16, 1000))
-        //			UART_transmitString("Error Reading State Of Charge \r\n");
-        //		else
-        //		{
-        //			sprintf(str, "State of Charge: %d%%\r\n", (unsigned short)result16);
-        //		    //sprintf(str, "(%d%%)\r\n", (unsigned short)result16);
-        //			UART_transmitString(str);
-        //		}
-        //
-        //		/* Read Temperature */
-        //		if(!BQ27441_read16(TEMPERATURE, &result16, 1000))
-        //			UART_transmitString("Error Reading Temperature \r\n");
-        //		else
-        //		{
-        //			sprintf(str, "Temperature: %dC\r\n", result16/10 - 273);
-        //			UART_transmitString(str);
-        //		}
-        //
-        //		/* Read Voltage */
-        //		if(!BQ27441_read16(VOLTAGE, &result16, 1000))
-        //			UART_transmitString("Error Reading Voltage \r\n");
-        //		else
-        //		{
-        //			sprintf(str, "Voltage: %dmV\r\n", result16);
-        //			UART_transmitString(str);
-        //		}
-        //
-        //		/* Read Average Current */
-        //		if(!BQ27441_read16(AVERAGE_CURRENT, &result16, 1000))
-        //			UART_transmitString("Error Reading Average Current \r\n");
-        //		else
-        //		{
-        //			sprintf(str, "Average Current: %dmA\r\n", result16);
-        //			UART_transmitString(str);
-        //			if (result16 > 0) {
-        //				UART_transmitString("Status : charging\r\n");
-        //			} else {
-        //				UART_transmitString("Status : discharging\r\n");
-        //			}
-        //		}
+
+        short result16 = 0;
+        char str[64];
+        UART_transmitString("\r\n");
+        UART_transmitString("\r\n");
+        UART_transmitString("*************************************\r\n");
+        UART_transmitString("Battery Information\r\n");
+        UART_transmitString("*************************************\r\n");
+
+        /* Read Design Capacity */
+        if(!BQ27441_read16(DESIGN_CAPACITY, &result16, 1000))
+            UART_transmitString("Error Reading Design Capacity \r\n");
+        else
+        {
+            sprintf(str, "Design Capacity: %dmAh\r\n", result16);
+            UART_transmitString(str);
+        }
+
+        /* Read Remaining Capacity */
+        if(!BQ27441_read16(REMAINING_CAPACITY, &result16, 1000))
+            UART_transmitString("Error Reading Remaining Capacity \r\n");
+        else
+        {
+            sprintf(str, "REMAINING_CAPACITY : %dmAh \r\n", result16);
+            UART_transmitString(str);
+        }
+
+        /* Read State Of Charge */
+        if(!BQ27441_read16(STATE_OF_CHARGE, &result16, 1000))
+            UART_transmitString("Error Reading State Of Charge \r\n");
+        else
+        {
+            sprintf(str, "State of Charge: %d%%\r\n", (unsigned short)result16);
+            //sprintf(str, "(%d%%)\r\n", (unsigned short)result16);
+            UART_transmitString(str);
+        }
+
+        /* Read Temperature */
+        if(!BQ27441_read16(TEMPERATURE, &result16, 1000))
+            UART_transmitString("Error Reading Temperature \r\n");
+        else
+        {
+            sprintf(str, "Temperature: %dC\r\n", result16/10 - 273);
+            UART_transmitString(str);
+        }
+
+        /* Read Voltage */
+        if(!BQ27441_read16(VOLTAGE, &result16, 1000))
+            UART_transmitString("Error Reading Voltage \r\n");
+        else
+        {
+            sprintf(str, "Voltage: %dmV\r\n", result16);
+            UART_transmitString(str);
+        }
+
+        /* Read Average Current */
+        if(!BQ27441_read16(AVERAGE_CURRENT, &result16, 1000))
+            UART_transmitString("Error Reading Average Current \r\n");
+        else
+        {
+            sprintf(str, "Average Current: %dmA\r\n", result16);
+            UART_transmitString(str);
+            if (result16 > 0) {
+                UART_transmitString("Status : charging\r\n");
+            } else {
+                UART_transmitString("Status : discharging\r\n");
+            }
+        }
 
 
-        // gsmInit();
-        // gprsInit();
-        serialTx0(gpsValid)    ;
-        serialTx0("\n\r")   ;
+
+        while(c = UART_receiveData(EUSCI_A0_BASE) ){
+
+            if ( idx == 0 && c != '$' ){
+                continue;
+            }
+            if ( c == '\r'){//its the end of the line!
+                gps_string[idx+1] = '\0';
+                idx = 0;
+                //single line output on the variable gps_string
+
+                //continue;
+                break ;
+            }
+            else{
+                gps_string[idx] = c;
+            }
+            idx++;
+
+        }
+
+
+
+        inRange = GPIO_getInputPinValue(GPIO_PORT_P8,GPIO_PIN4) ;
+        outRange = GPIO_getInputPinValue(GPIO_PORT_P8,GPIO_PIN4)    ;
+
+        gsmInit();
+
+
+
+        gprsInit();
+        //serialTx0(gpsValid)    ;
+        //serialTx0("\n\r")   ;
+        //serialTx0(gps_string);
 
         //char rx ;
 
@@ -220,6 +249,11 @@ void GPIO_init()
     MAP_GPIO_setOutputLowOnPin(GPIO_PORT_PC, PIN_ALL16);
     MAP_GPIO_setOutputLowOnPin(GPIO_PORT_PD, PIN_ALL16);
     MAP_GPIO_setOutputLowOnPin(GPIO_PORT_PE, PIN_ALL16);
+
+    GPIO_setAsOutputPin(GPIO_PORT_P8, GPIO_PIN5); //ble switch
+    GPIO_setAsInputPin(GPIO_PORT_P8, GPIO_PIN4) ; //in range
+    GPIO_setAsInputPin(GPIO_PORT_P8, GPIO_PIN2) ; //out of range
+
 }
 
 
@@ -228,7 +262,7 @@ void GPIO_init()
 
 void gprsInit(){
 
-    char getUrl[] = {"/log/?lat=value1&lng=99&id=99&bat=99"} ;
+    char rootUrl[] ={"http://kranioz.com/"} ,test[] = {"log/?lat=value1&lng=99&id=9&bat=89"}, getUrl[] ;
 
 
     serialTx0(QIFGCNT)    ;
@@ -239,7 +273,8 @@ void gprsInit(){
 
     serialTx0("AT+QHTTPURL=51,30")    ;
 
-    //getUrl = "/log/?lat=value1&lng=99&id=99&bat=99";
+    sprintf(getUrl, "%s%s", rootUrl,test )  ;
+
 
     serialTx0(getUrl) ;
 
@@ -258,22 +293,3 @@ void gsmInit(){
     serialTx0(COPS)   ;
 }
 
-
-
-
-void gpsread(void) {
-
-    while(c = UART_receiveData(EUSCI_A0_BASE)){
-        if ( idx == 0 && c != '$' ){ continue; }
-        if ( c == '\r'){//its the end of the line!
-            gps_string[idx+1] = '\0';
-            idx = 0;
-            //single line output ton the variable gps_string
-
-            continue;
-        }else{
-            gps_string[idx] = c;
-        }
-        idx++;
-    }
-}
