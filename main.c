@@ -161,10 +161,14 @@ void main(void)
         //		}
 
 
-        gsmInit();
-        gprsInit();
-        serialTx1("tom\n\r")    ;
-        __delay_cycles(20000000);
+       // gsmInit();
+       // gprsInit();
+       //serialTx0("tom\n\r")    ;
+
+        //char rx ;
+
+        UART_transmitData(EUSCI_A0_BASE,UART_receiveData(EUSCI_A0_BASE));
+        //__delay_cycles(20000000);
     }
 }
 

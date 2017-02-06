@@ -62,9 +62,17 @@ const eUSCI_UART_Config uartConfig =
 /* Initializes Backchannel UART GPIO */
 void UART_initGPIO()
 {
-    /* Selecting P1.2 and P1.3 in UART mode */
+    /* Selecting P1.2 rx in UART mode */
     MAP_GPIO_setAsPeripheralModuleFunctionInputPin(GPIO_PORT_P1,
-                                                   GPIO_PIN2 | GPIO_PIN3, GPIO_PRIMARY_MODULE_FUNCTION);
+                                                   GPIO_PIN2, GPIO_PRIMARY_MODULE_FUNCTION);
+
+    /* Selecting P1.3 tx in UART mode */
+    MAP_GPIO_setAsPeripheralModuleFunctionOutputPin(GPIO_PORT_P1,
+                                                       GPIO_PIN3, GPIO_PRIMARY_MODULE_FUNCTION);
+
+
+   // MAP_GPIO_setAsPeripheralModuleFunctionInputPin();
+   // MAP_GPIO_setAsPeripheralModuleFunctionOutputPin();
 
     /* Selecting P3.2 and P3.3 in UART mode */
     MAP_GPIO_setAsPeripheralModuleFunctionInputPin(GPIO_PORT_P3,
