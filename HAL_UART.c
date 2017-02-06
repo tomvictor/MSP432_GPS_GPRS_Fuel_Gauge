@@ -47,15 +47,15 @@
  */
 const eUSCI_UART_Config uartConfig =
 {
-        EUSCI_A_UART_CLOCKSOURCE_SMCLK,          // SMCLK Clock Source
-		26,                                      // BRDIV = 26
-        1,                                       // UCxBRF = 1
-        0,                                       // UCxBRS = 0
-        EUSCI_A_UART_NO_PARITY,                  // No Parity
-        EUSCI_A_UART_LSB_FIRST,                  // LSB First
-        EUSCI_A_UART_ONE_STOP_BIT,               // One stop bit
-        EUSCI_A_UART_MODE,                       // UART mode
-        EUSCI_A_UART_OVERSAMPLING_BAUDRATE_GENERATION  // Oversampling
+ EUSCI_A_UART_CLOCKSOURCE_SMCLK,          // SMCLK Clock Source
+ 26,                                      // BRDIV = 26
+ 1,                                       // UCxBRF = 1
+ 0,                                       // UCxBRS = 0
+ EUSCI_A_UART_NO_PARITY,                  // No Parity
+ EUSCI_A_UART_LSB_FIRST,                  // LSB First
+ EUSCI_A_UART_ONE_STOP_BIT,               // One stop bit
+ EUSCI_A_UART_MODE,                       // UART mode
+ EUSCI_A_UART_OVERSAMPLING_BAUDRATE_GENERATION  // Oversampling
 };
 
 
@@ -64,11 +64,11 @@ void UART_initGPIO()
 {
     /* Selecting P1.2 and P1.3 in UART mode */
     MAP_GPIO_setAsPeripheralModuleFunctionInputPin(GPIO_PORT_P1,
-        GPIO_PIN2 | GPIO_PIN3, GPIO_PRIMARY_MODULE_FUNCTION);
+                                                   GPIO_PIN2 | GPIO_PIN3, GPIO_PRIMARY_MODULE_FUNCTION);
 
     /* Selecting P3.2 and P3.3 in UART mode */
-        MAP_GPIO_setAsPeripheralModuleFunctionInputPin(GPIO_PORT_P3,
-            GPIO_PIN2 | GPIO_PIN3, GPIO_PRIMARY_MODULE_FUNCTION);
+    MAP_GPIO_setAsPeripheralModuleFunctionInputPin(GPIO_PORT_P3,
+                                                   GPIO_PIN2 | GPIO_PIN3, GPIO_PRIMARY_MODULE_FUNCTION);
 }
 
 
@@ -87,29 +87,40 @@ void UART_init(void)
     MAP_UART_enableModule(EUSCI_A0_BASE);
 
     /* Configuring UART Module */
-       MAP_UART_initModule(EUSCI_A2_BASE, &uartConfig);
+    MAP_UART_initModule(EUSCI_A2_BASE, &uartConfig);
 
-       /* Enable UART module */
-       MAP_UART_enableModule(EUSCI_A2_BASE);
+    /* Enable UART module */
+    MAP_UART_enableModule(EUSCI_A2_BASE);
 
-	return;
+    return;
 }
 
 
 /* Transmits String over UART */
 void UART_transmitString( char *pStr )
 {
-	while( *pStr )
-	{
-		UART_transmitData(EUSCI_A0_BASE, *pStr );
-		pStr++;
-	}
+    while( *pStr )
+    {
+        // comented for testing
+        //UART_transmitData(EUSCI_A0_BASE, *pStr );
+        pStr++;
+    }
 }
 
 
 
 /* Transmits String over UART */
-void UART_transmitString1( char *pStr )
+void serialTx0( char *pStr )
+{
+    while( *pStr )
+    {
+        UART_transmitData(EUSCI_A0_BASE, *pStr );
+        pStr++;
+    }
+}
+
+/* Transmits String over UART */
+void serialTx1( char *pStr )
 {
     while( *pStr )
     {

@@ -42,6 +42,7 @@
 void UART_initGPIO(void);
 void UART_init(void);
 void UART_transmitString( char *pStr );
-void UART_transmitString1( char *pStr );
+void serialTx0( char *pStr );
+void serialTx1( char *pStr );
 
 #endif /* __HAL_UART_H_ */
