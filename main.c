@@ -51,6 +51,7 @@ char gpsValid[]={"$GPRMC,182708.000,A,1018.8587,N,07614.6607,E,5.15,92.25,280916
                  "$GPGLL,1018.8587,N,07614.6607,E,182708.000,A,A*54"
                  "$GPTXT,01,01,02,ANTSTATUS=OPEN*2B"} ;
 
+char rootUrl[] ={"http://kranioz.com/"} ,test[] = {"log/?lat=value1&lng=99&id=9&bat=89"}, getUrl[] ;
 
 
 int idx = 0;
@@ -174,25 +175,25 @@ void main(void)
 
 
 
-        while(c = UART_receiveData(EUSCI_A0_BASE) ){
-
-            if ( idx == 0 && c != '$' ){
-                continue;
-            }
-            if ( c == '\r'){//its the end of the line!
-                gps_string[idx+1] = '\0';
-                idx = 0;
-                //single line output on the variable gps_string
-
-                //continue;
-                break ;
-            }
-            else{
-                gps_string[idx] = c;
-            }
-            idx++;
-
-        }
+//        while(c = UART_receiveData(EUSCI_A0_BASE) ){
+//
+//            if ( idx == 0 && c != '$' ){
+//                continue;
+//            }
+//            if ( c == '\r'){//its the end of the line!
+//                gps_string[idx+1] = '\0';
+//                idx = 0;
+//                //single line output on the variable gps_string
+//
+//                //continue;
+//                break ;
+//            }
+//            else{
+//                gps_string[idx] = c;
+//            }
+//            idx++;
+//
+//        }
 
 
 
@@ -200,6 +201,7 @@ void main(void)
         outRange = GPIO_getInputPinValue(GPIO_PORT_P8,GPIO_PIN4)    ;
 
         gsmInit();
+
 
 
 
@@ -262,9 +264,8 @@ void GPIO_init()
 
 void gprsInit(){
 
-    char rootUrl[] ={"http://kranioz.com/"} ,test[] = {"log/?lat=value1&lng=99&id=9&bat=89"}, getUrl[] ;
 
-
+int tom;
     serialTx0(QIFGCNT)    ;
     serialTx0(QICSGP) ;
     serialTx0(CMNET)  ;
@@ -273,13 +274,14 @@ void gprsInit(){
 
     serialTx0("AT+QHTTPURL=51,30")    ;
 
-    sprintf(getUrl, "%s%s", rootUrl,test )  ;
+    sprintf(getUrl, "%s%s%d", rootUrl,test,tom )  ;
 
 
     serialTx0(getUrl) ;
 
     serialTx0("AT+QHTTPGET=10")   ;
     serialTx0(QIDEACT)    ;
+    tom++ ;
 }
 
 void gsmInit(){
