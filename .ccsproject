@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<?ccsproject version="1.0"?>
+<projectOptions>
+	<ccsVersion value="7.0.0"/>
+	<deviceVariant value="MSP432P401R"/>
+	<deviceFamily value="MSP432"/>
+	<deviceEndianness value="little"/>
+	<codegenToolVersion value="16.9.0.LTS"/>
+	<isElfFormat value="true"/>
+	<linkerCommandFile value="msp432p401r.cmd"/>
+	<rts value="libc.a"/>
+	<createSlaveProjects value=""/>
+	<templateProperties value="id=BOOSTXL-BATPAKMKII_FuelGauge_MSP432P401R.projectspec.BOOSTXL-BATPAKMKII_FuelGauge_MSP432P401R,"/>
+	<origin value="C:\Users\Tom\Documents\MSP-EXP432P401R_Software_Examples_windows\Firmware\Source\BOOSTXL-BATPAKMKII_FuelGauge_MSP432P401R\CCS\BOOSTXL-BATPAKMKII_FuelGauge_MSP432P401R.projectspec"/>
+	<filesToOpen value="main.c,"/>
+</projectOptions>
