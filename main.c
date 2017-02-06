@@ -197,13 +197,13 @@ void main(void)
 
 
 
-        inRange = GPIO_getInputPinValue(GPIO_PORT_P8,GPIO_PIN4) ;
-        outRange = GPIO_getInputPinValue(GPIO_PORT_P8,GPIO_PIN4)    ;
+//        inRange = GPIO_getInputPinValue(GPIO_PORT_P8,GPIO_PIN4) ;
+//        outRange = GPIO_getInputPinValue(GPIO_PORT_P8,GPIO_PIN4)    ;
 
         //gsmInit();
 
 
-        UART_transmitData(EUSCI_A2_BASE,UART_receiveData(EUSCI_A2_BASE));
+        UART_transmitData(EUSCI_A0_BASE,UART_receiveData(EUSCI_A0_BASE));
 
 
         //gprsInit();

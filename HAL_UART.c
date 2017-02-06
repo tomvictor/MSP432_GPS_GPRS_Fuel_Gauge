@@ -103,7 +103,7 @@ void UART_initGPIO()
 void UART_init(void)
 {
     /* Configuring UART Module */
-    MAP_UART_initModule(EUSCI_A0_BASE, &uartConfig);
+    MAP_UART_initModule(EUSCI_A0_BASE, &uartConfigGps);
 
     /* Enable UART module */
     MAP_UART_enableModule(EUSCI_A0_BASE);
