@@ -20,7 +20,7 @@ void GPIO_init(void);
 char *itoa(int, char*, int);
 void gprsInit(void);
 void gsmInit(void)  ;
-
+void gpsread(void)  ;
 
 char sleep[] = { "at+qsclk=1\n\r" },
         sleep_Check[]= { "at+qsclk?\n\r" },
@@ -43,7 +43,20 @@ char sleep[] = { "at+qsclk=1\n\r" },
         QIDEACT[] = {"AT+QIDEACT\n\r"} ;
 
 
+char gpsValid[]={"$GPRMC,182708.000,A,1018.8587,N,07614.6607,E,5.15,92.25,280916,,,A*5A"
+            "$GPVTG,92.25,T,,M,5.15,N,9.55,K,A*09"
+            "$GPGGA,182708.000,1018.8587,N,07614.6607,E,1,4,6.38,71.2,M,-93.3,M,,*48"
+            "$GPGSA,A,3,26,08,22,03,,,,,,,,,10.77,6.38,8.68*37"
+            "$GPGSV,2,1,07,44,72,226,,22,68,211,16,03,68,271,31,27,32,121,29*73"
+            "$GPGSV,2,2,07,08,26,164,15,26,26,034,29,193,,,*42"
+            "$GPGLL,1018.8587,N,07614.6607,E,182708.000,A,A*54"
+            "$GPTXT,01,01,02,ANTSTATUS=OPEN*2B"} ;
 
+
+
+int idx = 0;
+char c;
+char gps_string[200];
 
 
 void main(void)
@@ -161,13 +174,14 @@ void main(void)
         //		}
 
 
-       // gsmInit();
-       // gprsInit();
-       //serialTx0("tom\n\r")    ;
+        // gsmInit();
+        // gprsInit();
+        serialTx0(gpsValid)    ;
+        serialTx0("\n\r")   ;
 
         //char rx ;
 
-        UART_transmitData(EUSCI_A0_BASE,UART_receiveData(EUSCI_A0_BASE));
+        //UART_transmitData(EUSCI_A0_BASE,UART_receiveData(EUSCI_A0_BASE));
         //__delay_cycles(20000000);
     }
 }
@@ -242,4 +256,24 @@ void gsmInit(){
     serialTx0(CREG)   ;
     serialTx0(CGREG)  ;
     serialTx0(COPS)   ;
+}
+
+
+
+
+void gpsread(void) {
+
+    while(c = UART_receiveData(EUSCI_A0_BASE)){
+        if ( idx == 0 && c != '$' ){ continue; }
+        if ( c == '\r'){//its the end of the line!
+            gps_string[idx+1] = '\0';
+            idx = 0;
+            //single line output ton the variable gps_string
+
+            continue;
+        }else{
+            gps_string[idx] = c;
+        }
+        idx++;
+    }
 }
