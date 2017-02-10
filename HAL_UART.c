@@ -47,15 +47,15 @@
  */
 const eUSCI_UART_Config uartConfig =
 {
- EUSCI_A_UART_CLOCKSOURCE_SMCLK,          // SMCLK Clock Source
- 26,                                      // BRDIV = 26
- 1,                                       // UCxBRF = 1
- 0,                                       // UCxBRS = 0
- EUSCI_A_UART_NO_PARITY,                  // No Parity
- EUSCI_A_UART_LSB_FIRST,                  // LSB First
- EUSCI_A_UART_ONE_STOP_BIT,               // One stop bit
- EUSCI_A_UART_MODE,                       // UART mode
- EUSCI_A_UART_OVERSAMPLING_BAUDRATE_GENERATION  // Oversampling
+        EUSCI_A_UART_CLOCKSOURCE_SMCLK,          // SMCLK Clock Source
+        26,                                      // BRDIV = 26
+        1,                                       // UCxBRF = 1
+        0,                                       // UCxBRS = 0
+        EUSCI_A_UART_NO_PARITY,                  // No Parity
+        EUSCI_A_UART_LSB_FIRST,                  // LSB First
+        EUSCI_A_UART_ONE_STOP_BIT,               // One stop bit
+        EUSCI_A_UART_MODE,                       // UART mode
+        EUSCI_A_UART_OVERSAMPLING_BAUDRATE_GENERATION  // Oversampling
 };
 
 //GPS 9600
@@ -75,13 +75,9 @@ const eUSCI_UART_Config uartConfigGps =
 /* Initializes Backchannel UART GPIO */
 void UART_initGPIO()
 {
-    /* Selecting P1.2 rx in UART mode */
-    MAP_GPIO_setAsPeripheralModuleFunctionInputPin(GPIO_PORT_P1,
-                                                   GPIO_PIN2, GPIO_PRIMARY_MODULE_FUNCTION);
 
-    /* Selecting P1.3 tx in UART mode */
-    MAP_GPIO_setAsPeripheralModuleFunctionOutputPin(GPIO_PORT_P1,
-                                                       GPIO_PIN3, GPIO_PRIMARY_MODULE_FUNCTION);
+    MAP_GPIO_setAsPeripheralModuleFunctionInputPin(GPIO_PORT_P1,
+                                                       GPIO_PIN1 | GPIO_PIN2 | GPIO_PIN3, GPIO_PRIMARY_MODULE_FUNCTION);
 
     /* Selecting P3.2 rx in UART mode */
     MAP_GPIO_setAsPeripheralModuleFunctionInputPin(GPIO_PORT_P3,
@@ -90,6 +86,7 @@ void UART_initGPIO()
     /* Selecting P3.3 tx in UART mode */
     MAP_GPIO_setAsPeripheralModuleFunctionOutputPin(GPIO_PORT_P3,
                                                        GPIO_PIN3, GPIO_PRIMARY_MODULE_FUNCTION);
+
 
 }
 
@@ -103,13 +100,13 @@ void UART_initGPIO()
 void UART_init(void)
 {
     /* Configuring UART Module */
-    MAP_UART_initModule(EUSCI_A0_BASE, &uartConfigGps);
+    MAP_UART_initModule(EUSCI_A0_BASE, &uartConfig);
 
     /* Enable UART module */
     MAP_UART_enableModule(EUSCI_A0_BASE);
 
     /* Configuring UART Module */
-    MAP_UART_initModule(EUSCI_A2_BASE, &uartConfigGps);
+    MAP_UART_initModule(EUSCI_A2_BASE, &uartConfig);
 
     /* Enable UART module */
     MAP_UART_enableModule(EUSCI_A2_BASE);
@@ -124,8 +121,8 @@ void UART_transmitString( char *pStr )
     while( *pStr )
     {
         // comented for testing
-        //UART_transmitData(EUSCI_A0_BASE, *pStr );
-        pStr++;
+//        UART_transmitData(EUSCI_A0_BASE, *pStr );
+//        pStr++;
     }
 }
 

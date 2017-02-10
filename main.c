@@ -68,7 +68,7 @@ char gpsValid[]={"$GPRMC,182708.000,A,1018.8587,N,07614.6607,E,5.15,92.25,280916
                  "$GPGLL,1018.8587,N,07614.6607,E,182708.000,A,A*54"
                  "$GPTXT,01,01,02,ANTSTATUS=OPEN*2B"} ;
 
-char rootUrl[] ={"http://kranioz.com/"} ,test[] = {"log/?lat=value1&lng=99&id=9&bat=89"}, getUrl[] ;
+char rootUrl[] ={"http://kranioz.com/"}, test[] = {"log/?lat=value1&lng=99&id=9&bat=89"}, getUrl[] ;
 
 //battery variables
 
@@ -105,17 +105,20 @@ void main(void)
 
 
 
+
     if (!BQ27441_initConfig())
     {
         UART_transmitString("Error initializing BQ27441 Config\r\n");
         UART_transmitString("Make sure BOOSTXL-BATPAKMKII is connected and switch is flipped to \"CONNECTED\"\r\n");
-        GPIO_setOutputHighOnPin(GPIO_PORT_P1,GPIO_PIN0) ;
     }
 
-    while (!BQ27441_initOpConfig())
+    if (!BQ27441_initOpConfig())
     {
         __delay_cycles(1000000);
         UART_transmitString("Clearing BIE in Operation Configuration\r\n");
+        GPIO_setOutputHighOnPin(GPIO_PORT_P1,GPIO_PIN0) ;
+        __delay_cycles(3000000);
+        GPIO_setOutputLowOnPin(GPIO_PORT_P1,GPIO_PIN0) ;
     }
 
     BQ27441_control(BAT_INSERT, 1000);
@@ -125,58 +128,61 @@ void main(void)
     while(1)
     {
 
+        serialTx0("tom")    ;
 
-        short result16 = 0;
-        char str[64];
-
-        char battState[10] = 0, battCap[10] = 0 ;
-
-
-        /* Read Remaining Capacity */
-        if(!BQ27441_read16(REMAINING_CAPACITY, &result16, 1000))
-            UART_transmitString("Error Reading Remaining Capacity \r\n");
-        else
-        {
-            sprintf(str, "REMAINING_CAPACITY : %dmAh \r\n", result16);
-            //battCap = result16 ;
-            sprintf(battCap, "%dmAh", result16);
-
-            UART_transmitString(str);
-        }
-
-        /* Read State Of Charge */
-        if(!BQ27441_read16(STATE_OF_CHARGE, &result16, 1000))
-            UART_transmitString("Error Reading State Of Charge \r\n");
-        else
-        {
-            sprintf(str, "State of Charge: %d%%\r\n", (unsigned short)result16);
-            sprintf(battState, "%d%%",  (unsigned short)result16);
-            UART_transmitString(str);
-        }
-
-
-        /* Read Voltage */
-        if(!BQ27441_read16(VOLTAGE, &result16, 1000))
-            UART_transmitString("Error Reading Voltage \r\n");
-        else
-        {
-            sprintf(str, "Voltage: %dmV\r\n", result16);
-            UART_transmitString(str);
-        }
-
-        /* Read Average Current */
-        if(!BQ27441_read16(AVERAGE_CURRENT, &result16, 1000))
-            UART_transmitString("Error Reading Average Current \r\n");
-        else
-        {
-            sprintf(str, "Average Current: %dmA\r\n", result16);
-            UART_transmitString(str);
-            if (result16 > 0) {
-                UART_transmitString("Status : charging\r\n");
-            } else {
-                UART_transmitString("Status : discharging\r\n");
-            }
-        }
+//
+//        short result16 = 0;
+//        char str[64];
+//
+//        char battState[10] = 0, battCap[10] = 0 ;
+//
+//
+//        /* Read Remaining Capacity */
+//        if(!BQ27441_read16(REMAINING_CAPACITY, &result16, 1000))
+//            UART_transmitString("Error Reading Remaining Capacity \r\n");
+//        else
+//        {
+//            sprintf(str, "REMAINING_CAPACITY : %dmAh \r\n", result16);
+//            //battCap = result16 ;
+//            sprintf(battCap, "%dmAh", result16);
+//
+//            UART_transmitString(str);
+//        }
+//
+//        /* Read State Of Charge */
+//        if(!BQ27441_read16(STATE_OF_CHARGE, &result16, 1000))
+//            UART_transmitString("Error Reading State Of Charge \r\n");
+//        else
+//        {
+//            sprintf(str, "State of Charge: %d%%\r\n", (unsigned short)result16);
+//            sprintf(battState, "%d%%",  (unsigned short)result16);
+//            UART_transmitString(str);
+//        }
+//
+//
+//        /* Read Voltage */
+//        if(!BQ27441_read16(VOLTAGE, &result16, 1000))
+//            UART_transmitString("Error Reading Voltage \r\n");
+//        else
+//        {
+//            sprintf(str, "Voltage: %dmV\r\n", result16);
+//            UART_transmitString(str);
+//        }
+//
+//        /* Read Average Current */
+//        if(!BQ27441_read16(AVERAGE_CURRENT, &result16, 1000))
+//            UART_transmitString("Error Reading Average Current \r\n");
+//        else
+//        {
+//            sprintf(str, "Average Current: %dmA\r\n", result16);
+//            UART_transmitString(str);
+//            if (result16 > 0) {
+//                UART_transmitString("Status : charging\r\n");
+//            } else {
+//                UART_transmitString("Status : discharging\r\n");
+//            }
+//        }
+//
 
 
 
@@ -194,7 +200,7 @@ void main(void)
 
 
 
-        UART_transmitData(EUSCI_A0_BASE,UART_receiveData(EUSCI_A0_BASE));
+        //UART_transmitData(EUSCI_A0_BASE,UART_receiveData(EUSCI_A0_BASE));
 
 
         //gprsInit();
