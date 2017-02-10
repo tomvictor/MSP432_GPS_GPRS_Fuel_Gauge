@@ -132,6 +132,14 @@ void main(void)
     __delay_cycles(1000000);
 
 
+    GPIO_setOutputHighOnPin(PowerKeyPort,PowerKeyPin) ;
+    __delay_cycles(2000000);
+    GPIO_setOutputLowOnPin(PowerKeyPort,PowerKeyPin) ;
+    __delay_cycles(2000000);
+    GPIO_setOutputHighOnPin(PowerKeyPort,PowerKeyPin) ;
+
+
+
     GPIO_setOutputHighOnPin(GreenLedPort,GreenLedPin) ;
     gsmInit()   ;
 
@@ -150,7 +158,7 @@ void main(void)
     //       }
 
     serialTx1(temp2)    ;
-    sprintf(temp2,"%slog/?lat=%d&lng=%d&id=921&bat=%d&status=%d\n\r",rootUrl,lat,lng,bat,0) ;
+    sprintf(temp2,"%slog/?lat=%d&lng=%d&id=921&bat=%d&status=%d",rootUrl,lat,lng,bat,0) ;
     //    serialTx1(temp2)    ;
 
     //    strcat(dest, src); appending
@@ -161,7 +169,7 @@ void main(void)
         __delay_cycles(1000000);
     }
 
-    j= j-2;
+
 
 
 
@@ -170,23 +178,31 @@ void main(void)
     //gprsinit function
 
     serialTx1(QIFGCNT)    ;
+    __delay_cycles(1000000);
     serialTx1(QICSGP) ;
+    __delay_cycles(1000000);
     serialTx1(CMNET)  ;
+    __delay_cycles(1000000);
     serialTx1(QIREGAPP)   ;
+    __delay_cycles(1000000);
     serialTx1(QIACT);
+    __delay_cycles(2000000);
 
 
     sprintf(temp, "AT+QHTTPURL=%d,30\r\n", j);
 
-    serialTx1(temp)    ;
+    serialTx1(temp)    ; //printing above
 
-
+    __delay_cycles(1000000);
     serialTx1(temp2)    ;   //printing the get data
-
-    serialTx1("AT+QHTTPGET=10\r\n")   ;
-    serialTx1("AT+QHTTPREAD=9\r\n")   ;
+    __delay_cycles(1000000);
+    serialTx1("AT+QHTTPGET=60\r\n")   ;
+    __delay_cycles(1000000);
+    serialTx1("AT+QHTTPREAD=30\r\n")   ;
+    __delay_cycles(1000000);
 
     serialTx1(QIDEACT)    ;
+    __delay_cycles(1000000);
 
 
 
