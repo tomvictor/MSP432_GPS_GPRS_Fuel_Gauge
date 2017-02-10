@@ -71,6 +71,7 @@ void main(void)
     __delay_cycles(1000000);
 
     /* Initialize I2C */
+
     I2C_initGPIO();
     I2C_init();
 
@@ -86,15 +87,15 @@ void main(void)
 
     if (!BQ27441_initConfig())
     {
-        //UART_transmitString("Error initializing BQ27441 Config\r\n");
-        //UART_transmitString("Make sure BOOSTXL-BATPAKMKII is connected and switch is flipped to \"CONNECTED\"\r\n");
+        UART_transmitString("Error initializing BQ27441 Config\r\n");
+        UART_transmitString("Make sure BOOSTXL-BATPAKMKII is connected and switch is flipped to \"CONNECTED\"\r\n");
         GPIO_setOutputHighOnPin(GPIO_PORT_P1,GPIO_PIN0) ;
     }
 
     while (!BQ27441_initOpConfig())
     {
         __delay_cycles(1000000);
-        //UART_transmitString("Clearing BIE in Operation Configuration\r\n");
+        UART_transmitString("Clearing BIE in Operation Configuration\r\n");
     }
 
     BQ27441_control(BAT_INSERT, 1000);
@@ -105,73 +106,74 @@ void main(void)
     {
 
 
-//        short result16 = 0;
-//        char str[64];
-//        UART_transmitString("\r\n");
-//        UART_transmitString("\r\n");
-//        UART_transmitString("*************************************\r\n");
-//        UART_transmitString("Battery Information\r\n");
-//        UART_transmitString("*************************************\r\n");
-//
-//        /* Read Design Capacity */
-//        if(!BQ27441_read16(DESIGN_CAPACITY, &result16, 1000))
-//            UART_transmitString("Error Reading Design Capacity \r\n");
-//        else
-//        {
-//            sprintf(str, "Design Capacity: %dmAh\r\n", result16);
-//            UART_transmitString(str);
-//        }
-//
-//        /* Read Remaining Capacity */
-//        if(!BQ27441_read16(REMAINING_CAPACITY, &result16, 1000))
-//            UART_transmitString("Error Reading Remaining Capacity \r\n");
-//        else
-//        {
-//            sprintf(str, "REMAINING_CAPACITY : %dmAh \r\n", result16);
-//            UART_transmitString(str);
-//        }
-//
-//        /* Read State Of Charge */
-//        if(!BQ27441_read16(STATE_OF_CHARGE, &result16, 1000))
-//            UART_transmitString("Error Reading State Of Charge \r\n");
-//        else
-//        {
-//            sprintf(str, "State of Charge: %d%%\r\n", (unsigned short)result16);
-//            //sprintf(str, "(%d%%)\r\n", (unsigned short)result16);
-//            UART_transmitString(str);
-//        }
-//
-//        /* Read Temperature */
-//        if(!BQ27441_read16(TEMPERATURE, &result16, 1000))
-//            UART_transmitString("Error Reading Temperature \r\n");
-//        else
-//        {
-//            sprintf(str, "Temperature: %dC\r\n", result16/10 - 273);
-//            UART_transmitString(str);
-//        }
-//
-//        /* Read Voltage */
-//        if(!BQ27441_read16(VOLTAGE, &result16, 1000))
-//            UART_transmitString("Error Reading Voltage \r\n");
-//        else
-//        {
-//            sprintf(str, "Voltage: %dmV\r\n", result16);
-//            UART_transmitString(str);
-//        }
-//
-//        /* Read Average Current */
-//        if(!BQ27441_read16(AVERAGE_CURRENT, &result16, 1000))
-//            UART_transmitString("Error Reading Average Current \r\n");
-//        else
-//        {
-//            sprintf(str, "Average Current: %dmA\r\n", result16);
-//            UART_transmitString(str);
-//            if (result16 > 0) {
-//                UART_transmitString("Status : charging\r\n");
-//            } else {
-//                UART_transmitString("Status : discharging\r\n");
-//            }
-//        }
+        short result16 = 0;
+        char str[64];
+
+        UART_transmitString("\r\n");
+        UART_transmitString("\r\n");
+        UART_transmitString("*************************************\r\n");
+        UART_transmitString("Battery Information\r\n");
+        UART_transmitString("*************************************\r\n");
+
+        /* Read Design Capacity */
+        if(!BQ27441_read16(DESIGN_CAPACITY, &result16, 1000))
+            UART_transmitString("Error Reading Design Capacity \r\n");
+        else
+        {
+            sprintf(str, "Design Capacity: %dmAh\r\n", result16);
+            UART_transmitString(str);
+        }
+
+        /* Read Remaining Capacity */
+        if(!BQ27441_read16(REMAINING_CAPACITY, &result16, 1000))
+            UART_transmitString("Error Reading Remaining Capacity \r\n");
+        else
+        {
+            sprintf(str, "REMAINING_CAPACITY : %dmAh \r\n", result16);
+            UART_transmitString(str);
+        }
+
+        /* Read State Of Charge */
+        if(!BQ27441_read16(STATE_OF_CHARGE, &result16, 1000))
+            UART_transmitString("Error Reading State Of Charge \r\n");
+        else
+        {
+            sprintf(str, "State of Charge: %d%%\r\n", (unsigned short)result16);
+            //sprintf(str, "(%d%%)\r\n", (unsigned short)result16);
+            UART_transmitString(str);
+        }
+
+        /* Read Temperature */
+        if(!BQ27441_read16(TEMPERATURE, &result16, 1000))
+            UART_transmitString("Error Reading Temperature \r\n");
+        else
+        {
+            sprintf(str, "Temperature: %dC\r\n", result16/10 - 273);
+            UART_transmitString(str);
+        }
+
+        /* Read Voltage */
+        if(!BQ27441_read16(VOLTAGE, &result16, 1000))
+            UART_transmitString("Error Reading Voltage \r\n");
+        else
+        {
+            sprintf(str, "Voltage: %dmV\r\n", result16);
+            UART_transmitString(str);
+        }
+
+        /* Read Average Current */
+        if(!BQ27441_read16(AVERAGE_CURRENT, &result16, 1000))
+            UART_transmitString("Error Reading Average Current \r\n");
+        else
+        {
+            sprintf(str, "Average Current: %dmA\r\n", result16);
+            UART_transmitString(str);
+            if (result16 > 0) {
+                UART_transmitString("Status : charging\r\n");
+            } else {
+                UART_transmitString("Status : discharging\r\n");
+            }
+        }
 
 
 
