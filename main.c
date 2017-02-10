@@ -17,10 +17,13 @@
 #include "HAL_BQ27441.h"
 
 #define RedLedPin        GPIO_PIN0
-#define RedLedPort       GPIO_PORT_P2
+#define RedLedPort       GPIO_PORT_P1
 
 #define GreenLedPin      GPIO_PIN1
-#define GreenLedPort     GPIO_PORT_P1
+#define GreenLedPort     GPIO_PORT_P2
+
+#define BlueLedPin      GPIO_PIN2
+#define BlueLedPort     GPIO_PORT_P2
 
 #define BleStatusPin     GPIO_PIN6
 #define BleStatusPort    GPIO_PORT_P1
@@ -132,7 +135,8 @@ void main(void)
     GPIO_setOutputHighOnPin(GreenLedPort,GreenLedPin) ;
     gsmInit()   ;
 
-    __delay_cycles(10000000);
+    __delay_cycles(100000000);
+    GPIO_setOutputLowOnPin(GreenLedPort,GreenLedPin) ;
 
 
     unsigned char t =0, lat = 1, lng = 2, bat = 3, status = 4;
@@ -146,13 +150,15 @@ void main(void)
     //       }
 
     serialTx1(temp2)    ;
-    sprintf(temp2,"%slog/?lat=%d&lng=%d&id=921&bat=%d&status=%d\n\r",rootUrl,lat,lng,bat,rand()) ;
+    sprintf(temp2,"%slog/?lat=%d&lng=%d&id=921&bat=%d&status=%d\n\r",rootUrl,lat,lng,bat,0) ;
     //    serialTx1(temp2)    ;
 
     //    strcat(dest, src); appending
 
 
     for(j=0;temp2[j] > 0; j++){
+        GPIO_toggleOutputOnPin(BlueLedPort,BlueLedPin)  ;
+        __delay_cycles(1000000);
     }
 
     j= j-2;
@@ -324,6 +330,7 @@ void GPIO_init()
 
     GPIO_setAsOutputPin(RedLedPort, RedLedPin); //red led pin as output
     GPIO_setAsOutputPin(GreenLedPort, GreenLedPin);   //green led pin as output
+    GPIO_setAsOutputPin(BlueLedPort, BlueLedPin);   //Blue led pin as output
 
     GPIO_setAsOutputPin(PowerKeyPort,PowerKeyPin)   ; //power key pin as output
 
