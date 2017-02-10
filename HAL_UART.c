@@ -79,13 +79,9 @@ void UART_initGPIO()
     MAP_GPIO_setAsPeripheralModuleFunctionInputPin(GPIO_PORT_P1,
                                                        GPIO_PIN1 | GPIO_PIN2 | GPIO_PIN3, GPIO_PRIMARY_MODULE_FUNCTION);
 
-    /* Selecting P3.2 rx in UART mode */
-    MAP_GPIO_setAsPeripheralModuleFunctionInputPin(GPIO_PORT_P3,
-                                                   GPIO_PIN2, GPIO_PRIMARY_MODULE_FUNCTION);
 
-    /* Selecting P3.3 tx in UART mode */
-    MAP_GPIO_setAsPeripheralModuleFunctionOutputPin(GPIO_PORT_P3,
-                                                       GPIO_PIN3, GPIO_PRIMARY_MODULE_FUNCTION);
+    MAP_GPIO_setAsPeripheralModuleFunctionInputPin(GPIO_PORT_P3,
+                                                            GPIO_PIN2 | GPIO_PIN3, GPIO_PRIMARY_MODULE_FUNCTION);
 
 
 }
