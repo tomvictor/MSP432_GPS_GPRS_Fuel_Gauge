@@ -15,6 +15,23 @@
 #include "HAL_UART.h"
 #include "HAL_BQ27441.h"
 
+#define RedLedPin        GPIO_PIN0
+#define RedLedPort       GPIO_PORT_P2
+
+#define GreenLedPin      GPIO_PIN1
+#define GreenLedPort     GPIO_PORT_P1
+
+#define BleStatusPin     GPIO_PIN6
+#define BleStatusPort    GPIO_PORT_P1
+
+#define BleSwitchPin     GPIO_PIN0
+#define BleSwitchPort    GPIO_PORT_P3
+
+#define PowerKeyPin      GPIO_PIN6
+#define PowerKeyPort     GPIO_PORT_P3
+
+
+
 void CS_init(void);
 void GPIO_init(void);
 char *itoa(int, char*, int);
@@ -163,9 +180,18 @@ void main(void)
 
 
 
-        Range = GPIO_getInputPinValue(GPIO_PORT_P1,GPIO_PIN6) ;
+        Range = GPIO_getInputPinValue(BleStatusPort,BleStatusPin) ;
+        if (Range == 1){
+            //device is in range, so turn on green led and turn off red led
+            GPIO_setOutputHighOnPin(GreenLedPort,GreenLedPin) ; //turn on green led(p2.1)
+            GPIO_setOutputLowOnPin(RedLedPort,RedLedPin) ; //turn off red led(p1.0)
+        }
+        else if(Range == 0){
+            //device is out of range, so turn off green led and turn on red led
+            GPIO_setOutputLowOnPin(GreenLedPort,GreenLedPin) ; //turn off green led(p2.1)
+            GPIO_setOutputHighOnPin(RedLedPort,RedLedPin) ; //turn on red led(p1.0)
+        }
 
-        //gsmInit();
 
 
         UART_transmitData(EUSCI_A0_BASE,UART_receiveData(EUSCI_A0_BASE));
@@ -218,9 +244,14 @@ void GPIO_init()
     MAP_GPIO_setOutputLowOnPin(GPIO_PORT_PD, PIN_ALL16);
     MAP_GPIO_setOutputLowOnPin(GPIO_PORT_PE, PIN_ALL16);
 
-    GPIO_setAsOutputPin(GPIO_PORT_P8, GPIO_PIN5); //ble switch
-    GPIO_setAsInputPin(GPIO_PORT_P8, GPIO_PIN4) ; //in range
-    GPIO_setAsInputPin(GPIO_PORT_P8, GPIO_PIN2) ; //out of range
+    GPIO_setAsOutputPin(BleSwitchPort, BleSwitchPin); //ble switch as output
+    GPIO_setAsInputPin(BleStatusPort, BleStatusPin) ; //Ble status pin as input
+
+    GPIO_setAsOutputPin(RedLedPort, RedLedPin); //red led pin as output
+    GPIO_setAsOutputPin(GreenLedPort, RedLedPin);   //green led pin as output
+
+    GPIO_setAsOutputPin(PowerKeyPort,PowerKeyPin)   ; //power key pin as output
+
 
 }
 
