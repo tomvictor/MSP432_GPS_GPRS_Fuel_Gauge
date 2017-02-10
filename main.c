@@ -203,12 +203,12 @@ void main(void)
 
 
 
-        serialTx0("tom\n\r")    ;
-        serialTx1("tom2\n\r")   ;
+        //serialTx0("tom\n\r")    ;
+        //serialTx1("tom2\n\r")   ;
 
-        //print echo on debug port
+        //print echo on  ports
         //UART_transmitData(EUSCI_A0_BASE,UART_receiveData(EUSCI_A0_BASE));
-        //UART_transmitData(EUSCI_A2_BASE,UART_receiveData(EUSCI_A2_BASE));
+        UART_transmitData(EUSCI_A2_BASE,UART_receiveData(EUSCI_A2_BASE));
 
 
         //gprsInit();
