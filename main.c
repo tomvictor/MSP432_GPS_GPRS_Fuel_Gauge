@@ -10,10 +10,12 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 #include <driverlib.h>
 #include "HAL_I2C.h"
 #include "HAL_UART.h"
 #include "HAL_BQ27441.h"
+#include "ctype.h"
 
 #define RedLedPin        GPIO_PIN0
 #define RedLedPort       GPIO_PORT_P2
@@ -134,12 +136,15 @@ void main(void)
     while(1)
     {
 
-       // unsigned char t =0;
+        unsigned char t =0, lat = 1, lng = 2, bat = 3, status = 4;
 
-        sprintf(temp2,"%s\n\r",rootUrl) ;
+        //temp2[100]={0};
+        //memset
+
+        sprintf(temp2,"%slog/?lat=%d&lng=%d&id=921&bat=%d&status=%d\n\r",rootUrl,lat,lng,bat,rand()) ;
         serialTx1(temp2)    ;
 
-        sprintf(temp, "AT+QHTTPURL=%d,30\r\n", sizeof(rootUrl));
+        //sprintf(temp, "AT+QHTTPURL=%d,30\r\n", sizeof(temp2));
         serialTx1(temp)    ;
 
 
