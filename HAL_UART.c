@@ -38,7 +38,7 @@
 #include <driverlib.h>
 #include <HAL_UART.h>
 
-
+//GPRS
 /* UART Configuration Parameter. These are the configuration parameters to
  * make the eUSCI A UART module to operate with a 115200 baud rate. These
  * values were calculated using the online calculator that TI provides
@@ -58,7 +58,7 @@ const eUSCI_UART_Config uartConfig =
  EUSCI_A_UART_OVERSAMPLING_BAUDRATE_GENERATION  // Oversampling
 };
 
-
+//GPS 9600
 const eUSCI_UART_Config uartConfigGps =
 {
  EUSCI_A_UART_CLOCKSOURCE_SMCLK,          // SMCLK Clock Source
@@ -131,7 +131,7 @@ void UART_transmitString( char *pStr )
 
 
 
-/* Transmits String over UART */
+/* Transmits String over UART  Debug*/
 void serialTx0( char *pStr )
 {
     while( *pStr )
@@ -141,7 +141,7 @@ void serialTx0( char *pStr )
     }
 }
 
-/* Transmits String over UART */
+/* Transmits String over UART (GPRS) */
 void serialTx1( char *pStr )
 {
     while( *pStr )

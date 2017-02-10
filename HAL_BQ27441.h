@@ -43,7 +43,7 @@
 
 /*CONSTANTS*/
 #define BQ27441_SLAVE_ADDRESS              0x55
-#define BAT_CAPACITY                       1200
+#define BAT_CAPACITY                       3600
 
 
 /* Standard Commands */
@@ -101,7 +101,7 @@
 
 
 /* BQ27441 Configuration */
-#define CONF_DESIGN_CAPACITY               1200    // Design Capacity = 1200mAh
+#define CONF_DESIGN_CAPACITY               3600    // Design Capacity = 1200mAh
 #define CONF_DESIGN_ENERGY                 (int)(CONF_DESIGN_CAPACITY * 3.7)  //DesignEnergy = DesignCapacity(mAh) * 3.7V
 #define CONF_TERMINATE_VOLTAGE             3200    //TerminateVoltage = 3200mV
 #define CONF_TAPER_CURRENT                 115     //TaperCurrent = 115mA

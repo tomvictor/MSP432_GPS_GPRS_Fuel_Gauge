@@ -53,9 +53,12 @@ char gpsValid[]={"$GPRMC,182708.000,A,1018.8587,N,07614.6607,E,5.15,92.25,280916
 
 char rootUrl[] ={"http://kranioz.com/"} ,test[] = {"log/?lat=value1&lng=99&id=9&bat=89"}, getUrl[] ;
 
+//battery variables
+
+
 
 int idx = 0;
-char c, inRange = 0, outRange = 0;
+char c, Range = 0 ;
 char gps_string[200];
 
 
@@ -109,20 +112,8 @@ void main(void)
         short result16 = 0;
         char str[64];
 
-        UART_transmitString("\r\n");
-        UART_transmitString("\r\n");
-        UART_transmitString("*************************************\r\n");
-        UART_transmitString("Battery Information\r\n");
-        UART_transmitString("*************************************\r\n");
+        char battState[10] = 0, battCap[10] = 0 ;
 
-        /* Read Design Capacity */
-        if(!BQ27441_read16(DESIGN_CAPACITY, &result16, 1000))
-            UART_transmitString("Error Reading Design Capacity \r\n");
-        else
-        {
-            sprintf(str, "Design Capacity: %dmAh\r\n", result16);
-            UART_transmitString(str);
-        }
 
         /* Read Remaining Capacity */
         if(!BQ27441_read16(REMAINING_CAPACITY, &result16, 1000))
@@ -130,6 +121,9 @@ void main(void)
         else
         {
             sprintf(str, "REMAINING_CAPACITY : %dmAh \r\n", result16);
+            //battCap = result16 ;
+            sprintf(battCap, "%dmAh", result16);
+
             UART_transmitString(str);
         }
 
@@ -139,18 +133,10 @@ void main(void)
         else
         {
             sprintf(str, "State of Charge: %d%%\r\n", (unsigned short)result16);
-            //sprintf(str, "(%d%%)\r\n", (unsigned short)result16);
+            sprintf(battState, "%d%%",  (unsigned short)result16);
             UART_transmitString(str);
         }
 
-        /* Read Temperature */
-        if(!BQ27441_read16(TEMPERATURE, &result16, 1000))
-            UART_transmitString("Error Reading Temperature \r\n");
-        else
-        {
-            sprintf(str, "Temperature: %dC\r\n", result16/10 - 273);
-            UART_transmitString(str);
-        }
 
         /* Read Voltage */
         if(!BQ27441_read16(VOLTAGE, &result16, 1000))
@@ -177,30 +163,7 @@ void main(void)
 
 
 
-//        while(c = UART_receiveData(EUSCI_A0_BASE) ){
-//
-//            if ( idx == 0 && c != '$' ){
-//                continue;
-//            }
-//            if ( c == '\r'){//its the end of the line!
-//                gps_string[idx+1] = '\0';
-//                idx = 0;
-//                //single line output on the variable gps_string
-//
-//                //continue;
-//                break ;
-//            }
-//            else{
-//                gps_string[idx] = c;
-//            }
-//            idx++;
-//
-//        }
-
-
-
-//        inRange = GPIO_getInputPinValue(GPIO_PORT_P8,GPIO_PIN4) ;
-//        outRange = GPIO_getInputPinValue(GPIO_PORT_P8,GPIO_PIN4)    ;
+        Range = GPIO_getInputPinValue(GPIO_PORT_P1,GPIO_PIN6) ;
 
         //gsmInit();
 
@@ -267,34 +230,30 @@ void GPIO_init()
 
 void gprsInit(){
 
+    serialTx1(QIFGCNT)    ;
+    serialTx1(QICSGP) ;
+    serialTx1(CMNET)  ;
+    serialTx1(QIREGAPP)   ;
+    serialTx1(QIACT);
 
-int tom;
-    serialTx0(QIFGCNT)    ;
-    serialTx0(QICSGP) ;
-    serialTx0(CMNET)  ;
-    serialTx0(QIREGAPP)   ;
-    serialTx0(QIACT);
-
-    serialTx0("AT+QHTTPURL=51,30")    ;
-
-    sprintf(getUrl, "%s%s%d", rootUrl,test,tom )  ;
+    serialTx1("AT+QHTTPURL=51,30")    ;
 
 
-    serialTx0(getUrl) ;
 
-    serialTx0("AT+QHTTPGET=10")   ;
-    serialTx0(QIDEACT)    ;
-    tom++ ;
+    serialTx1(getUrl) ;
+
+    serialTx1("AT+QHTTPGET=10")   ;
+    serialTx1(QIDEACT)    ;
 }
 
 void gsmInit(){
-    serialTx0(at) ;
-    serialTx0(ATV1)   ;
-    serialTx0(ATE1)   ;
-    serialTx0(CPIN)   ;
-    serialTx0(CSQ)    ;
-    serialTx0(CREG)   ;
-    serialTx0(CGREG)  ;
-    serialTx0(COPS)   ;
+    serialTx1(at) ;
+    serialTx1(ATV1)   ;
+    serialTx1(ATE1)   ;
+    serialTx1(CPIN)   ;
+    serialTx1(CSQ)    ;
+    serialTx1(CREG)   ;
+    serialTx1(CGREG)  ;
+    serialTx1(COPS)   ;
 }
 
