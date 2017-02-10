@@ -106,6 +106,8 @@ void main(void)
 
 
 
+
+
     if (!BQ27441_initConfig())
     {
         UART_transmitString("Error initializing BQ27441 Config\r\n");
@@ -124,11 +126,13 @@ void main(void)
     BQ27441_control(BAT_INSERT, 1000);
     __delay_cycles(1000000);
 
+    serialTx0("tom")    ;
+
     /* Display Battery information */
     while(1)
     {
 
-        serialTx0("tom")    ;
+
 
 //
 //        short result16 = 0;

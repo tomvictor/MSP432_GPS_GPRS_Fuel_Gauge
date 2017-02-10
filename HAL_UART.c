@@ -122,7 +122,7 @@ void UART_transmitString( char *pStr )
     {
         // comented for testing
 //        UART_transmitData(EUSCI_A0_BASE, *pStr );
-//        pStr++;
+        pStr++;
     }
 }
 
