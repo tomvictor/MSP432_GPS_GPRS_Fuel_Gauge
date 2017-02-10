@@ -126,7 +126,6 @@ void main(void)
     BQ27441_control(BAT_INSERT, 1000);
     __delay_cycles(1000000);
 
-    serialTx0("tom")    ;
 
     /* Display Battery information */
     while(1)
@@ -204,6 +203,9 @@ void main(void)
 
 
 
+        serialTx0("tom\n\r")    ;
+
+        //print echo on debug port
         //UART_transmitData(EUSCI_A0_BASE,UART_receiveData(EUSCI_A0_BASE));
 
 

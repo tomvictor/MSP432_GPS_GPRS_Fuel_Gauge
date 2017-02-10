@@ -62,10 +62,10 @@ const eUSCI_UART_Config uartConfig =
 const eUSCI_UART_Config uartConfigGps =
 {
  EUSCI_A_UART_CLOCKSOURCE_SMCLK,          // SMCLK Clock Source
- 312,                                      // BRDIV = 26
- 8,                                       // UCxBRF = 1
+ 312,                                      // BRDIV = 312
+ 8,                                       // UCxBRF = 8
  0,                                       // UCxBRS = 0
- EUSCI_A_UART_NO_PARITY,                  // No Parity
+ EUSCI_A_UART_NO_PARITY,                  // 1
  EUSCI_A_UART_LSB_FIRST,                  // LSB First
  EUSCI_A_UART_ONE_STOP_BIT,               // One stop bit
  EUSCI_A_UART_MODE,                       // UART mode
@@ -99,13 +99,13 @@ void UART_initGPIO()
 
 void UART_init(void)
 {
-    /* Configuring UART Module */
-    MAP_UART_initModule(EUSCI_A0_BASE, &uartConfig);
+    /* Configuring UART Module  9600 */
+    MAP_UART_initModule(EUSCI_A0_BASE, &uartConfigGps);
 
     /* Enable UART module */
     MAP_UART_enableModule(EUSCI_A0_BASE);
 
-    /* Configuring UART Module */
+    /* Configuring UART Module 115200 */
     MAP_UART_initModule(EUSCI_A2_BASE, &uartConfig);
 
     /* Enable UART module */
