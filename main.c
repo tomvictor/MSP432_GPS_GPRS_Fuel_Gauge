@@ -15,7 +15,6 @@
 #include "HAL_I2C.h"
 #include "HAL_UART.h"
 #include "HAL_BQ27441.h"
-#include "ctype.h"
 
 #define RedLedPin        GPIO_PIN0
 #define RedLedPort       GPIO_PORT_P2
@@ -79,7 +78,7 @@ char rootUrl[] ={"http://kranioz.com/"}, test[] = {"log/?lat=value1&lng=99&id=9&
 int idx = 0;
 char c, Range = 0 ;
 char gps_string[200];
-char temp[100], temp2[100] ;
+char temp[100], temp2[] ;
 
 
 void main(void)
@@ -130,22 +129,67 @@ void main(void)
     __delay_cycles(1000000);
 
 
+    GPIO_setOutputHighOnPin(GreenLedPort,GreenLedPin) ;
     gsmInit()   ;
+
+    __delay_cycles(10000000);
+
+
+    unsigned char t =0, lat = 1, lng = 2, bat = 3, status = 4;
+    int j=0, q=0;
+
+    //temp2[100]={0};
+    //memset
+
+    //    strcpy(temp2,"0") ; //now temp2 will filled with none
+    //    for(j=0;temp2[j] > 0; j++){
+    //       }
+
+    serialTx1(temp2)    ;
+    sprintf(temp2,"%slog/?lat=%d&lng=%d&id=921&bat=%d&status=%d\n\r",rootUrl,lat,lng,bat,rand()) ;
+    //    serialTx1(temp2)    ;
+
+    //    strcat(dest, src); appending
+
+
+    for(j=0;temp2[j] > 0; j++){
+    }
+
+    j= j-2;
+
+
+
+
+
+    //gprsinit function
+
+    serialTx1(QIFGCNT)    ;
+    serialTx1(QICSGP) ;
+    serialTx1(CMNET)  ;
+    serialTx1(QIREGAPP)   ;
+    serialTx1(QIACT);
+
+
+    sprintf(temp, "AT+QHTTPURL=%d,30\r\n", j);
+
+    serialTx1(temp)    ;
+
+
+    serialTx1(temp2)    ;   //printing the get data
+
+    serialTx1("AT+QHTTPGET=10\r\n")   ;
+    serialTx1("AT+QHTTPREAD=9\r\n")   ;
+
+    serialTx1(QIDEACT)    ;
+
+
+
 
     /* Display Battery information */
     while(1)
     {
 
-        unsigned char t =0, lat = 1, lng = 2, bat = 3, status = 4;
 
-        //temp2[100]={0};
-        //memset
-
-        sprintf(temp2,"%slog/?lat=%d&lng=%d&id=921&bat=%d&status=%d\n\r",rootUrl,lat,lng,bat,rand()) ;
-        serialTx1(temp2)    ;
-
-        //sprintf(temp, "AT+QHTTPURL=%d,30\r\n", sizeof(temp2));
-        serialTx1(temp)    ;
 
 
 
@@ -279,7 +323,7 @@ void GPIO_init()
     GPIO_setAsInputPin(BleStatusPort, BleStatusPin) ; //Ble status pin as input
 
     GPIO_setAsOutputPin(RedLedPort, RedLedPin); //red led pin as output
-    GPIO_setAsOutputPin(GreenLedPort, RedLedPin);   //green led pin as output
+    GPIO_setAsOutputPin(GreenLedPort, GreenLedPin);   //green led pin as output
 
     GPIO_setAsOutputPin(PowerKeyPort,PowerKeyPin)   ; //power key pin as output
 

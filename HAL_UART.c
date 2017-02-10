@@ -47,15 +47,15 @@
  */
 const eUSCI_UART_Config uartConfig =
 {
-        EUSCI_A_UART_CLOCKSOURCE_SMCLK,          // SMCLK Clock Source
-        26,                                      // BRDIV = 26
-        1,                                       // UCxBRF = 1
-        0,                                       // UCxBRS = 0
-        EUSCI_A_UART_NO_PARITY,                  // No Parity
-        EUSCI_A_UART_LSB_FIRST,                  // LSB First
-        EUSCI_A_UART_ONE_STOP_BIT,               // One stop bit
-        EUSCI_A_UART_MODE,                       // UART mode
-        EUSCI_A_UART_OVERSAMPLING_BAUDRATE_GENERATION  // Oversampling
+ EUSCI_A_UART_CLOCKSOURCE_SMCLK,          // SMCLK Clock Source
+ 26,                                      // BRDIV = 26
+ 1,                                       // UCxBRF = 1
+ 0,                                       // UCxBRS = 0
+ EUSCI_A_UART_NO_PARITY,                  // No Parity
+ EUSCI_A_UART_LSB_FIRST,                  // LSB First
+ EUSCI_A_UART_ONE_STOP_BIT,               // One stop bit
+ EUSCI_A_UART_MODE,                       // UART mode
+ EUSCI_A_UART_OVERSAMPLING_BAUDRATE_GENERATION  // Oversampling
 };
 
 //GPS 9600
@@ -77,7 +77,7 @@ void UART_initGPIO()
 {
 
     MAP_GPIO_setAsPeripheralModuleFunctionInputPin(GPIO_PORT_P1,
-                                                       GPIO_PIN1 | GPIO_PIN2 | GPIO_PIN3, GPIO_PRIMARY_MODULE_FUNCTION);
+                                                   GPIO_PIN1 | GPIO_PIN2 | GPIO_PIN3, GPIO_PRIMARY_MODULE_FUNCTION);
 
 
     MAP_GPIO_setAsPeripheralModuleFunctionInputPin(GPIO_PORT_P3,
@@ -117,7 +117,7 @@ void UART_transmitString( char *pStr )
     while( *pStr )
     {
         // comented for testing
-//        UART_transmitData(EUSCI_A0_BASE, *pStr );
+        //        UART_transmitData(EUSCI_A0_BASE, *pStr );
         pStr++;
     }
 }
