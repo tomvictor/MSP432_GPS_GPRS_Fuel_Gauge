@@ -96,10 +96,10 @@ char latc[],lngc[]    ;
 
 
 int count, m =0, z=0,x=0,qq=0;
-   char Gprmc[7] ="$GPRMC", GpBuff[300],CharBuff[100] ;
-  // char str[] = "http://www.tutorialspoint.com";
-   //const char ch = '.';
-   //char *ret;
+char Gprmc[7] ="$GPRMC", GpBuff[300],CharBuff[100] ;
+// char str[] = "http://www.tutorialspoint.com";
+const char ch1 = '$', ch2 = "\n";
+char *ret;
 
 
 void main(void)
@@ -289,18 +289,18 @@ void main(void)
 
 
 
-//        Range = GPIO_getInputPinValue(BleStatusPort,BleStatusPin) ;
-//        if (Range == 1){
-//            //device is in range, so turn on green led and turn off red led
-//            GPIO_setOutputHighOnPin(GreenLedPort,GreenLedPin) ; //turn on green led(p2.1)
-//            GPIO_setOutputLowOnPin(RedLedPort,RedLedPin) ; //turn off red led(p1.0)
-//        }
-//        else if(Range == 0){
-//            //device is out of range, so turn off green led and turn on red led
-//            GPIO_setOutputLowOnPin(GreenLedPort,GreenLedPin) ; //turn off green led(p2.1)
-//            GPIO_setOutputHighOnPin(RedLedPort,RedLedPin) ; //turn on red led(p1.0)
-//        }
-//
+        //        Range = GPIO_getInputPinValue(BleStatusPort,BleStatusPin) ;
+        //        if (Range == 1){
+        //            //device is in range, so turn on green led and turn off red led
+        //            GPIO_setOutputHighOnPin(GreenLedPort,GreenLedPin) ; //turn on green led(p2.1)
+        //            GPIO_setOutputLowOnPin(RedLedPort,RedLedPin) ; //turn off red led(p1.0)
+        //        }
+        //        else if(Range == 0){
+        //            //device is out of range, so turn off green led and turn on red led
+        //            GPIO_setOutputLowOnPin(GreenLedPort,GreenLedPin) ; //turn off green led(p2.1)
+        //            GPIO_setOutputHighOnPin(RedLedPort,RedLedPin) ; //turn on red led(p1.0)
+        //        }
+        //
 
 
 
@@ -355,8 +355,8 @@ void GPIO_init()
     MAP_GPIO_setAsOutputPin(GPIO_PORT_PE, PIN_ALL16);
 
     MAP_GPIO_setOutputHighOnPin(PowerKeyPort, PIN_ALL8);
-//    MAP_GPIO_setOutputLowOnPin(GPIO_PORT_PB, PIN_ALL16);
-//    MAP_GPIO_setOutputLowOnPin(GPIO_PORT_PC, PIN_ALL16);
+    //    MAP_GPIO_setOutputLowOnPin(GPIO_PORT_PB, PIN_ALL16);
+    //    MAP_GPIO_setOutputLowOnPin(GPIO_PORT_PC, PIN_ALL16);
     MAP_GPIO_setOutputLowOnPin(GPIO_PORT_PD, PIN_ALL16);
     MAP_GPIO_setOutputLowOnPin(GPIO_PORT_PE, PIN_ALL16);
 
@@ -442,31 +442,11 @@ void GetLocation(void){
         GpBuff[m] = UART_receiveData(EUSCI_A0_BASE)    ;
     }
 
-    for(m=0;m<7;m++){
-       if( GpBuff[m] == Gprmc[m-1]){
-           z++ ;
-       }
-
-
-
-       if(z==6){
-               z++;
-               for(q=0;qq<54;q++){
-                   CharBuff[qq] =GpBuff[z] ;
-                   z++ ;
-               }
-               serialTx0(CharBuff);
-
-                // ret = memchr(str, ch, strlen(str));
-
-                // printf("String after |%c| is - |%s|\n", ch, ret);
-           }
-
-    }
-
-
+    serialTx0(CharBuff) ;
 
 
 
 }
+
+
 

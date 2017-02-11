@@ -1,7 +1,7 @@
 ******************************************************************************
                   TI ARM Linker PC v16.9.0                     
 ******************************************************************************
->> Linked Sat Feb 11 15:10:47 2017
+>> Linked Sat Feb 11 15:49:03 2017
 
 OUTPUT FILE NAME:   <MSP432_GPS_GPRS_Fuel_Gauge.out>
 ENTRY POINT SYMBOL: "_c_int00"  address: 00004581
@@ -11,25 +11,25 @@ MEMORY CONFIGURATION
 
          name            origin    length      used     unused   attr    fill
 ----------------------  --------  ---------  --------  --------  ----  --------
-  MAIN                  00000000   00040000  00004b38  0003b4c8  R  X
+  MAIN                  00000000   00040000  00004b30  0003b4d0  R  X
   INFO                  00200000   00004000  00000000  00004000  R  X
-  SRAM_CODE             01000000   00010000  00000608  0000f9f8  RW X
-  SRAM_DATA             20000000   00010000  00000608  0000f9f8  RW  
+  SRAM_CODE             01000000   00010000  00000600  0000fa00  RW X
+  SRAM_DATA             20000000   00010000  00000600  0000fa00  RW  
 
 
 SEGMENT ALLOCATION MAP
 
 run origin  load origin   length   init length attrs members
 ----------  ----------- ---------- ----------- ----- -------
-00000000    00000000    00004b38   00004b38    r-x
+00000000    00000000    00004b30   00004b30    r-x
   00000000    00000000    00000140   00000140    r-- .intvecs
   00000140    00000140    000046ec   000046ec    r-x .text
   0000482c    0000482c    0000020c   0000020c    r-- .const
-  00004a38    00004a38    00000100   00000100    r-- .cinit
-20000000    20000000    00000408   00000000    rw-
+  00004a38    00004a38    000000f8   000000f8    r-- .cinit
+20000000    20000000    00000400   00000000    rw-
   20000000    20000000    000000e4   00000000    rw- .vtable
   200000e4    200000e4    000001fc   00000000    rw- .bss
-  200002e0    200002e0    00000128   00000000    rw- .data
+  200002e0    200002e0    00000120   00000000    rw- .data
 2000fe00    2000fe00    00000200   00000000    rw-
   2000fe00    2000fe00    00000200   00000000    rw- .stack
 
@@ -106,13 +106,13 @@ section   page    origin      length       input sections
                   00004a28    00000008     interrupt.obj (.const:g_pulPendRegs)
                   00004a30    00000008     interrupt.obj (.const:g_pulUnpendRegs)
 
-.cinit     0    00004a38    00000100     
-                  00004a38    000000c9     (.cinit..data.load) [load image, compression = lzss]
-                  00004b01    00000003     --HOLE-- [fill = 0]
-                  00004b04    0000000c     (__TI_handler_table)
-                  00004b10    00000008     (.cinit..bss.load) [load image, compression = zero_init]
-                  00004b18    00000008     (.cinit..vtable.load) [load image, compression = zero_init]
-                  00004b20    00000018     (__TI_cinit_table)
+.cinit     0    00004a38    000000f8     
+                  00004a38    000000c0     (.cinit..data.load) [load image, compression = lzss]
+                  00004af8    0000000c     (__TI_handler_table)
+                  00004b04    00000004     --HOLE-- [fill = 0]
+                  00004b08    00000008     (.cinit..bss.load) [load image, compression = zero_init]
+                  00004b10    00000008     (.cinit..vtable.load) [load image, compression = zero_init]
+                  00004b18    00000018     (__TI_cinit_table)
 
 .init_array 
 *          0    00000000    00000000     UNINITIALIZED
@@ -127,7 +127,7 @@ section   page    origin      length       input sections
                   200002d8    00000004     (.common:getUrl)
                   200002dc    00000004     (.common:temp2)
 
-.data      0    200002e0    00000128     UNINITIALIZED
+.data      0    200002e0    00000120     UNINITIALIZED
                   200002e0    00000030     gpio.obj (.data:GPIO_PORT_TO_BASE)
                   20000310    00000024     main.obj (.data)
                   20000334    00000014     main.obj (.data:rootUrl)
@@ -147,12 +147,11 @@ section   page    origin      length       input sections
                   200003d8    00000008     main.obj (.data:CMNET)
                   200003e0    00000007     main.obj (.data:ATE1)
                   200003e7    00000007     main.obj (.data:ATV1)
-                  200003ee    00000007     main.obj (.data:Gprmc)
-                  200003f5    00000005     main.obj (.data:at)
-                  200003fa    00000002     --HOLE--
-                  200003fc    00000004     rtsv7M4_T_le_v4SPD16_eabi.lib : errno.obj (.data)
-                  20000400    00000004                                   : stkdepth_vars.obj (.data)
-                  20000404    00000004     system_msp432p401r.obj (.data)
+                  200003ee    00000005     main.obj (.data:at)
+                  200003f3    00000001     --HOLE--
+                  200003f4    00000004     rtsv7M4_T_le_v4SPD16_eabi.lib : errno.obj (.data)
+                  200003f8    00000004                                   : stkdepth_vars.obj (.data)
+                  200003fc    00000004     system_msp432p401r.obj (.data)
 
 .stack     0    2000fe00    00000200     UNINITIALIZED
                   2000fe00    00000200     --HOLE--
@@ -162,14 +161,14 @@ MODULE SUMMARY
        Module                        code    ro data   rw data
        ------                        ----    -------   -------
     .\
-       main.obj                      1620    0         1438   
+       main.obj                      1620    0         1424   
        HAL_BQ27441.obj               1982    0         0      
        system_msp432p401r.obj        808     0         8      
        HAL_I2C.obj                   468     20        0      
        startup_msp432p401r_ccs.obj   18      320       0      
        HAL_UART.obj                  208     72        0      
     +--+-----------------------------+-------+---------+---------+
-       Total:                        5104    412       1446   
+       Total:                        5104    412       1432   
                                                               
     .\driverlib\MSP432P4xx\
        i2c.obj                       1960    0         0      
@@ -219,22 +218,22 @@ MODULE SUMMARY
        Total:                        7812    257       56     
                                                               
        Stack:                        0       0         1024   
-       Linker Generated:             0       253       0      
+       Linker Generated:             0       244       0      
     +--+-----------------------------+-------+---------+---------+
-       Grand Total:                  18150   1094      3078   
+       Grand Total:                  18150   1085      3064   
 
 
 LINKER GENERATED COPY TABLES
 
-__TI_cinit_table @ 00004b20 records: 3, size/record: 8, table size: 24
-	.data: load addr=00004a38, load size=000000c9 bytes, run addr=200002e0, run size=00000128 bytes, compression=lzss
-	.bss: load addr=00004b10, load size=00000008 bytes, run addr=200000e4, run size=000001fc bytes, compression=zero_init
-	.vtable: load addr=00004b18, load size=00000008 bytes, run addr=20000000, run size=000000e4 bytes, compression=zero_init
+__TI_cinit_table @ 00004b18 records: 3, size/record: 8, table size: 24
+	.data: load addr=00004a38, load size=000000c0 bytes, run addr=200002e0, run size=00000120 bytes, compression=lzss
+	.bss: load addr=00004b08, load size=00000008 bytes, run addr=200000e4, run size=000001fc bytes, compression=zero_init
+	.vtable: load addr=00004b10, load size=00000008 bytes, run addr=20000000, run size=000000e4 bytes, compression=zero_init
 
 
 LINKER GENERATED HANDLER TABLE
 
-__TI_handler_table @ 00004b04 records: 3, size/record: 4, table size: 12
+__TI_handler_table @ 00004af8 records: 3, size/record: 4, table size: 12
 	index: 0, handler: __TI_zero_init
 	index: 1, handler: __TI_decompress_lzss
 	index: 2, handler: __TI_decompress_none
@@ -292,7 +291,6 @@ address   name
 00002c93  GPIO_unregisterInterrupt                   
 0000270d  GetLocation                                
 200000e4  GpBuff                                     
-200003ee  Gprmc                                      
 0000209d  I2C_clearInterruptFlag                     
 00002087  I2C_disableInterrupt                       
 00001aef  I2C_disableModule                          
@@ -370,7 +368,7 @@ address   name
 20000314  Range                                      
 UNDEFED   SHT$$INIT_ARRAY$$Base                      
 UNDEFED   SHT$$INIT_ARRAY$$Limit                     
-20000404  SystemCoreClock                            
+200003fc  SystemCoreClock                            
 000034c5  SystemCoreClockUpdate                      
 00003739  SystemInit                                 
 00002fcd  UART_clearInterruptFlag                    
@@ -399,10 +397,10 @@ UNDEFED   SHT$$INIT_ARRAY$$Limit
 4000480c  WDTCTL_SYM                                 
 20010000  __STACK_END                                
 00000200  __STACK_SIZE                               
-00004b20  __TI_CINIT_Base                            
-00004b38  __TI_CINIT_Limit                           
-00004b04  __TI_Handler_Table_Base                    
-00004b10  __TI_Handler_Table_Limit                   
+00004b18  __TI_CINIT_Base                            
+00004b30  __TI_CINIT_Limit                           
+00004af8  __TI_Handler_Table_Base                    
+00004b04  __TI_Handler_Table_Limit                   
 0000438d  __TI_auto_init                             
 20000380  __TI_cleanup_ptr                           
 000043fd  __TI_decompress_lzss                       
@@ -449,14 +447,14 @@ ffffffff  __c_args__
 00004829  _system_pre_init                           
 200003d4  _unlock                                    
 000045d9  abort                                      
-200003f5  at                                         
+200003ee  at                                         
 00004629  atoi                                       
 20000318  bat                                        
 ffffffff  binit                                      
 00004675  copy_in                                    
 000047d5  copysign                                   
 000047d5  copysignl                                  
-200003fc  errno                                      
+200003f4  errno                                      
 000045e1  exit                                       
 00004465  frexp                                      
 00004465  frexpl                                     
@@ -475,7 +473,7 @@ ffffffff  binit
 00004529  ltoa                                       
 20000324  m                                          
 000021e5  main                                       
-20000400  main_func_sp                               
+200003f8  main_func_sp                               
 00004775  memccpy                                    
 00004169  memcpy                                     
 00004319  memset                                     
@@ -698,10 +696,10 @@ address   name
 00004980  uartConfig                                 
 000049a4  uartConfigGps                              
 00004a04  i2cConfig                                  
-00004b04  __TI_Handler_Table_Base                    
-00004b10  __TI_Handler_Table_Limit                   
-00004b20  __TI_CINIT_Base                            
-00004b38  __TI_CINIT_Limit                           
+00004af8  __TI_Handler_Table_Base                    
+00004b04  __TI_Handler_Table_Limit                   
+00004b18  __TI_CINIT_Base                            
+00004b30  __TI_CINIT_Limit                           
 20000000  g_pfnRAMVectors                            
 200000e4  GpBuff                                     
 20000210  CharBuff                                   
@@ -740,11 +738,10 @@ address   name
 200003d8  CMNET                                      
 200003e0  ATE1                                       
 200003e7  ATV1                                       
-200003ee  Gprmc                                      
-200003f5  at                                         
-200003fc  errno                                      
-20000400  main_func_sp                               
-20000404  SystemCoreClock                            
+200003ee  at                                         
+200003f4  errno                                      
+200003f8  main_func_sp                               
+200003fc  SystemCoreClock                            
 2000fe00  __stack                                    
 20010000  __STACK_END                                
 4000480c  WDTCTL_SYM                                 
@@ -757,4 +754,4 @@ ffffffff  binit
 UNDEFED   SHT$$INIT_ARRAY$$Base                      
 UNDEFED   SHT$$INIT_ARRAY$$Limit                     
 
-[253 symbols]
+[252 symbols]
