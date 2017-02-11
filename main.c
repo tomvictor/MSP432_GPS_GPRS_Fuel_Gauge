@@ -44,6 +44,7 @@ void gsmInit(void)  ;
 void gpsread(void)  ;
 
 void ProcessResponse(void);
+void GetLocation(void)  ;
 
 char sleep[] = { "at+qsclk=1\n\r" },
         sleep_Check[]= { "at+qsclk?\n\r" },
@@ -90,7 +91,16 @@ char temp[100], temp2[] ;
 unsigned char t = 0, lat = 1, lng = 2, bat = 3, status = 1;
 int j=0, q=0;
 
-char lat[],lng[]    ;
+char latc[],lngc[]    ;
+
+
+
+int count, m =0, z=0,x=0,qq=0;
+   char Gprmc[7] ="$GPRMC", GpBuff[300],CharBuff[100] ;
+  // char str[] = "http://www.tutorialspoint.com";
+   //const char ch = '.';
+   //char *ret;
+
 
 void main(void)
 {
@@ -115,6 +125,7 @@ void main(void)
     __delay_cycles(1000000);
 
 
+    GetLocation()   ;
 
 
 
@@ -209,6 +220,7 @@ void main(void)
 
     serialTx1(QIDEACT)    ;
     __delay_cycles(1000000);
+
 
 
 
@@ -424,5 +436,37 @@ void ProcessResponse(void){
 
 void GetLocation(void){
     //gps parsing logic here
+
+
+    for(m=0; m<300;m++){
+        GpBuff[m] = UART_receiveData(EUSCI_A0_BASE)    ;
+    }
+
+    for(m=0;m<7;m++){
+       if( GpBuff[m] == Gprmc[m-1]){
+           z++ ;
+       }
+
+
+
+       if(z==6){
+               z++;
+               for(q=0;qq<54;q++){
+                   CharBuff[qq] =GpBuff[z] ;
+                   z++ ;
+               }
+               serialTx0(CharBuff);
+
+                // ret = memchr(str, ch, strlen(str));
+
+                // printf("String after |%c| is - |%s|\n", ch, ret);
+           }
+
+    }
+
+
+
+
+
 }
 
