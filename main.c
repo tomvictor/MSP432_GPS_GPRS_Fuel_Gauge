@@ -94,13 +94,7 @@ int j=0, q=0, i=0;
 
 char latc[],lngc[]    ;
 
-const Timer_A_ContinuousModeConfig continuousModeConfig =
-{
-        TIMER_A_CLOCKSOURCE_ACLK,           // ACLK Clock Source
-        TIMER_A_CLOCKSOURCE_DIVIDER_1,      // ACLK/1 = 32.768khz
-        TIMER_A_TAIE_INTERRUPT_ENABLE,      // Enable Overflow ISR
-        TIMER_A_DO_CLEAR                    // Clear Counter
-};
+
 
 
 void main(void)
@@ -127,22 +121,6 @@ void main(void)
 
 
 
-    // timer code
-    /* Configuring Continuous Mode */
-      MAP_Timer_A_configureContinuousMode(TIMER_A0_BASE, &continuousModeConfig);
-
-      /* Enabling interrupts and going to sleep */
-      MAP_Interrupt_enableSleepOnIsrExit();
-      MAP_Interrupt_enableInterrupt(INT_TA0_N);
-
-      /* Enabling MASTER interrupts */
-      MAP_Interrupt_enableMaster();
-
-      /* Starting the Timer_A0 in continuous mode */
-      MAP_Timer_A_startCounter(TIMER_A0_BASE, TIMER_A_CONTINUOUS_MODE);
-
-
-
     if (!BQ27441_initConfig())
     {
         UART_transmitString("Error initializing BQ27441 Config\r\n");
@@ -153,9 +131,9 @@ void main(void)
     {
         __delay_cycles(1000000);
         UART_transmitString("Clearing BIE in Operation Configuration\r\n");
-       // GPIO_setOutputHighOnPin(GPIO_PORT_P1,GPIO_PIN0) ;
+        // GPIO_setOutputHighOnPin(GPIO_PORT_P1,GPIO_PIN0) ;
         __delay_cycles(3000000);
-       // GPIO_setOutputLowOnPin(GPIO_PORT_P1,GPIO_PIN0) ;
+        // GPIO_setOutputLowOnPin(GPIO_PORT_P1,GPIO_PIN0) ;
     }
 
     BQ27441_control(BAT_INSERT, 1000);
@@ -164,7 +142,7 @@ void main(void)
 
 
 
-//power key
+    //power key
 
     GPIO_setOutputLowOnPin(PowerKeyPort,PowerKeyPin) ;
     __delay_cycles(50000000);
@@ -356,12 +334,8 @@ void CS_init()
     MAP_CS_initClockSignal(CS_MCLK, CS_DCOCLK_SELECT, CS_CLOCK_DIVIDER_1 );
     MAP_CS_initClockSignal(CS_HSMCLK, CS_DCOCLK_SELECT, CS_CLOCK_DIVIDER_1 );
     MAP_CS_initClockSignal(CS_SMCLK, CS_DCOCLK_SELECT, CS_CLOCK_DIVIDER_1 );
-   // MAP_CS_initClockSignal(CS_ACLK, CS_DCOCLK_SELECT, CS_CLOCK_DIVIDER_16);
+    MAP_CS_initClockSignal(CS_ACLK, CS_REFOCLK_SELECT, CS_CLOCK_DIVIDER_64);
 
-
-    /* Starting and enabling ACLK (32kHz) */
-    MAP_CS_setReferenceOscillatorFrequency(CS_REFO_128KHZ);
-    MAP_CS_initClockSignal(CS_ACLK, CS_REFOCLK_SELECT, CS_CLOCK_DIVIDER_4);
 }
 
 
@@ -451,14 +425,5 @@ void gsmInit(){
 
 
 
-//******************************************************************************
-//
-//This is the TIMERA interrupt vector service routine.
-//
-//******************************************************************************
-void TA0_N_IRQHandler(void)
-{
-    MAP_Timer_A_clearInterruptFlag(TIMER_A0_BASE);
-    MAP_GPIO_toggleOutputOnPin(RedLedPort, RedLedPin);
-}
+
 
