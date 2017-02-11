@@ -16,6 +16,7 @@
 #include "HAL_UART.h"
 #include "HAL_BQ27441.h"
 
+
 #define RedLedPin        GPIO_PIN0
 #define RedLedPort       GPIO_PORT_P1
 
@@ -85,7 +86,7 @@ char rootUrl[] ={"http://kranioz.com/"}, getUrl[] ;
 int idx = 0;
 char c, Range = 0 ;
 char gps_string[200];
-char temp[100], temp2[] ;
+char temp[100], temp2[500] ;
 
 
 unsigned char t = 0, lat = 1, lng = 2, bat = 3, status = 1;
@@ -93,13 +94,15 @@ int j=0, q=0;
 
 char latc[],lngc[]    ;
 
+char I2Var[];
+bool TivaRead(short stdcommand, char *result, unsigned int timeout);
 
 
 int count, m =0, z=0,x=0,qq=0;
-char Gprmc[7] ="$GPRMC", GpBuff[300],CharBuff[100] ;
-// char str[] = "http://www.tutorialspoint.com";
-const char ch1 = '$', ch2 = "\n";
-char *ret;
+char Gprmc[7] ="$GPRMC", GpBuff[250],CharBuff[100] ;
+
+
+
 
 
 void main(void)
@@ -125,7 +128,6 @@ void main(void)
     __delay_cycles(1000000);
 
 
-    GetLocation()   ;
 
 
 
@@ -167,6 +169,27 @@ void main(void)
 
 
 
+    GetLocation()   ;
+
+    //idx = TivaRead(FLAGS, &I2Var, 1000) ;
+
+    I2C_init();
+
+    /* Specify slave address for BQ27441 */
+    I2C_setslave(0x99);
+
+    I2C_read16("0x06", &I2Var, 1000);
+
+
+
+
+
+
+    //serialTx0(GpBuff) ; //print gps values
+
+
+
+
     //temp2[100]={0};
     //memset
 
@@ -176,7 +199,8 @@ void main(void)
 
     //serialTx1(temp2)    ; //testing
 
-    sprintf(temp2,"%slog/?lat=%d&lng=%d&id=921&bat=%d&status=%d",rootUrl,lat,lng,bat,status) ;
+    sprintf(temp2,"%slog/?lat=%s&lng=%d&id=921&bat=%d&status=%d",rootUrl,GpBuff,lng,bat,status) ;
+    serialTx0(temp2) ;
     //    serialTx1(temp2)    ;
 
     //    strcat(dest, src); appending
@@ -220,6 +244,7 @@ void main(void)
 
     serialTx1(QIDEACT)    ;
     __delay_cycles(1000000);
+
 
 
 
@@ -438,11 +463,11 @@ void GetLocation(void){
     //gps parsing logic here
 
 
-    for(m=0; m<300;m++){
+    for(m=0; m<250;m++){
         GpBuff[m] = UART_receiveData(EUSCI_A0_BASE)    ;
     }
 
-    serialTx0(CharBuff) ;
+
 
 
 
