@@ -94,14 +94,6 @@ int j=0, q=0;
 
 char latc[],lngc[]    ;
 
-char I2Var[];
-bool TivaRead(short stdcommand, char *result, unsigned int timeout);
-
-
-int count, m =0, z=0,x=0,qq=0;
-char Gprmc[7] ="$GPRMC", GpBuff[250],CharBuff[100] ;
-
-
 
 
 
@@ -169,19 +161,6 @@ void main(void)
 
 
 
-    GetLocation()   ;
-
-    //idx = TivaRead(FLAGS, &I2Var, 1000) ;
-
-    I2C_init();
-
-    /* Specify slave address for BQ27441 */
-    I2C_setslave(0x99);
-
-    I2C_read16("0x06", &I2Var, 1000);
-
-
-
 
 
 
@@ -199,7 +178,7 @@ void main(void)
 
     //serialTx1(temp2)    ; //testing
 
-    sprintf(temp2,"%slog/?lat=%s&lng=%d&id=921&bat=%d&status=%d",rootUrl,GpBuff,lng,bat,status) ;
+    sprintf(temp2,"%slog/?lat=%s&lng=%d&id=921&bat=%d&status=%d",rootUrl,lat,lng,bat,status) ;
     serialTx0(temp2) ;
     //    serialTx1(temp2)    ;
 
@@ -453,25 +432,6 @@ void gsmInit(){
     serialTx1(COPS)   ;
 }
 
-
-void ProcessResponse(void){
-    UART_transmitData(EUSCI_A2_BASE,UART_receiveData(EUSCI_A2_BASE));
-}
-
-
-void GetLocation(void){
-    //gps parsing logic here
-
-
-    for(m=0; m<250;m++){
-        GpBuff[m] = UART_receiveData(EUSCI_A0_BASE)    ;
-    }
-
-
-
-
-
-}
 
 
 
