@@ -94,7 +94,6 @@ int j=0, q=0, i=0;
 
 char latc[],lngc[]    ;
 
-
 const Timer_A_ContinuousModeConfig continuousModeConfig =
 {
         TIMER_A_CLOCKSOURCE_ACLK,           // ACLK Clock Source
@@ -129,21 +128,18 @@ void main(void)
 
 
     // timer code
-
     /* Configuring Continuous Mode */
-    MAP_Timer_A_configureContinuousMode(TIMER_A0_BASE, &continuousModeConfig);
+      MAP_Timer_A_configureContinuousMode(TIMER_A0_BASE, &continuousModeConfig);
 
-    /* Enabling interrupts and going to sleep */
-    MAP_Interrupt_enableSleepOnIsrExit();
-    MAP_Interrupt_enableInterrupt(INT_TA0_N);
+      /* Enabling interrupts and going to sleep */
+      MAP_Interrupt_enableSleepOnIsrExit();
+      MAP_Interrupt_enableInterrupt(INT_TA0_N);
 
-    /* Enabling MASTER interrupts */
-    MAP_Interrupt_enableMaster();
+      /* Enabling MASTER interrupts */
+      MAP_Interrupt_enableMaster();
 
-    /* Starting the Timer_A0 in continuous mode */
-    MAP_Timer_A_startCounter(TIMER_A0_BASE, TIMER_A_CONTINUOUS_MODE);
-
-
+      /* Starting the Timer_A0 in continuous mode */
+      MAP_Timer_A_startCounter(TIMER_A0_BASE, TIMER_A_CONTINUOUS_MODE);
 
 
 
@@ -157,9 +153,9 @@ void main(void)
     {
         __delay_cycles(1000000);
         UART_transmitString("Clearing BIE in Operation Configuration\r\n");
-        GPIO_setOutputHighOnPin(GPIO_PORT_P1,GPIO_PIN0) ;
+       // GPIO_setOutputHighOnPin(GPIO_PORT_P1,GPIO_PIN0) ;
         __delay_cycles(3000000);
-        GPIO_setOutputLowOnPin(GPIO_PORT_P1,GPIO_PIN0) ;
+       // GPIO_setOutputLowOnPin(GPIO_PORT_P1,GPIO_PIN0) ;
     }
 
     BQ27441_control(BAT_INSERT, 1000);
@@ -168,7 +164,7 @@ void main(void)
 
 
 
-
+//power key
 
     GPIO_setOutputLowOnPin(PowerKeyPort,PowerKeyPin) ;
     __delay_cycles(50000000);
@@ -249,6 +245,7 @@ void main(void)
     {
 
 
+        MAP_PCM_gotoLPM0();
 
 
 
@@ -359,7 +356,12 @@ void CS_init()
     MAP_CS_initClockSignal(CS_MCLK, CS_DCOCLK_SELECT, CS_CLOCK_DIVIDER_1 );
     MAP_CS_initClockSignal(CS_HSMCLK, CS_DCOCLK_SELECT, CS_CLOCK_DIVIDER_1 );
     MAP_CS_initClockSignal(CS_SMCLK, CS_DCOCLK_SELECT, CS_CLOCK_DIVIDER_1 );
-    MAP_CS_initClockSignal(CS_ACLK, CS_DCOCLK_SELECT, CS_CLOCK_DIVIDER_16);
+   // MAP_CS_initClockSignal(CS_ACLK, CS_DCOCLK_SELECT, CS_CLOCK_DIVIDER_16);
+
+
+    /* Starting and enabling ACLK (32kHz) */
+    MAP_CS_setReferenceOscillatorFrequency(CS_REFO_128KHZ);
+    MAP_CS_initClockSignal(CS_ACLK, CS_REFOCLK_SELECT, CS_CLOCK_DIVIDER_4);
 }
 
 
@@ -457,6 +459,6 @@ void gsmInit(){
 void TA0_N_IRQHandler(void)
 {
     MAP_Timer_A_clearInterruptFlag(TIMER_A0_BASE);
-    MAP_GPIO_toggleOutputOnPin(GPIO_PORT_P1, GPIO_PIN0);
+    MAP_GPIO_toggleOutputOnPin(RedLedPort, RedLedPin);
 }
 
