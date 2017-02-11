@@ -72,7 +72,7 @@ char gpsValid[]={"$GPRMC,182708.000,A,1018.8587,N,07614.6607,E,5.15,92.25,280916
                  "$GPGLL,1018.8587,N,07614.6607,E,182708.000,A,A*54"
                  "$GPTXT,01,01,02,ANTSTATUS=OPEN*2B"} ;
 
-char rootUrl[] ={"http://kranioz.com/"}, test[] = {"log/?lat=value1&lng=99&id=9&bat=89"}, getUrl[] ;
+char rootUrl[] ={"http://kranioz.com/"}, getUrl[] ;
 
 //battery variables
 
@@ -132,18 +132,17 @@ void main(void)
     __delay_cycles(1000000);
 
 
-    GPIO_setOutputHighOnPin(PowerKeyPort,PowerKeyPin) ;
-    __delay_cycles(2000000);
     GPIO_setOutputLowOnPin(PowerKeyPort,PowerKeyPin) ;
-    __delay_cycles(2000000);
+    __delay_cycles(50000000);
     GPIO_setOutputHighOnPin(PowerKeyPort,PowerKeyPin) ;
 
+    __delay_cycles(100000000); //wait for initialisation
 
 
     GPIO_setOutputHighOnPin(GreenLedPort,GreenLedPin) ;
     gsmInit()   ;
 
-    __delay_cycles(100000000);
+    __delay_cycles(180000000);
     GPIO_setOutputLowOnPin(GreenLedPort,GreenLedPin) ;
 
 
@@ -164,6 +163,7 @@ void main(void)
     //    strcat(dest, src); appending
 
 
+    //for counting the length of the string
     for(j=0;temp2[j] > 0; j++){
         GPIO_toggleOutputOnPin(BlueLedPort,BlueLedPin)  ;
         __delay_cycles(1000000);
@@ -335,11 +335,13 @@ void GPIO_init()
     MAP_GPIO_setAsOutputPin(GPIO_PORT_PC, PIN_ALL16);
     MAP_GPIO_setAsOutputPin(GPIO_PORT_PD, PIN_ALL16);
     MAP_GPIO_setAsOutputPin(GPIO_PORT_PE, PIN_ALL16);
-    MAP_GPIO_setOutputLowOnPin(GPIO_PORT_PA, PIN_ALL16);
-    MAP_GPIO_setOutputLowOnPin(GPIO_PORT_PB, PIN_ALL16);
-    MAP_GPIO_setOutputLowOnPin(GPIO_PORT_PC, PIN_ALL16);
+
+    MAP_GPIO_setOutputHighOnPin(PowerKeyPort, PIN_ALL8);
+//    MAP_GPIO_setOutputLowOnPin(GPIO_PORT_PB, PIN_ALL16);
+//    MAP_GPIO_setOutputLowOnPin(GPIO_PORT_PC, PIN_ALL16);
     MAP_GPIO_setOutputLowOnPin(GPIO_PORT_PD, PIN_ALL16);
     MAP_GPIO_setOutputLowOnPin(GPIO_PORT_PE, PIN_ALL16);
+
 
     GPIO_setAsOutputPin(BleSwitchPort, BleSwitchPin); //ble switch as output
     GPIO_setAsInputPin(BleStatusPort, BleStatusPin) ; //Ble status pin as input
