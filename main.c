@@ -152,61 +152,61 @@ void main(void)
 
 
 
+//
+//
+//
+//                short result16 = 0;
+//                char str[64];
+//
+//                char battState[10] = 0, battCap[10] = 0 ;
+//
+//
+//                /* Read Remaining Capacity */
+//                if(!BQ27441_read16(REMAINING_CAPACITY, &result16, 1000))
+//                    UART_transmitString("Error Reading Remaining Capacity \r\n");
+//                else
+//                {
+//                    sprintf(str, "REMAINING_CAPACITY : %dmAh \r\n", result16);
+//                    //battCap = result16 ;
+//                    sprintf(battCap, "%dmAh", result16);
+//
+//                    UART_transmitString(str);
+//                }
+//
+//                /* Read State Of Charge */
+//                if(!BQ27441_read16(STATE_OF_CHARGE, &result16, 1000))
+//                    UART_transmitString("Error Reading State Of Charge \r\n");
+//                else
+//                {
+//                    sprintf(str, "State of Charge: %d%%\r\n", (unsigned short)result16);
+//                    sprintf(battState, "%d%%",  (unsigned short)result16);
+//                    UART_transmitString(str);
+//                }
+//
+//
+//                /* Read Voltage */
+//                if(!BQ27441_read16(VOLTAGE, &result16, 1000))
+//                    UART_transmitString("Error Reading Voltage \r\n");
+//                else
+//                {
+//                    sprintf(str, "Voltage: %dmV\r\n", result16);
+//                    UART_transmitString(str);
+//                }
+//
+//                /* Read Average Current */
+//                if(!BQ27441_read16(AVERAGE_CURRENT, &result16, 1000))
+//                    UART_transmitString("Error Reading Average Current \r\n");
+//                else
+//                {
+//                    sprintf(str, "Average Current: %dmA\r\n", result16);
+//                    UART_transmitString(str);
+//                    if (result16 > 0) {
+//                        UART_transmitString("Status : charging\r\n");
+//                    } else {
+//                        UART_transmitString("Status : discharging\r\n");
+//                    }
+//                }
 
-
-        //
-        //        short result16 = 0;
-        //        char str[64];
-        //
-        //        char battState[10] = 0, battCap[10] = 0 ;
-        //
-        //
-        //        /* Read Remaining Capacity */
-        //        if(!BQ27441_read16(REMAINING_CAPACITY, &result16, 1000))
-        //            UART_transmitString("Error Reading Remaining Capacity \r\n");
-        //        else
-        //        {
-        //            sprintf(str, "REMAINING_CAPACITY : %dmAh \r\n", result16);
-        //            //battCap = result16 ;
-        //            sprintf(battCap, "%dmAh", result16);
-        //
-        //            UART_transmitString(str);
-        //        }
-        //
-        //        /* Read State Of Charge */
-        //        if(!BQ27441_read16(STATE_OF_CHARGE, &result16, 1000))
-        //            UART_transmitString("Error Reading State Of Charge \r\n");
-        //        else
-        //        {
-        //            sprintf(str, "State of Charge: %d%%\r\n", (unsigned short)result16);
-        //            sprintf(battState, "%d%%",  (unsigned short)result16);
-        //            UART_transmitString(str);
-        //        }
-        //
-        //
-        //        /* Read Voltage */
-        //        if(!BQ27441_read16(VOLTAGE, &result16, 1000))
-        //            UART_transmitString("Error Reading Voltage \r\n");
-        //        else
-        //        {
-        //            sprintf(str, "Voltage: %dmV\r\n", result16);
-        //            UART_transmitString(str);
-        //        }
-        //
-        //        /* Read Average Current */
-        //        if(!BQ27441_read16(AVERAGE_CURRENT, &result16, 1000))
-        //            UART_transmitString("Error Reading Average Current \r\n");
-        //        else
-        //        {
-        //            sprintf(str, "Average Current: %dmA\r\n", result16);
-        //            UART_transmitString(str);
-        //            if (result16 > 0) {
-        //                UART_transmitString("Status : charging\r\n");
-        //            } else {
-        //                UART_transmitString("Status : discharging\r\n");
-        //            }
-        //        }
-        //
 
 
 
