@@ -43,6 +43,7 @@ char *itoa(int, char*, int);
 void gprsInit(void);
 void gsmInit(void)  ;
 void gpsread(void)  ;
+void LogToServer(void)  ;
 
 void ProcessResponse(void);
 void GetLocation(void)  ;
@@ -142,80 +143,6 @@ void main(void)
 
 
 
-    //power key
-
-    GPIO_setOutputLowOnPin(PowerKeyPort,PowerKeyPin) ;
-    __delay_cycles(50000000);
-    GPIO_setOutputHighOnPin(PowerKeyPort,PowerKeyPin) ;
-
-    __delay_cycles(180000000); //wait for initialisation
-
-
-    gsmInit()   ; // gprs init comands
-
-
-
-
-
-
-    //temp2[100]={0};
-    //memset
-
-    //    strcpy(temp2,"0") ; //now temp2 will filled with none
-    //    for(j=0;temp2[j] > 0; j++){
-    //       }
-
-    //serialTx1(temp2)    ; //testing
-
-    sprintf(temp2,"%slog/?lat=%s&lng=%d&id=921&bat=%d&status=%d",rootUrl,lat,lng,bat,status) ;
-    serialTx0(temp2) ;
-    //    serialTx1(temp2)    ;
-
-    //    strcat(dest, src); appending
-
-
-    //for counting the length of the string
-    for(j=0;temp2[j] > 0; j++){
-        GPIO_toggleOutputOnPin(BlueLedPort,BlueLedPin)  ;
-        __delay_cycles(1000000);
-    }
-
-
-
-
-
-    //gprsinit function
-
-    serialTx1(QIFGCNT)    ;
-    __delay_cycles(1000000);
-    serialTx1(QICSGP) ;
-    __delay_cycles(1000000);
-    serialTx1(CMNET)  ;
-    __delay_cycles(1000000);
-    serialTx1(QIREGAPP)   ;
-    __delay_cycles(1000000);
-    serialTx1(QIACT);
-    __delay_cycles(2000000);
-
-
-    sprintf(temp, "AT+QHTTPURL=%d,30\r\n", j);
-
-    serialTx1(temp)    ; //printing above
-
-    __delay_cycles(1000000);
-    serialTx1(temp2)    ;   //printing the get data
-    __delay_cycles(1000000);
-    serialTx1("AT+QHTTPGET=60\r\n")   ;
-    __delay_cycles(1000000);
-    serialTx1("AT+QHTTPREAD=30\r\n")   ;
-    __delay_cycles(1000000);
-
-    serialTx1(QIDEACT)    ;
-    __delay_cycles(1000000);
-
-
-
-
 
 
     /* Display Battery information */
@@ -223,7 +150,7 @@ void main(void)
     {
 
 
-        MAP_PCM_gotoLPM0();
+
 
 
 
@@ -302,7 +229,7 @@ void main(void)
         //serialTx1("tom2\n\r")   ;
 
         //print echo on  ports
-        //UART_transmitData(EUSCI_A0_BASE,UART_receiveData(EUSCI_A0_BASE));
+        UART_transmitData(EUSCI_A0_BASE,UART_receiveData(EUSCI_A0_BASE));
         //UART_transmitData(EUSCI_A2_BASE,UART_receiveData(EUSCI_A2_BASE));
 
 
@@ -423,6 +350,77 @@ void gsmInit(){
     serialTx1(COPS)   ;
 }
 
+
+void LogToServer(void){
+
+    //power key
+
+    GPIO_setOutputLowOnPin(PowerKeyPort,PowerKeyPin) ;
+    __delay_cycles(50000000);
+    GPIO_setOutputHighOnPin(PowerKeyPort,PowerKeyPin) ;
+
+    __delay_cycles(180000000); //wait for initialisation
+
+
+    gsmInit()   ; // gprs init comands
+
+
+
+
+
+
+    //temp2[100]={0};
+    //memset
+
+    //    strcpy(temp2,"0") ; //now temp2 will filled with none
+    //    for(j=0;temp2[j] > 0; j++){
+    //       }
+
+    //serialTx1(temp2)    ; //testing
+
+    sprintf(temp2,"%slog/?lat=%s&lng=%d&id=921&bat=%d&status=%d",rootUrl,lat,lng,bat,status) ;
+    serialTx0(temp2) ;
+    //    serialTx1(temp2)    ;
+
+    //    strcat(dest, src); appending
+
+
+    //for counting the length of the string
+    for(j=0;temp2[j] > 0; j++){
+        GPIO_toggleOutputOnPin(BlueLedPort,BlueLedPin)  ;
+        __delay_cycles(1000000);
+    }
+
+
+    //gprsinit function
+
+    serialTx1(QIFGCNT)    ;
+    __delay_cycles(1000000);
+    serialTx1(QICSGP) ;
+    __delay_cycles(1000000);
+    serialTx1(CMNET)  ;
+    __delay_cycles(1000000);
+    serialTx1(QIREGAPP)   ;
+    __delay_cycles(1000000);
+    serialTx1(QIACT);
+    __delay_cycles(2000000);
+
+
+    sprintf(temp, "AT+QHTTPURL=%d,30\r\n", j);
+
+    serialTx1(temp)    ; //printing above
+
+    __delay_cycles(1000000);
+    serialTx1(temp2)    ;   //printing the get data
+    __delay_cycles(1000000);
+    serialTx1("AT+QHTTPGET=60\r\n")   ;
+    __delay_cycles(1000000);
+    serialTx1("AT+QHTTPREAD=30\r\n")   ;
+    __delay_cycles(1000000);
+
+    serialTx1(QIDEACT)    ;
+    __delay_cycles(1000000);
+}
 
 
 
