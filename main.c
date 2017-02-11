@@ -90,11 +90,18 @@ char temp[100], temp2[500] ;
 
 
 unsigned char t = 0, lat = 1, lng = 2, bat = 3, status = 1;
-int j=0, q=0;
+int j=0, q=0, i=0;
 
 char latc[],lngc[]    ;
 
 
+const Timer_A_ContinuousModeConfig continuousModeConfig =
+{
+        TIMER_A_CLOCKSOURCE_ACLK,           // ACLK Clock Source
+        TIMER_A_CLOCKSOURCE_DIVIDER_1,      // ACLK/1 = 32.768khz
+        TIMER_A_TAIE_INTERRUPT_ENABLE,      // Enable Overflow ISR
+        TIMER_A_DO_CLEAR                    // Clear Counter
+};
 
 
 void main(void)
@@ -121,6 +128,20 @@ void main(void)
 
 
 
+    // timer code
+
+    /* Configuring Continuous Mode */
+    MAP_Timer_A_configureContinuousMode(TIMER_A0_BASE, &continuousModeConfig);
+
+    /* Enabling interrupts and going to sleep */
+    MAP_Interrupt_enableSleepOnIsrExit();
+    MAP_Interrupt_enableInterrupt(INT_TA0_N);
+
+    /* Enabling MASTER interrupts */
+    MAP_Interrupt_enableMaster();
+
+    /* Starting the Timer_A0 in continuous mode */
+    MAP_Timer_A_startCounter(TIMER_A0_BASE, TIMER_A_CONTINUOUS_MODE);
 
 
 
@@ -159,12 +180,6 @@ void main(void)
     gsmInit()   ; // gprs init comands
 
 
-
-
-
-
-
-    //serialTx0(GpBuff) ; //print gps values
 
 
 
@@ -344,7 +359,7 @@ void CS_init()
     MAP_CS_initClockSignal(CS_MCLK, CS_DCOCLK_SELECT, CS_CLOCK_DIVIDER_1 );
     MAP_CS_initClockSignal(CS_HSMCLK, CS_DCOCLK_SELECT, CS_CLOCK_DIVIDER_1 );
     MAP_CS_initClockSignal(CS_SMCLK, CS_DCOCLK_SELECT, CS_CLOCK_DIVIDER_1 );
-    MAP_CS_initClockSignal(CS_ACLK, CS_REFOCLK_SELECT, CS_CLOCK_DIVIDER_1);
+    MAP_CS_initClockSignal(CS_ACLK, CS_DCOCLK_SELECT, CS_CLOCK_DIVIDER_16);
 }
 
 
@@ -434,4 +449,14 @@ void gsmInit(){
 
 
 
+//******************************************************************************
+//
+//This is the TIMERA interrupt vector service routine.
+//
+//******************************************************************************
+void TA0_N_IRQHandler(void)
+{
+    MAP_Timer_A_clearInterruptFlag(TIMER_A0_BASE);
+    MAP_GPIO_toggleOutputOnPin(GPIO_PORT_P1, GPIO_PIN0);
+}
 
