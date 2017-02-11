@@ -42,6 +42,9 @@ char *itoa(int, char*, int);
 void gprsInit(void);
 void gsmInit(void)  ;
 void gpsread(void)  ;
+
+void ProcessResponse(void);
+
 char sleep[] = { "at+qsclk=1\n\r" },
         sleep_Check[]= { "at+qsclk?\n\r" },
         at[] = { "at\n\r"},ATV1[] = { "ATV1\n\r"},
@@ -83,6 +86,11 @@ char c, Range = 0 ;
 char gps_string[200];
 char temp[100], temp2[] ;
 
+
+unsigned char t = 0, lat = 1, lng = 2, bat = 3, status = 1;
+int j=0, q=0;
+
+char lat[],lng[]    ;
 
 void main(void)
 {
@@ -132,22 +140,21 @@ void main(void)
     __delay_cycles(1000000);
 
 
+
+
+
+
     GPIO_setOutputLowOnPin(PowerKeyPort,PowerKeyPin) ;
     __delay_cycles(50000000);
     GPIO_setOutputHighOnPin(PowerKeyPort,PowerKeyPin) ;
 
-    __delay_cycles(100000000); //wait for initialisation
+    __delay_cycles(180000000); //wait for initialisation
 
 
-    GPIO_setOutputHighOnPin(GreenLedPort,GreenLedPin) ;
-    gsmInit()   ;
-
-    __delay_cycles(180000000);
-    GPIO_setOutputLowOnPin(GreenLedPort,GreenLedPin) ;
+    gsmInit()   ; // gprs init comands
 
 
-    unsigned char t =0, lat = 1, lng = 2, bat = 3, status = 4;
-    int j=0, q=0;
+
 
     //temp2[100]={0};
     //memset
@@ -156,8 +163,9 @@ void main(void)
     //    for(j=0;temp2[j] > 0; j++){
     //       }
 
-    serialTx1(temp2)    ;
-    sprintf(temp2,"%slog/?lat=%d&lng=%d&id=921&bat=%d&status=%d",rootUrl,lat,lng,bat,0) ;
+    //serialTx1(temp2)    ; //testing
+
+    sprintf(temp2,"%slog/?lat=%d&lng=%d&id=921&bat=%d&status=%d",rootUrl,lat,lng,bat,status) ;
     //    serialTx1(temp2)    ;
 
     //    strcat(dest, src); appending
@@ -168,8 +176,6 @@ void main(void)
         GPIO_toggleOutputOnPin(BlueLedPort,BlueLedPin)  ;
         __delay_cycles(1000000);
     }
-
-
 
 
 
@@ -271,18 +277,18 @@ void main(void)
 
 
 
-        Range = GPIO_getInputPinValue(BleStatusPort,BleStatusPin) ;
-        if (Range == 1){
-            //device is in range, so turn on green led and turn off red led
-            GPIO_setOutputHighOnPin(GreenLedPort,GreenLedPin) ; //turn on green led(p2.1)
-            GPIO_setOutputLowOnPin(RedLedPort,RedLedPin) ; //turn off red led(p1.0)
-        }
-        else if(Range == 0){
-            //device is out of range, so turn off green led and turn on red led
-            GPIO_setOutputLowOnPin(GreenLedPort,GreenLedPin) ; //turn off green led(p2.1)
-            GPIO_setOutputHighOnPin(RedLedPort,RedLedPin) ; //turn on red led(p1.0)
-        }
-
+//        Range = GPIO_getInputPinValue(BleStatusPort,BleStatusPin) ;
+//        if (Range == 1){
+//            //device is in range, so turn on green led and turn off red led
+//            GPIO_setOutputHighOnPin(GreenLedPort,GreenLedPin) ; //turn on green led(p2.1)
+//            GPIO_setOutputLowOnPin(RedLedPort,RedLedPin) ; //turn off red led(p1.0)
+//        }
+//        else if(Range == 0){
+//            //device is out of range, so turn off green led and turn on red led
+//            GPIO_setOutputLowOnPin(GreenLedPort,GreenLedPin) ; //turn off green led(p2.1)
+//            GPIO_setOutputHighOnPin(RedLedPort,RedLedPin) ; //turn on red led(p1.0)
+//        }
+//
 
 
 
@@ -358,6 +364,24 @@ void GPIO_init()
 
 
 
+//
+///* GPIO ISR */
+//void PORT1_IRQHandler(void)
+//{
+//    uint32_t status;
+//
+//    status = MAP_GPIO_getEnabledInterruptStatus(GPIO_PORT_P1);
+//    MAP_GPIO_clearInterruptFlag(GPIO_PORT_P1, status);
+//
+//    /* Toggling the output on the LED */
+//    if(status & GPIO_PIN1)
+//    {
+//        MAP_GPIO_toggleOutputOnPin(GPIO_PORT_P1, GPIO_PIN0);
+//    }
+//
+//}
+//
+
 
 void gprsInit(){
 
@@ -390,5 +414,15 @@ void gsmInit(){
     serialTx1(CREG)   ;
     serialTx1(CGREG)  ;
     serialTx1(COPS)   ;
+}
+
+
+void ProcessResponse(void){
+    UART_transmitData(EUSCI_A2_BASE,UART_receiveData(EUSCI_A2_BASE));
+}
+
+
+void GetLocation(void){
+    //gps parsing logic here
 }
 
