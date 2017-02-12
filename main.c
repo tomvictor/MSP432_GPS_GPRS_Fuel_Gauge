@@ -218,12 +218,12 @@ void main(void)
 
         serialTx1(QIFGCNT)    ;
         __delay_cycles(10000000); //nearly 3 seconds
-        //serialTx1(QICSGP) ;
+        serialTx1(QICSGP) ;
         __delay_cycles(10000000); //nearly 3 seconds
         serialTx1(QIREGAPP)   ;
         __delay_cycles(10000000); //nearly 3 seconds
         serialTx1(QIACT);
-        __delay_cycles(40000000); //nearly 3 seconds
+        __delay_cycles(50000000); //nearly 3 seconds
 
 
         sprintf(temp, "AT+QHTTPURL=%d,5\r\n", j);
@@ -236,9 +236,9 @@ void main(void)
 
         __delay_cycles(10000000); //nearly 3 seconds
 
-        serialTx1("AT+QHTTPGET=10\r\n")   ;
+        serialTx1("AT+QHTTPGET=5\r\n")   ;
         __delay_cycles(10000000); //nearly 3 seconds
-        serialTx1("AT+QHTTPREAD=10\r\n")   ;
+        serialTx1("AT+QHTTPREAD=5\r\n")   ;
         __delay_cycles(30000000); //nearly 3 seconds
 
 
@@ -257,7 +257,7 @@ void main(void)
         //UART_transmitData(EUSCI_A2_BASE,UART_receiveData(EUSCI_A2_BASE));
 
 
-        __delay_cycles(150000000); //nearly 15 seconds
+        __delay_cycles(250000000); //nearly 15 seconds
     }
 }
 
@@ -346,7 +346,7 @@ void BleReq(void){
     __delay_cycles(10000000);
     GPIO_setOutputHighOnPin(BleSwitchPort,BleSwitchPin) ;
 
-    __delay_cycles(10000000); //wait for 1 Second
+    __delay_cycles(1000000); //wait for 1 Second
 }
 
 
