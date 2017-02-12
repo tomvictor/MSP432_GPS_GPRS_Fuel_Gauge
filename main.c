@@ -48,6 +48,8 @@ void LogToServer(void)  ;
 void ProcessResponse(void);
 void GetLocation(void)  ;
 
+void BattInitFn(void)   ;
+
 char sleep[] = { "at+qsclk=1\n\r" },
         sleep_Check[]= { "at+qsclk?\n\r" },
         at[] = { "at\n\r"},ATV1[] = { "ATV1\n\r"},
@@ -96,8 +98,6 @@ int j=0, q=0, i=0;
 char latc[],lngc[]    ;
 
 
-
-
 void main(void)
 {
     /* Halting WDT and disabling master interrupts */
@@ -121,27 +121,7 @@ void main(void)
     __delay_cycles(1000000);
 
 
-
-    if (!BQ27441_initConfig())
-    {
-        UART_transmitString("Error initializing BQ27441 Config\r\n");
-        UART_transmitString("Make sure BOOSTXL-BATPAKMKII is connected and switch is flipped to \"CONNECTED\"\r\n");
-    }
-
-    if (!BQ27441_initOpConfig())
-    {
-        __delay_cycles(1000000);
-        UART_transmitString("Clearing BIE in Operation Configuration\r\n");
-        // GPIO_setOutputHighOnPin(GPIO_PORT_P1,GPIO_PIN0) ;
-        __delay_cycles(3000000);
-        // GPIO_setOutputLowOnPin(GPIO_PORT_P1,GPIO_PIN0) ;
-    }
-
-    BQ27441_control(BAT_INSERT, 1000);
-    __delay_cycles(1000000);
-
-
-
+    BatInitFn();
 
 
 
@@ -177,6 +157,8 @@ void main(void)
                     UART_transmitString(str);
                 }
 
+                serialTx0("tom");
+                serialTx0(battState);
 
 
 //
@@ -257,6 +239,31 @@ void GPIO_init()
 
 }
 
+
+void BatInitFn(void){
+
+    if (!BQ27441_initConfig())
+    {
+        UART_transmitString("Error initializing BQ27441 Config\r\n");
+        UART_transmitString("Make sure BOOSTXL-BATPAKMKII is connected and switch is flipped to \"CONNECTED\"\r\n");
+    }
+
+    if (!BQ27441_initOpConfig())
+    {
+        __delay_cycles(1000000);
+        UART_transmitString("Clearing BIE in Operation Configuration\r\n");
+        // GPIO_setOutputHighOnPin(GPIO_PORT_P1,GPIO_PIN0) ;
+        __delay_cycles(3000000);
+        // GPIO_setOutputLowOnPin(GPIO_PORT_P1,GPIO_PIN0) ;
+    }
+
+    BQ27441_control(BAT_INSERT, 1000);
+    __delay_cycles(1000000);
+
+
+
+
+}
 
 
 
