@@ -56,7 +56,7 @@ void LogToServer(void)  ;
 
 void ProcessResponse(void);
 void GetLocation(void)  ;
-
+void PowerCheck(void);
 void PowerOnGprs(void)  ;
 void BattInitFn(void)   ;
 void BleReq(void)   ;
@@ -95,7 +95,8 @@ char rootUrl[] ={"http://kranioz.com/"}, getUrl[] ;
 
 //battery variables
 
-
+unsigned char tempAt[10];
+int aCount =0;
 
 int idx = 0;
 char c, Range = 0 ;
@@ -107,6 +108,8 @@ unsigned char t = 0, lat = 1, lng = 2, bat = 3, status = 1;
 int j=0, q=0, i=0;
 
 char latc[],lngc[]    ;
+
+char battState[10], battCap[10];
 
 
 void main(void)
@@ -141,10 +144,10 @@ void main(void)
     while(1)
     {
 
+        PowerCheck() ;
         short result16 = 0;
         char str[64];
 
-        char battState[10] = 0, battCap[10] = 0 ;
 
 
         __delay_cycles(1000000);
@@ -171,12 +174,7 @@ void main(void)
         //        serialTx0(battState);
 
 
-
-
-
-
-
-
+        BleReq();
 
 
         Range = GPIO_getInputPinValue(BleStatusPort,BleStatusPin) ;
@@ -294,6 +292,7 @@ void BleReq(void){
     __delay_cycles(10000000); //wait for 1 Second
 }
 
+
 void gprsInit(){
 
     //char temp[81]   ;
@@ -329,12 +328,22 @@ void gsmInit(){
 
 void PowerOnGprs(void){
     //power key
+   // UART_transmitData(EUSCI_A2_BASE,UART_receiveData(EUSCI_A2_BASE));
 
     GPIO_setOutputLowOnPin(PowerKeyPort,PowerKeyPin) ;
     __delay_cycles(50000000);
     GPIO_setOutputHighOnPin(PowerKeyPort,PowerKeyPin) ;
 
     __delay_cycles(180000000); //wait for initialisation
+}
+
+void PowerCheck(void){
+    serialTx1(at);
+        for(aCount=0;aCount<=6; aCount++){
+            tempAt[aCount] = UART_receiveData(EUSCI_A2_BASE)    ;
+
+        }
+        __delay_cycles(50000000); //4 sec delet
 }
 
 
