@@ -236,8 +236,8 @@ void main(void)
 
         __delay_cycles(10000000); //nearly 3 seconds
 
-        serialTx1("AT+QHTTPGET=5\r\n")   ;
-        __delay_cycles(10000000); //nearly 3 seconds
+        serialTx1("AT+QHTTPGET=2\r\n")   ;
+        //__delay_cycles(10000000); //nearly 3 seconds
         serialTx1("AT+QHTTPREAD=1\r\n")   ;
         __delay_cycles(30000000); //nearly 3 seconds
 
@@ -257,7 +257,7 @@ void main(void)
         //UART_transmitData(EUSCI_A2_BASE,UART_receiveData(EUSCI_A2_BASE));
 
 
-        __delay_cycles(250000000); //nearly 15 seconds
+        __delay_cycles(200000000); //nearly 15 seconds
     }
 }
 
