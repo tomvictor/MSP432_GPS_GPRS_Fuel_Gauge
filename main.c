@@ -220,30 +220,30 @@ void main(void)
         //gprsinit function
 
         serialTx1(QIFGCNT)    ;
-        __delay_cycles(30000000); //nearly 3 seconds
+        __delay_cycles(10000000); //nearly 3 seconds
         serialTx1(QICSGP) ;
-        __delay_cycles(30000000); //nearly 3 seconds
+        __delay_cycles(10000000); //nearly 3 seconds
         serialTx1(CMNET)  ;
-        __delay_cycles(30000000); //nearly 3 seconds
+        __delay_cycles(10000000); //nearly 3 seconds
         serialTx1(QIREGAPP)   ;
-        __delay_cycles(30000000); //nearly 3 seconds
+        __delay_cycles(10000000); //nearly 3 seconds
         serialTx1(QIACT);
-        __delay_cycles(50000000); //nearly 3 seconds
+        __delay_cycles(20000000); //nearly 3 seconds
 
 
-        sprintf(temp, "AT+QHTTPURL=%d,15\r\n", j);
+        sprintf(temp, "AT+QHTTPURL=%d,5\r\n", j);
 
         serialTx1(temp)    ; //printing above
 
-        __delay_cycles(30000000); //nearly 3 seconds
+        __delay_cycles(10000000); //nearly 3 seconds
 
         serialTx1(getUrl)    ;   //printing the get data
 
-        __delay_cycles(30000000); //nearly 3 seconds
+        __delay_cycles(20000000); //nearly 3 seconds
 
-        serialTx1("AT+QHTTPGET=10\r\n")   ;
-        __delay_cycles(30000000); //nearly 3 seconds
-        serialTx1("AT+QHTTPREAD=9\r\n")   ;
+        serialTx1("AT+QHTTPGET=3\r\n")   ;
+        __delay_cycles(10000000); //nearly 3 seconds
+        serialTx1("AT+QHTTPREAD=2\r\n")   ;
         __delay_cycles(30000000); //nearly 3 seconds
 
         serialTx1(QIDEACT)    ;
