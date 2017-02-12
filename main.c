@@ -91,7 +91,7 @@ char gpsValid[]={"$GPRMC,182708.000,A,1018.8587,N,07614.6607,E,5.15,92.25,280916
                  "$GPGLL,1018.8587,N,07614.6607,E,182708.000,A,A*54"
                  "$GPTXT,01,01,02,ANTSTATUS=OPEN*2B"} ;
 
-char rootUrl[] ={"http://kranioz.com/"}, getUrl[] ;
+char rootUrl[] ={"http://kranioz.com/"}, getUrl[500] ;
 
 //battery variables
 
@@ -101,7 +101,7 @@ int aCount =0;
 int idx = 0;
 char c, Range = 0 ;
 char gps_string[200];
-char temp[100], temp2[500] ;
+char temp[100] ;
 
 
 unsigned char t = 0, lat = 1, lng = 2, bat = 3, status = 1;
@@ -195,21 +195,18 @@ void main(void)
         //temp2[100]={0};
         //memset
 
-        //    strcpy(temp2,"0") ; //now temp2 will filled with none
-        //    for(j=0;temp2[j] > 0; j++){
-        //       }
+        strcpy(getUrl,"0") ; //now getUrl will filled with none
 
-        //serialTx1(temp2)    ; //testing
 
-        sprintf(temp2,"%slog/?lat=%s&lng=%d&id=921&bat=%d&status=%d",rootUrl,lat,lng,bat,status) ;
-        serialTx0(temp2) ;
+        sprintf(getUrl,"%slog/?lat=%s&lng=%d&id=921&bat=%s&status=%d",rootUrl,lat,lng,battState,Range) ;
+        serialTx0(getUrl) ;
         //    serialTx1(temp2)    ;
 
         //    strcat(dest, src); appending
 
 
         //for counting the length of the string
-        for(j=0;temp2[j] > 0; j++){
+        for(j=0;getUrl[j] > 0; j++){
             __delay_cycles(100);
         }
 
@@ -217,27 +214,30 @@ void main(void)
         //gprsinit function
 
         serialTx1(QIFGCNT)    ;
-        __delay_cycles(1000000);
+        __delay_cycles(5000000);
         serialTx1(QICSGP) ;
-        __delay_cycles(1000000);
+        __delay_cycles(5000000);
         serialTx1(CMNET)  ;
-        __delay_cycles(1000000);
+        __delay_cycles(5000000);
         serialTx1(QIREGAPP)   ;
-        __delay_cycles(1000000);
+        __delay_cycles(5000000);
         serialTx1(QIACT);
-        __delay_cycles(2000000);
+        __delay_cycles(5000000);
 
 
-        sprintf(temp, "AT+QHTTPURL=%d,30\r\n", j);
+        sprintf(temp, "AT+QHTTPURL=%d,10\r\n", j);
 
         serialTx1(temp)    ; //printing above
 
         __delay_cycles(1000000);
-        serialTx1(temp2)    ;   //printing the get data
+
+        serialTx1(getUrl)    ;   //printing the get data
+
+        __delay_cycles(2000000);
+
+        serialTx1("AT+QHTTPGET=10\r\n")   ;
         __delay_cycles(1000000);
-        serialTx1("AT+QHTTPGET=60\r\n")   ;
-        __delay_cycles(1000000);
-        serialTx1("AT+QHTTPREAD=30\r\n")   ;
+        serialTx1("AT+QHTTPREAD=9\r\n")   ;
         __delay_cycles(1000000);
 
         serialTx1(QIDEACT)    ;
@@ -256,7 +256,7 @@ void main(void)
         //UART_transmitData(EUSCI_A2_BASE,UART_receiveData(EUSCI_A2_BASE));
 
 
-        __delay_cycles(20000000);
+        __delay_cycles(150000000); //nearly 15 seconds
     }
 }
 
@@ -387,7 +387,7 @@ void PowerOnGprs(void){
     // UART_transmitData(EUSCI_A2_BASE,UART_receiveData(EUSCI_A2_BASE));
 
     GPIO_setOutputLowOnPin(PowerKeyPort,PowerKeyPin) ;
-    __delay_cycles(50000000);
+    __delay_cycles(50000000); //nearly 4 seconds
     GPIO_setOutputHighOnPin(PowerKeyPort,PowerKeyPin) ;
 
     __delay_cycles(180000000); //wait for initialisation
@@ -413,15 +413,15 @@ void LogToServer(void){
 
     //serialTx1(temp2)    ; //testing
 
-    sprintf(temp2,"%slog/?lat=%s&lng=%d&id=921&bat=%d&status=%d",rootUrl,lat,lng,bat,status) ;
-    serialTx0(temp2) ;
+    sprintf(getUrl,"%slog/?lat=%s&lng=%d&id=921&bat=%d&status=%d",rootUrl,lat,lng,bat,status) ;
+    serialTx0(getUrl) ;
     //    serialTx1(temp2)    ;
 
     //    strcat(dest, src); appending
 
 
     //for counting the length of the string
-    for(j=0;temp2[j] > 0; j++){
+    for(j=0;getUrl[j] > 0; j++){
         __delay_cycles(100);
     }
 
@@ -445,7 +445,7 @@ void LogToServer(void){
     serialTx1(temp)    ; //printing above
 
     __delay_cycles(1000000);
-    serialTx1(temp2)    ;   //printing the get data
+    serialTx1(getUrl)    ;   //printing the get data
     __delay_cycles(1000000);
     serialTx1("AT+QHTTPGET=60\r\n")   ;
     __delay_cycles(1000000);
