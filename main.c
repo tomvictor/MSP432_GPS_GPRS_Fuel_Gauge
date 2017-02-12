@@ -144,7 +144,6 @@ void main(void)
     while(1)
     {
 
-        PowerCheck() ;
         short result16 = 0;
         char str[64];
 
@@ -188,6 +187,63 @@ void main(void)
             GPIO_setOutputLowOnPin(GreenLedPort,GreenLedPin) ; //turn off green led(p2.1)
             GPIO_setOutputHighOnPin(RedLedPort,RedLedPin) ; //turn on red led(p1.0)
         }
+
+
+
+        //gprs code starts here
+
+        //temp2[100]={0};
+        //memset
+
+        //    strcpy(temp2,"0") ; //now temp2 will filled with none
+        //    for(j=0;temp2[j] > 0; j++){
+        //       }
+
+        //serialTx1(temp2)    ; //testing
+
+        sprintf(temp2,"%slog/?lat=%s&lng=%d&id=921&bat=%d&status=%d",rootUrl,lat,lng,bat,status) ;
+        serialTx0(temp2) ;
+        //    serialTx1(temp2)    ;
+
+        //    strcat(dest, src); appending
+
+
+        //for counting the length of the string
+        for(j=0;temp2[j] > 0; j++){
+            __delay_cycles(100);
+        }
+
+
+        //gprsinit function
+
+        serialTx1(QIFGCNT)    ;
+        __delay_cycles(1000000);
+        serialTx1(QICSGP) ;
+        __delay_cycles(1000000);
+        serialTx1(CMNET)  ;
+        __delay_cycles(1000000);
+        serialTx1(QIREGAPP)   ;
+        __delay_cycles(1000000);
+        serialTx1(QIACT);
+        __delay_cycles(2000000);
+
+
+        sprintf(temp, "AT+QHTTPURL=%d,30\r\n", j);
+
+        serialTx1(temp)    ; //printing above
+
+        __delay_cycles(1000000);
+        serialTx1(temp2)    ;   //printing the get data
+        __delay_cycles(1000000);
+        serialTx1("AT+QHTTPGET=60\r\n")   ;
+        __delay_cycles(1000000);
+        serialTx1("AT+QHTTPREAD=30\r\n")   ;
+        __delay_cycles(1000000);
+
+        serialTx1(QIDEACT)    ;
+        __delay_cycles(1000000);
+        //gprs code ends here
+
 
 
 
@@ -328,7 +384,7 @@ void gsmInit(){
 
 void PowerOnGprs(void){
     //power key
-   // UART_transmitData(EUSCI_A2_BASE,UART_receiveData(EUSCI_A2_BASE));
+    // UART_transmitData(EUSCI_A2_BASE,UART_receiveData(EUSCI_A2_BASE));
 
     GPIO_setOutputLowOnPin(PowerKeyPort,PowerKeyPin) ;
     __delay_cycles(50000000);
@@ -339,11 +395,8 @@ void PowerOnGprs(void){
 
 void PowerCheck(void){
     serialTx1(at);
-        for(aCount=0;aCount<=6; aCount++){
-            tempAt[aCount] = UART_receiveData(EUSCI_A2_BASE)    ;
 
-        }
-        __delay_cycles(50000000); //4 sec delet
+    __delay_cycles(50000000); //4 sec delet
 }
 
 
