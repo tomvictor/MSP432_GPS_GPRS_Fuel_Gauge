@@ -98,14 +98,14 @@ unsigned char tempAt[10];
 int aCount =0;
 
 int idx = 0;
-char c, Range = 0 ;
+char c, Range = 0, GpStatus = 0 ;
 char gps_string[200];
 char temp[100] ;
 
 unsigned char t = 0, lat = 1, lng = 2, bat = 3, status = 1;
 int j=0, q=0, i=0;
 
-char latc[20],lngc[20]    ;
+char latc[],lngc[]    ;
 
 char battState[10], battCap[10];
 
@@ -182,7 +182,7 @@ void main(void)
         Range = GPIO_getInputPinValue(BleStatusPort,BleStatusPin) ;
         if (Range == 1){
             //device is in range, so turn on green led and turn off red led
-            GPIO_setOutputHighOnPin(GreenLedPort,GreenLedPin) ; //turn on green led(p2.1)
+            //GPIO_setOutputHighOnPin(GreenLedPort,GreenLedPin) ; //turn on green led(p2.1)
             GPIO_setOutputLowOnPin(RedLedPort,RedLedPin) ; //turn off red led(p1.0)
         }
         else if(Range == 0){
@@ -191,6 +191,27 @@ void main(void)
             GPIO_setOutputHighOnPin(RedLedPort,RedLedPin) ; //turn on red led(p1.0)
         }
 
+        //gps code starts here
+        GpStatus  = GPIO_getInputPinValue(GpsStatusPort,GpsStatusPin) ;
+        if(GpStatus == 1){
+            //Gps cordinates avilable
+            latc[0] = UART_receiveData(EUSCI_A0_BASE) ;
+            latc[1] = UART_receiveData(EUSCI_A0_BASE)   ;
+            latc[2] = UART_receiveData(EUSCI_A0_BASE)   ;
+            latc[3] = UART_receiveData(EUSCI_A0_BASE) ;
+
+            lngc[0] = UART_receiveData(EUSCI_A0_BASE) ;
+            lngc[1] = UART_receiveData(EUSCI_A0_BASE)   ;
+            lngc[2] = UART_receiveData(EUSCI_A0_BASE)   ;
+            lngc[3] = UART_receiveData(EUSCI_A0_BASE) ;
+        }
+        else{
+            //Gps cordinates not avilable
+            sprintf(latc,"8.56") ;
+            sprintf(lngc,"76.88")   ;
+
+        }
+        //gps code ends here
 
 
         //gprs code starts here
