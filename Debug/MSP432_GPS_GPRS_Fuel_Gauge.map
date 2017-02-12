@@ -1,35 +1,35 @@
 ******************************************************************************
                   TI ARM Linker PC v16.9.0                     
 ******************************************************************************
->> Linked Sun Feb 12 18:55:28 2017
+>> Linked Sun Feb 12 19:14:55 2017
 
 OUTPUT FILE NAME:   <MSP432_GPS_GPRS_Fuel_Gauge.out>
-ENTRY POINT SYMBOL: "_c_int00"  address: 00004835
+ENTRY POINT SYMBOL: "_c_int00"  address: 00004805
 
 
 MEMORY CONFIGURATION
 
          name            origin    length      used     unused   attr    fill
 ----------------------  --------  ---------  --------  --------  ----  --------
-  MAIN                  00000000   00040000  00004df8  0003b208  R  X
+  MAIN                  00000000   00040000  00004dd0  0003b230  R  X
   INFO                  00200000   00004000  00000000  00004000  R  X
-  SRAM_CODE             01000000   00010000  00000694  0000f96c  RW X
-  SRAM_DATA             20000000   00010000  00000694  0000f96c  RW  
+  SRAM_CODE             01000000   00010000  00000698  0000f968  RW X
+  SRAM_DATA             20000000   00010000  00000698  0000f968  RW  
 
 
 SEGMENT ALLOCATION MAP
 
 run origin  load origin   length   init length attrs members
 ----------  ----------- ---------- ----------- ----- -------
-00000000    00000000    00004df8   00004df8    r-x
+00000000    00000000    00004dd0   00004dd0    r-x
   00000000    00000000    00000140   00000140    r-- .intvecs
-  00000140    00000140    000049b4   000049b4    r-x .text
-  00004af4    00004af4    0000020c   0000020c    r-- .const
-  00004d00    00004d00    000000f8   000000f8    r-- .cinit
-20000000    20000000    00000494   00000000    rw-
+  00000140    00000140    00004984   00004984    r-x .text
+  00004ac4    00004ac4    0000020c   0000020c    r-- .const
+  00004cd0    00004cd0    00000100   00000100    r-- .cinit
+20000000    20000000    00000498   00000000    rw-
   20000000    20000000    000000e4   00000000    rw- .vtable
   200000e4    200000e4    00000298   00000000    rw- .bss
-  2000037c    2000037c    00000118   00000000    rw- .data
+  2000037c    2000037c    0000011c   00000000    rw- .data
 2000fe00    2000fe00    00000200   00000000    rw-
   2000fe00    2000fe00    00000200   00000000    rw- .stack
 
@@ -44,77 +44,77 @@ section   page    origin      length       input sections
 
 .binit     0    00000000    00000000     
 
-.text      0    00000140    000049b4     
+.text      0    00000140    00004984     
                   00000140    0000113a     rtsv7M4_T_le_v4SPD16_eabi.lib : _printfi.obj (.text)
                   0000127a    00000002                                   : mpu_init.obj (.text)
-                  0000127c    0000090c     main.obj (.text)
-                  00001b88    000007ba     HAL_BQ27441.obj (.text)
-                  00002342    00000002     rtsv7M4_T_le_v4SPD16_eabi.lib : startup.obj (.text)
-                  00002344    000007a8     i2c.obj (.text)
-                  00002aec    00000480     gpio.obj (.text)
-                  00002f6c    0000041c     uart.obj (.text)
-                  00003388    000003f0     interrupt.obj (.text)
-                  00003778    00000328     system_msp432p401r.obj (.text)
-                  00003aa0    000001f4     rtsv7M4_T_le_v4SPD16_eabi.lib : ull_div_t2.obj (.text)
-                  00003c94    000001d4     HAL_I2C.obj (.text)
-                  00003e68    000001b6     rtsv7M4_T_le_v4SPD16_eabi.lib : fd_add_t2.obj (.text)
-                  0000401e    00000136                                   : fd_div_t2.obj (.text)
-                  00004154    000000fc                                   : fd_mul_t2.obj (.text)
-                  00004250    000000fc                                   : s_scalbn.obj (.text)
-                  0000434c    000000d0     HAL_UART.obj (.text)
-                  0000441c    0000009c     rtsv7M4_T_le_v4SPD16_eabi.lib : memcpy_t2.obj (.text)
-                  000044b8    00000086                                   : fd_cmp_t2.obj (.text:__aeabi_cdcmple)
-                  0000453e    00000086                                   : fd_cmp_t2.obj (.text:__aeabi_cdrcmple)
-                  000045c4    0000007a                                   : memset_t2.obj (.text)
-                  0000463e    00000002     --HOLE-- [fill = 0]
-                  00004640    00000070                                   : autoinit.obj (.text)
-                  000046b0    00000068                                   : copy_decompress_lzss.obj (.text:decompress:lzss)
-                  00004718    00000064                                   : s_frexp.obj (.text)
-                  0000477c    00000060                                   : sprintf.obj (.text)
-                  000047dc    00000056                                   : ltoa.obj (.text)
-                  00004832    00000002     --HOLE-- [fill = 0]
-                  00004834    00000054                                   : boot.obj (.text)
-                  00004888    00000054                                   : exit.obj (.text)
-                  000048dc    0000004c                                   : atoi.obj (.text)
-                  00004928    0000004c                                   : cpy_tbl.obj (.text)
-                  00004974    00000048                                   : fd_toi_t2.obj (.text)
-                  000049bc    0000003e     cpu.obj (.text)
-                  000049fa    0000002e     rtsv7M4_T_le_v4SPD16_eabi.lib : i_tofd_t2.obj (.text)
-                  00004a28    0000001c                                   : memccpy.obj (.text)
-                  00004a44    00000018                                   : args_main.obj (.text)
-                  00004a5c    00000016                                   : strchr.obj (.text)
-                  00004a72    00000002     --HOLE-- [fill = 0]
-                  00004a74    00000014                                   : _lock.obj (.text)
-                  00004a88    00000014                                   : s_copysign.obj (.text)
-                  00004a9c    00000014                                   : strcpy.obj (.text)
-                  00004ab0    00000014                                   : strlen.obj (.text)
-                  00004ac4    00000012     startup_msp432p401r_ccs.obj (.text)
-                  00004ad6    0000000e     rtsv7M4_T_le_v4SPD16_eabi.lib : copy_decompress_none.obj (.text:decompress:none)
-                  00004ae4    0000000c                                   : copy_zero_init.obj (.text:decompress:ZI)
-                  00004af0    00000004                                   : pre_init.obj (.text)
+                  0000127c    000008dc     main.obj (.text)
+                  00001b58    000007ba     HAL_BQ27441.obj (.text)
+                  00002312    00000002     rtsv7M4_T_le_v4SPD16_eabi.lib : startup.obj (.text)
+                  00002314    000007a8     i2c.obj (.text)
+                  00002abc    00000480     gpio.obj (.text)
+                  00002f3c    0000041c     uart.obj (.text)
+                  00003358    000003f0     interrupt.obj (.text)
+                  00003748    00000328     system_msp432p401r.obj (.text)
+                  00003a70    000001f4     rtsv7M4_T_le_v4SPD16_eabi.lib : ull_div_t2.obj (.text)
+                  00003c64    000001d4     HAL_I2C.obj (.text)
+                  00003e38    000001b6     rtsv7M4_T_le_v4SPD16_eabi.lib : fd_add_t2.obj (.text)
+                  00003fee    00000136                                   : fd_div_t2.obj (.text)
+                  00004124    000000fc                                   : fd_mul_t2.obj (.text)
+                  00004220    000000fc                                   : s_scalbn.obj (.text)
+                  0000431c    000000d0     HAL_UART.obj (.text)
+                  000043ec    0000009c     rtsv7M4_T_le_v4SPD16_eabi.lib : memcpy_t2.obj (.text)
+                  00004488    00000086                                   : fd_cmp_t2.obj (.text:__aeabi_cdcmple)
+                  0000450e    00000086                                   : fd_cmp_t2.obj (.text:__aeabi_cdrcmple)
+                  00004594    0000007a                                   : memset_t2.obj (.text)
+                  0000460e    00000002     --HOLE-- [fill = 0]
+                  00004610    00000070                                   : autoinit.obj (.text)
+                  00004680    00000068                                   : copy_decompress_lzss.obj (.text:decompress:lzss)
+                  000046e8    00000064                                   : s_frexp.obj (.text)
+                  0000474c    00000060                                   : sprintf.obj (.text)
+                  000047ac    00000056                                   : ltoa.obj (.text)
+                  00004802    00000002     --HOLE-- [fill = 0]
+                  00004804    00000054                                   : boot.obj (.text)
+                  00004858    00000054                                   : exit.obj (.text)
+                  000048ac    0000004c                                   : atoi.obj (.text)
+                  000048f8    0000004c                                   : cpy_tbl.obj (.text)
+                  00004944    00000048                                   : fd_toi_t2.obj (.text)
+                  0000498c    0000003e     cpu.obj (.text)
+                  000049ca    0000002e     rtsv7M4_T_le_v4SPD16_eabi.lib : i_tofd_t2.obj (.text)
+                  000049f8    0000001c                                   : memccpy.obj (.text)
+                  00004a14    00000018                                   : args_main.obj (.text)
+                  00004a2c    00000016                                   : strchr.obj (.text)
+                  00004a42    00000002     --HOLE-- [fill = 0]
+                  00004a44    00000014                                   : _lock.obj (.text)
+                  00004a58    00000014                                   : s_copysign.obj (.text)
+                  00004a6c    00000014                                   : strcpy.obj (.text)
+                  00004a80    00000014                                   : strlen.obj (.text)
+                  00004a94    00000012     startup_msp432p401r_ccs.obj (.text)
+                  00004aa6    0000000e     rtsv7M4_T_le_v4SPD16_eabi.lib : copy_decompress_none.obj (.text:decompress:none)
+                  00004ab4    0000000c                                   : copy_zero_init.obj (.text:decompress:ZI)
+                  00004ac0    00000004                                   : pre_init.obj (.text)
 
-.const     0    00004af4    0000020c     
-                  00004af4    00000101     rtsv7M4_T_le_v4SPD16_eabi.lib : ctype.obj (.const:.string:_ctypes_)
-                  00004bf5    00000003     --HOLE-- [fill = 0]
-                  00004bf8    00000050     interrupt.obj (.const:g_pulRegs)
-                  00004c48    00000024     HAL_UART.obj (.const:uartConfig)
-                  00004c6c    00000024     HAL_UART.obj (.const:uartConfigGps)
-                  00004c90    00000020     interrupt.obj (.const:g_pulPriority)
-                  00004cb0    0000001c     gpio.obj (.const:GPIO_PORT_TO_INT)
-                  00004ccc    00000014     HAL_I2C.obj (.const:i2cConfig)
-                  00004ce0    00000008     interrupt.obj (.const:g_pulDisRegs)
-                  00004ce8    00000008     interrupt.obj (.const:g_pulEnRegs)
-                  00004cf0    00000008     interrupt.obj (.const:g_pulPendRegs)
-                  00004cf8    00000008     interrupt.obj (.const:g_pulUnpendRegs)
+.const     0    00004ac4    0000020c     
+                  00004ac4    00000101     rtsv7M4_T_le_v4SPD16_eabi.lib : ctype.obj (.const:.string:_ctypes_)
+                  00004bc5    00000003     --HOLE-- [fill = 0]
+                  00004bc8    00000050     interrupt.obj (.const:g_pulRegs)
+                  00004c18    00000024     HAL_UART.obj (.const:uartConfig)
+                  00004c3c    00000024     HAL_UART.obj (.const:uartConfigGps)
+                  00004c60    00000020     interrupt.obj (.const:g_pulPriority)
+                  00004c80    0000001c     gpio.obj (.const:GPIO_PORT_TO_INT)
+                  00004c9c    00000014     HAL_I2C.obj (.const:i2cConfig)
+                  00004cb0    00000008     interrupt.obj (.const:g_pulDisRegs)
+                  00004cb8    00000008     interrupt.obj (.const:g_pulEnRegs)
+                  00004cc0    00000008     interrupt.obj (.const:g_pulPendRegs)
+                  00004cc8    00000008     interrupt.obj (.const:g_pulUnpendRegs)
 
-.cinit     0    00004d00    000000f8     
-                  00004d00    000000bf     (.cinit..data.load) [load image, compression = lzss]
-                  00004dbf    00000001     --HOLE-- [fill = 0]
-                  00004dc0    0000000c     (__TI_handler_table)
-                  00004dcc    00000004     --HOLE-- [fill = 0]
-                  00004dd0    00000008     (.cinit..bss.load) [load image, compression = zero_init]
-                  00004dd8    00000008     (.cinit..vtable.load) [load image, compression = zero_init]
-                  00004de0    00000018     (__TI_cinit_table)
+.cinit     0    00004cd0    00000100     
+                  00004cd0    000000c6     (.cinit..data.load) [load image, compression = lzss]
+                  00004d96    00000002     --HOLE-- [fill = 0]
+                  00004d98    0000000c     (__TI_handler_table)
+                  00004da4    00000004     --HOLE-- [fill = 0]
+                  00004da8    00000008     (.cinit..bss.load) [load image, compression = zero_init]
+                  00004db0    00000008     (.cinit..vtable.load) [load image, compression = zero_init]
+                  00004db8    00000018     (__TI_cinit_table)
 
 .init_array 
 *          0    00000000    00000000     UNINITIALIZED
@@ -130,31 +130,31 @@ section   page    origin      length       input sections
                   20000364    0000000c     (.common:battCap)
                   20000370    0000000c     (.common:battState)
 
-.data      0    2000037c    00000118     UNINITIALIZED
+.data      0    2000037c    0000011c     UNINITIALIZED
                   2000037c    00000030     gpio.obj (.data:GPIO_PORT_TO_BASE)
                   200003ac    0000001c     main.obj (.data)
-                  200003c8    00000014     main.obj (.data:rootUrl)
-                  200003dc    0000000f     main.obj (.data:QIFGCNT)
-                  200003eb    0000000e     main.obj (.data:QICSGP)
-                  200003f9    0000000e     main.obj (.data:QIREGAPP)
-                  20000407    0000000d     main.obj (.data:QIDEACT)
-                  20000414    0000000c     rtsv7M4_T_le_v4SPD16_eabi.lib : exit.obj (.data:$O1$$)
-                  20000420    0000000c     main.obj (.data:CGREG)
-                  2000042c    0000000b     main.obj (.data:COPS)
-                  20000437    0000000b     main.obj (.data:CPIN)
-                  20000442    0000000b     main.obj (.data:CREG)
-                  2000044d    0000000b     main.obj (.data:QIACT)
-                  20000458    00000009     main.obj (.data:CSQ)
-                  20000461    00000003     --HOLE--
-                  20000464    00000008     rtsv7M4_T_le_v4SPD16_eabi.lib : _lock.obj (.data:$O1$$)
-                  2000046c    00000008     main.obj (.data:CMNET)
-                  20000474    00000007     main.obj (.data:ATE1)
-                  2000047b    00000007     main.obj (.data:ATV1)
-                  20000482    00000005     main.obj (.data:at)
-                  20000487    00000001     --HOLE--
-                  20000488    00000004     rtsv7M4_T_le_v4SPD16_eabi.lib : errno.obj (.data)
-                  2000048c    00000004                                   : stkdepth_vars.obj (.data)
-                  20000490    00000004     system_msp432p401r.obj (.data)
+                  200003c8    00000018     main.obj (.data:QICSGP)
+                  200003e0    00000014     main.obj (.data:rootUrl)
+                  200003f4    0000000f     main.obj (.data:QIFGCNT)
+                  20000403    0000000e     main.obj (.data:QIREGAPP)
+                  20000411    0000000d     main.obj (.data:QIDEACT)
+                  2000041e    00000002     --HOLE--
+                  20000420    0000000c     rtsv7M4_T_le_v4SPD16_eabi.lib : exit.obj (.data:$O1$$)
+                  2000042c    0000000c     main.obj (.data:CGREG)
+                  20000438    0000000b     main.obj (.data:COPS)
+                  20000443    0000000b     main.obj (.data:CPIN)
+                  2000044e    0000000b     main.obj (.data:CREG)
+                  20000459    0000000b     main.obj (.data:QIACT)
+                  20000464    00000009     main.obj (.data:CSQ)
+                  2000046d    00000003     --HOLE--
+                  20000470    00000008     rtsv7M4_T_le_v4SPD16_eabi.lib : _lock.obj (.data:$O1$$)
+                  20000478    00000007     main.obj (.data:ATE1)
+                  2000047f    00000007     main.obj (.data:ATV1)
+                  20000486    00000005     main.obj (.data:at)
+                  2000048b    00000001     --HOLE--
+                  2000048c    00000004     rtsv7M4_T_le_v4SPD16_eabi.lib : errno.obj (.data)
+                  20000490    00000004                                   : stkdepth_vars.obj (.data)
+                  20000494    00000004     system_msp432p401r.obj (.data)
 
 .stack     0    2000fe00    00000200     UNINITIALIZED
                   2000fe00    00000200     --HOLE--
@@ -164,14 +164,14 @@ MODULE SUMMARY
        Module                        code    ro data   rw data
        ------                        ----    -------   -------
     .\
-       main.obj                      2316    0         1720   
+       main.obj                      2268    0         1724   
        HAL_BQ27441.obj               1978    0         0      
        system_msp432p401r.obj        808     0         8      
        HAL_I2C.obj                   468     20        0      
        startup_msp432p401r_ccs.obj   18      320       0      
        HAL_UART.obj                  208     72        0      
     +--+-----------------------------+-------+---------+---------+
-       Total:                        5796    412       1728   
+       Total:                        5748    412       1732   
                                                               
     .\driverlib\MSP432P4xx\
        i2c.obj                       1960    0         0      
@@ -222,22 +222,22 @@ MODULE SUMMARY
        Total:                        7832    257       56     
                                                               
        Stack:                        0       0         1024   
-       Linker Generated:             0       243       0      
+       Linker Generated:             0       250       0      
     +--+-----------------------------+-------+---------+---------+
-       Grand Total:                  18862   1084      3360   
+       Grand Total:                  18814   1091      3364   
 
 
 LINKER GENERATED COPY TABLES
 
-__TI_cinit_table @ 00004de0 records: 3, size/record: 8, table size: 24
-	.data: load addr=00004d00, load size=000000bf bytes, run addr=2000037c, run size=00000118 bytes, compression=lzss
-	.bss: load addr=00004dd0, load size=00000008 bytes, run addr=200000e4, run size=00000298 bytes, compression=zero_init
-	.vtable: load addr=00004dd8, load size=00000008 bytes, run addr=20000000, run size=000000e4 bytes, compression=zero_init
+__TI_cinit_table @ 00004db8 records: 3, size/record: 8, table size: 24
+	.data: load addr=00004cd0, load size=000000c6 bytes, run addr=2000037c, run size=0000011c bytes, compression=lzss
+	.bss: load addr=00004da8, load size=00000008 bytes, run addr=200000e4, run size=00000298 bytes, compression=zero_init
+	.vtable: load addr=00004db0, load size=00000008 bytes, run addr=20000000, run size=000000e4 bytes, compression=zero_init
 
 
 LINKER GENERATED HANDLER TABLE
 
-__TI_handler_table @ 00004dc0 records: 3, size/record: 4, table size: 12
+__TI_handler_table @ 00004d98 records: 3, size/record: 4, table size: 12
 	index: 0, handler: __TI_zero_init
 	index: 1, handler: __TI_decompress_lzss
 	index: 2, handler: __TI_decompress_none
@@ -247,261 +247,260 @@ GLOBAL SYMBOLS: SORTED ALPHABETICALLY BY Name
 
 address   name                                       
 -------   ----                                       
-20000474  ATE1                                       
-2000047b  ATV1                                       
-000021e7  BQ27441_command                            
-00002181  BQ27441_control                            
-000021a9  BQ27441_controlRead                        
-00001b89  BQ27441_initConfig                         
-00001fa5  BQ27441_initOpConfig                       
-00002241  BQ27441_read16                             
-000022b9  BQ27441_readChecksum                       
-00002211  BQ27441_write16                            
-000016fd  BatInitFn                                  
-00001787  BleReq                                     
-00004889  C$$EXIT                                    
-20000420  CGREG                                      
-2000046c  CMNET                                      
-2000042c  COPS                                       
-20000437  CPIN                                       
-000049f1  CPU_basepriGet                             
-000049e3  CPU_basepriSet                             
-000049bd  CPU_cpsid                                  
-000049d3  CPU_cpsie                                  
-000049c9  CPU_primask                                
-000049df  CPU_wfi                                    
-20000442  CREG                                       
-20000458  CSQ                                        
-00001535  CS_init                                    
-00002e0f  GPIO_clearInterruptFlag                    
-00002dcf  GPIO_disableInterrupt                      
-00002dad  GPIO_enableInterrupt                       
-00002e67  GPIO_getEnabledInterruptStatus             
-00002d7f  GPIO_getInputPinValue                      
-00002df1  GPIO_getInterruptStatus                    
-000015e9  GPIO_init                                  
-00002e31  GPIO_interruptEdgeSelect                   
-00002f27  GPIO_registerInterrupt                     
-00002b27  GPIO_setAsInputPin                         
-00002cdb  GPIO_setAsInputPinWithPullDownResistor     
-00002d2d  GPIO_setAsInputPinWithPullUpResistor       
-00002aed  GPIO_setAsOutputPin                        
-00002bf1  GPIO_setAsPeripheralModuleFunctionInputPin 
-00002b6d  GPIO_setAsPeripheralModuleFunctionOutputPin
-00002ee3  GPIO_setDriveStrengthHigh                  
-00002f05  GPIO_setDriveStrengthLow                   
-00002c75  GPIO_setOutputHighOnPin                    
-00002c97  GPIO_setOutputLowOnPin                     
-00002cb9  GPIO_toggleOutputOnPin                     
-00002f47  GPIO_unregisterInterrupt                   
-000029a5  I2C_clearInterruptFlag                     
-0000298f  I2C_disableInterrupt                       
-000023f7  I2C_disableModule                          
-00002959  I2C_disableMultiMasterMode                 
-00002979  I2C_enableInterrupt                        
-000023e1  I2C_enableModule                           
-00002939  I2C_enableMultiMasterMode                  
-000029d3  I2C_getEnabledInterruptStatus              
-000029bb  I2C_getInterruptStatus                     
-000029e3  I2C_getMode                                
-000028df  I2C_getReceiveBufferAddressForDMA          
-000028ed  I2C_getTransmitBufferAddressForDMA         
-00003cad  I2C_init                                   
-00003c95  I2C_initGPIO                               
-00002345  I2C_initMaster                             
-000023a7  I2C_initSlave                              
-0000249b  I2C_isBusBusy                              
-0000290d  I2C_masterIsStartSent                      
-000028fb  I2C_masterIsStopSent                       
-00002805  I2C_masterReceiveMultiByteFinish           
-00002843  I2C_masterReceiveMultiByteFinishWithTimeout
-000027ed  I2C_masterReceiveMultiByteNext             
-000028a1  I2C_masterReceiveMultiByteStop             
-000028b5  I2C_masterReceiveSingle                    
-0000243d  I2C_masterReceiveSingleByte                
-000027d3  I2C_masterReceiveStart                     
-000026b3  I2C_masterSendMultiByteFinish              
-00002701  I2C_masterSendMultiByteFinishWithTimeout   
-00002649  I2C_masterSendMultiByteNext                
-00002675  I2C_masterSendMultiByteNextWithTimeout     
-0000259f  I2C_masterSendMultiByteStart               
-000025ed  I2C_masterSendMultiByteStartWithTimeout    
-0000276d  I2C_masterSendMultiByteStop                
-00002797  I2C_masterSendMultiByteStopWithTimeout     
-000024ad  I2C_masterSendSingleByte                   
-00002513  I2C_masterSendSingleByteWithTimeout        
-00002925  I2C_masterSendStart                        
-00003daf  I2C_read16                                 
-00003d67  I2C_read8                                  
-000029f9  I2C_registerInterrupt                      
-00002421  I2C_setMode                                
-0000240d  I2C_setSlaveAddress                        
-00003e45  I2C_setslave                               
-00002487  I2C_slaveGetData                           
-00002471  I2C_slavePutData                           
-00002abb  I2C_slaveSendNAK                           
-00002a5f  I2C_unregisterInterrupt                    
-00003d09  I2C_write16                                
-00003cc5  I2C_write8                                 
-0000354b  Interrupt_disableInterrupt                 
-0000339b  Interrupt_disableMaster                    
-00003749  Interrupt_disableSleepOnIsrExit            
-000034d9  Interrupt_enableInterrupt                  
-0000338b  Interrupt_enableMaster                     
-00003737  Interrupt_enableSleepOnIsrExit             
-000034b3  Interrupt_getPriority                      
-0000342b  Interrupt_getPriorityGrouping              
-00003717  Interrupt_getPriorityMask                  
-00003731  Interrupt_getVectorTableAddress            
-000035bd  Interrupt_isEnabled                        
-00003649  Interrupt_pendInterrupt                    
-000033ab  Interrupt_registerInterrupt                
-00003463  Interrupt_setPriority                      
-00003411  Interrupt_setPriorityGrouping              
-00003707  Interrupt_setPriorityMask                  
-00003721  Interrupt_setVectorTableAddress            
-000036b9  Interrupt_unpendInterrupt                  
-000033fd  Interrupt_unregisterInterrupt              
-000018c3  LogToServer                                
-000018ad  PowerCheck                                 
-00001879  PowerOnGprs                                
-2000044d  QIACT                                      
-200003eb  QICSGP                                     
-20000407  QIDEACT                                    
-200003dc  QIFGCNT                                    
-200003f9  QIREGAPP                                   
+20000478  ATE1                                       
+2000047f  ATV1                                       
+000021b7  BQ27441_command                            
+00002151  BQ27441_control                            
+00002179  BQ27441_controlRead                        
+00001b59  BQ27441_initConfig                         
+00001f75  BQ27441_initOpConfig                       
+00002211  BQ27441_read16                             
+00002289  BQ27441_readChecksum                       
+000021e1  BQ27441_write16                            
+000016e1  BatInitFn                                  
+0000173b  BleReq                                     
+00004859  C$$EXIT                                    
+2000042c  CGREG                                      
+20000438  COPS                                       
+20000443  CPIN                                       
+000049c1  CPU_basepriGet                             
+000049b3  CPU_basepriSet                             
+0000498d  CPU_cpsid                                  
+000049a3  CPU_cpsie                                  
+00004999  CPU_primask                                
+000049af  CPU_wfi                                    
+2000044e  CREG                                       
+20000464  CSQ                                        
+0000151d  CS_init                                    
+00002ddf  GPIO_clearInterruptFlag                    
+00002d9f  GPIO_disableInterrupt                      
+00002d7d  GPIO_enableInterrupt                       
+00002e37  GPIO_getEnabledInterruptStatus             
+00002d4f  GPIO_getInputPinValue                      
+00002dc1  GPIO_getInterruptStatus                    
+000015a5  GPIO_init                                  
+00002e01  GPIO_interruptEdgeSelect                   
+00002ef7  GPIO_registerInterrupt                     
+00002af7  GPIO_setAsInputPin                         
+00002cab  GPIO_setAsInputPinWithPullDownResistor     
+00002cfd  GPIO_setAsInputPinWithPullUpResistor       
+00002abd  GPIO_setAsOutputPin                        
+00002bc1  GPIO_setAsPeripheralModuleFunctionInputPin 
+00002b3d  GPIO_setAsPeripheralModuleFunctionOutputPin
+00002eb3  GPIO_setDriveStrengthHigh                  
+00002ed5  GPIO_setDriveStrengthLow                   
+00002c45  GPIO_setOutputHighOnPin                    
+00002c67  GPIO_setOutputLowOnPin                     
+00002c89  GPIO_toggleOutputOnPin                     
+00002f17  GPIO_unregisterInterrupt                   
+00002975  I2C_clearInterruptFlag                     
+0000295f  I2C_disableInterrupt                       
+000023c7  I2C_disableModule                          
+00002929  I2C_disableMultiMasterMode                 
+00002949  I2C_enableInterrupt                        
+000023b1  I2C_enableModule                           
+00002909  I2C_enableMultiMasterMode                  
+000029a3  I2C_getEnabledInterruptStatus              
+0000298b  I2C_getInterruptStatus                     
+000029b3  I2C_getMode                                
+000028af  I2C_getReceiveBufferAddressForDMA          
+000028bd  I2C_getTransmitBufferAddressForDMA         
+00003c7d  I2C_init                                   
+00003c65  I2C_initGPIO                               
+00002315  I2C_initMaster                             
+00002377  I2C_initSlave                              
+0000246b  I2C_isBusBusy                              
+000028dd  I2C_masterIsStartSent                      
+000028cb  I2C_masterIsStopSent                       
+000027d5  I2C_masterReceiveMultiByteFinish           
+00002813  I2C_masterReceiveMultiByteFinishWithTimeout
+000027bd  I2C_masterReceiveMultiByteNext             
+00002871  I2C_masterReceiveMultiByteStop             
+00002885  I2C_masterReceiveSingle                    
+0000240d  I2C_masterReceiveSingleByte                
+000027a3  I2C_masterReceiveStart                     
+00002683  I2C_masterSendMultiByteFinish              
+000026d1  I2C_masterSendMultiByteFinishWithTimeout   
+00002619  I2C_masterSendMultiByteNext                
+00002645  I2C_masterSendMultiByteNextWithTimeout     
+0000256f  I2C_masterSendMultiByteStart               
+000025bd  I2C_masterSendMultiByteStartWithTimeout    
+0000273d  I2C_masterSendMultiByteStop                
+00002767  I2C_masterSendMultiByteStopWithTimeout     
+0000247d  I2C_masterSendSingleByte                   
+000024e3  I2C_masterSendSingleByteWithTimeout        
+000028f5  I2C_masterSendStart                        
+00003d7f  I2C_read16                                 
+00003d37  I2C_read8                                  
+000029c9  I2C_registerInterrupt                      
+000023f1  I2C_setMode                                
+000023dd  I2C_setSlaveAddress                        
+00003e15  I2C_setslave                               
+00002457  I2C_slaveGetData                           
+00002441  I2C_slavePutData                           
+00002a8b  I2C_slaveSendNAK                           
+00002a2f  I2C_unregisterInterrupt                    
+00003cd9  I2C_write16                                
+00003c95  I2C_write8                                 
+0000351b  Interrupt_disableInterrupt                 
+0000336b  Interrupt_disableMaster                    
+00003719  Interrupt_disableSleepOnIsrExit            
+000034a9  Interrupt_enableInterrupt                  
+0000335b  Interrupt_enableMaster                     
+00003707  Interrupt_enableSleepOnIsrExit             
+00003483  Interrupt_getPriority                      
+000033fb  Interrupt_getPriorityGrouping              
+000036e7  Interrupt_getPriorityMask                  
+00003701  Interrupt_getVectorTableAddress            
+0000358d  Interrupt_isEnabled                        
+00003619  Interrupt_pendInterrupt                    
+0000337b  Interrupt_registerInterrupt                
+00003433  Interrupt_setPriority                      
+000033e1  Interrupt_setPriorityGrouping              
+000036d7  Interrupt_setPriorityMask                  
+000036f1  Interrupt_setVectorTableAddress            
+00003689  Interrupt_unpendInterrupt                  
+000033cd  Interrupt_unregisterInterrupt              
+0000189d  LogToServer                                
+00001887  PowerCheck                                 
+00001859  PowerOnGprs                                
+20000459  QIACT                                      
+200003c8  QICSGP                                     
+20000411  QIDEACT                                    
+200003f4  QIFGCNT                                    
+20000403  QIREGAPP                                   
 200003b4  Range                                      
 UNDEFED   SHT$$INIT_ARRAY$$Base                      
 UNDEFED   SHT$$INIT_ARRAY$$Limit                     
-20000490  SystemCoreClock                            
-00003779  SystemCoreClockUpdate                      
-000039ed  SystemInit                                 
-00003281  UART_clearInterruptFlag                    
-000031d9  UART_disableInterrupt                      
-000030bb  UART_disableModule                         
-000031a9  UART_enableInterrupt                       
-000030a5  UART_enableModule                          
-00003225  UART_getEnabledInterruptStatus             
-00003209  UART_getInterruptStatus                    
-00003171  UART_getReceiveBufferAddressForDMA         
-0000317f  UART_getTransmitBufferAddressForDMA        
-00004371  UART_init                                  
-0000434d  UART_initGPIO                              
-00002f6d  UART_initModule                            
-000030d1  UART_queryStatusFlags                      
-0000307f  UART_receiveData                           
-000032a1  UART_registerInterrupt                     
-000030f9  UART_resetDormant                          
-0000318d  UART_selectDeglitchTime                    
-000030e5  UART_setDormant                            
-0000310d  UART_transmitAddress                       
-0000312b  UART_transmitBreak                         
-00003055  UART_transmitData                          
-000043a9  UART_transmitString                        
-0000331d  UART_unregisterInterrupt                   
+20000494  SystemCoreClock                            
+00003749  SystemCoreClockUpdate                      
+000039bd  SystemInit                                 
+00003251  UART_clearInterruptFlag                    
+000031a9  UART_disableInterrupt                      
+0000308b  UART_disableModule                         
+00003179  UART_enableInterrupt                       
+00003075  UART_enableModule                          
+000031f5  UART_getEnabledInterruptStatus             
+000031d9  UART_getInterruptStatus                    
+00003141  UART_getReceiveBufferAddressForDMA         
+0000314f  UART_getTransmitBufferAddressForDMA        
+00004341  UART_init                                  
+0000431d  UART_initGPIO                              
+00002f3d  UART_initModule                            
+000030a1  UART_queryStatusFlags                      
+0000304f  UART_receiveData                           
+00003271  UART_registerInterrupt                     
+000030c9  UART_resetDormant                          
+0000315d  UART_selectDeglitchTime                    
+000030b5  UART_setDormant                            
+000030dd  UART_transmitAddress                       
+000030fb  UART_transmitBreak                         
+00003025  UART_transmitData                          
+00004379  UART_transmitString                        
+000032ed  UART_unregisterInterrupt                   
 4000480c  WDTCTL_SYM                                 
 20010000  __STACK_END                                
 00000200  __STACK_SIZE                               
-00004de0  __TI_CINIT_Base                            
-00004df8  __TI_CINIT_Limit                           
-00004dc0  __TI_Handler_Table_Base                    
-00004dcc  __TI_Handler_Table_Limit                   
-00004641  __TI_auto_init                             
-20000414  __TI_cleanup_ptr                           
-000046b1  __TI_decompress_lzss                       
-00004ad7  __TI_decompress_none                       
-20000418  __TI_dtors_ptr                             
-2000041c  __TI_enable_exit_profile_output            
+00004db8  __TI_CINIT_Base                            
+00004dd0  __TI_CINIT_Limit                           
+00004d98  __TI_Handler_Table_Base                    
+00004da4  __TI_Handler_Table_Limit                   
+00004611  __TI_auto_init                             
+20000420  __TI_cleanup_ptr                           
+00004681  __TI_decompress_lzss                       
+00004aa7  __TI_decompress_none                       
+20000424  __TI_dtors_ptr                             
+20000428  __TI_enable_exit_profile_output            
 ffffffff  __TI_pprof_out_hndl                        
 00000981  __TI_printfi                               
 ffffffff  __TI_prof_data_size                        
 ffffffff  __TI_prof_data_start                       
 00000000  __TI_static_base__                         
-00004ae5  __TI_zero_init                             
-000044b9  __aeabi_cdcmpeq                            
-000044b9  __aeabi_cdcmple                            
-0000453f  __aeabi_cdrcmple                           
-00004975  __aeabi_d2iz                               
-00003e73  __aeabi_dadd                               
-0000401f  __aeabi_ddiv                               
-00004155  __aeabi_dmul                               
-00003e69  __aeabi_dsub                               
-000049fb  __aeabi_i2d                                
-000045c5  __aeabi_memclr                             
-000045c5  __aeabi_memclr4                            
-000045c5  __aeabi_memclr8                            
-0000441d  __aeabi_memcpy                             
-0000441d  __aeabi_memcpy4                            
-0000441d  __aeabi_memcpy8                            
-000045c7  __aeabi_memset                             
-000045c7  __aeabi_memset4                            
-000045c7  __aeabi_memset8                            
-00003aa1  __aeabi_uldivmod                           
+00004ab5  __TI_zero_init                             
+00004489  __aeabi_cdcmpeq                            
+00004489  __aeabi_cdcmple                            
+0000450f  __aeabi_cdrcmple                           
+00004945  __aeabi_d2iz                               
+00003e43  __aeabi_dadd                               
+00003fef  __aeabi_ddiv                               
+00004125  __aeabi_dmul                               
+00003e39  __aeabi_dsub                               
+000049cb  __aeabi_i2d                                
+00004595  __aeabi_memclr                             
+00004595  __aeabi_memclr4                            
+00004595  __aeabi_memclr8                            
+000043ed  __aeabi_memcpy                             
+000043ed  __aeabi_memcpy4                            
+000043ed  __aeabi_memcpy8                            
+00004597  __aeabi_memset                             
+00004597  __aeabi_memset4                            
+00004597  __aeabi_memset8                            
+00003a71  __aeabi_uldivmod                           
 ffffffff  __binit__                                  
 ffffffff  __c_args__                                 
 0000127b  __mpu_init                                 
 2000fe00  __stack                                    
-00004a45  _args_main                                 
-00004835  _c_int00                                   
-00004af4  _ctypes_                                   
-20000464  _lock                                      
-00004a83  _nop                                       
-00004a7b  _register_lock                             
-00004a75  _register_unlock                           
-00002343  _system_post_cinit                         
-00004af1  _system_pre_init                           
-20000468  _unlock                                    
+00004a15  _args_main                                 
+00004805  _c_int00                                   
+00004ac4  _ctypes_                                   
+20000470  _lock                                      
+00004a53  _nop                                       
+00004a4b  _register_lock                             
+00004a45  _register_unlock                           
+00002313  _system_post_cinit                         
+00004ac1  _system_pre_init                           
+20000474  _unlock                                    
 200003ac  aCount                                     
-0000488d  abort                                      
-20000482  at                                         
-000048dd  atoi                                       
+0000485d  abort                                      
+20000486  at                                         
+000048ad  atoi                                       
 200003b8  bat                                        
 20000364  battCap                                    
 20000370  battState                                  
 ffffffff  binit                                      
-00004929  copy_in                                    
-00004a89  copysign                                   
-00004a89  copysignl                                  
-20000488  errno                                      
-00004895  exit                                       
-00004719  frexp                                      
-00004719  frexpl                                     
+000048f9  copy_in                                    
+00004a59  copysign                                   
+00004a59  copysignl                                  
+2000048c  errno                                      
+00004865  exit                                       
+000046e9  frexp                                      
+000046e9  frexpl                                     
 20000000  g_pfnRAMVectors                            
 200000e4  getUrl                                     
-000017c5  gprsInit                                   
-00001845  gsmInit                                    
+000017a5  gprsInit                                   
+000017f9  gsmInit                                    
 200003c4  i                                          
-00004ccc  i2cConfig                                  
+00004c9c  i2cConfig                                  
 200003b0  idx                                        
 00000000  interruptVectors                           
 200003bc  j                                          
 200003b6  lat                                        
 2000033c  latc                                       
-00004251  ldexp                                      
-00004251  ldexpl                                     
+00004221  ldexp                                      
+00004221  ldexpl                                     
 200003b7  lng                                        
 20000350  lngc                                       
-000047dd  ltoa                                       
+000047ad  ltoa                                       
 0000127d  main                                       
-2000048c  main_func_sp                               
-00004a29  memccpy                                    
-0000441d  memcpy                                     
-000045cd  memset                                     
+20000490  main_func_sp                               
+000049f9  memccpy                                    
+000043ed  memcpy                                     
+0000459d  memset                                     
 200003c0  q                                          
-200003c8  rootUrl                                    
-00004251  scalbn                                     
-00004251  scalbnl                                    
-000043c3  serialTx0                                  
-000043e3  serialTx1                                  
-0000477d  sprintf                                    
+200003e0  rootUrl                                    
+00004221  scalbn                                     
+00004221  scalbnl                                    
+00004393  serialTx0                                  
+000043b3  serialTx1                                  
+0000474d  sprintf                                    
 200003b9  status                                     
-00004a5d  strchr                                     
-00004a9d  strcpy                                     
-00004ab1  strlen                                     
+00004a2d  strchr                                     
+00004a6d  strcpy                                     
+00004a81  strlen                                     
 200003b5  t                                          
 200002d8  temp                                       
-00004c48  uartConfig                                 
-00004c6c  uartConfigGps                              
+00004c18  uartConfig                                 
+00004c3c  uartConfigGps                              
 
 
 GLOBAL SYMBOLS: SORTED BY Symbol Address 
@@ -514,203 +513,203 @@ address   name
 00000981  __TI_printfi                               
 0000127b  __mpu_init                                 
 0000127d  main                                       
-00001535  CS_init                                    
-000015e9  GPIO_init                                  
-000016fd  BatInitFn                                  
-00001787  BleReq                                     
-000017c5  gprsInit                                   
-00001845  gsmInit                                    
-00001879  PowerOnGprs                                
-000018ad  PowerCheck                                 
-000018c3  LogToServer                                
-00001b89  BQ27441_initConfig                         
-00001fa5  BQ27441_initOpConfig                       
-00002181  BQ27441_control                            
-000021a9  BQ27441_controlRead                        
-000021e7  BQ27441_command                            
-00002211  BQ27441_write16                            
-00002241  BQ27441_read16                             
-000022b9  BQ27441_readChecksum                       
-00002343  _system_post_cinit                         
-00002345  I2C_initMaster                             
-000023a7  I2C_initSlave                              
-000023e1  I2C_enableModule                           
-000023f7  I2C_disableModule                          
-0000240d  I2C_setSlaveAddress                        
-00002421  I2C_setMode                                
-0000243d  I2C_masterReceiveSingleByte                
-00002471  I2C_slavePutData                           
-00002487  I2C_slaveGetData                           
-0000249b  I2C_isBusBusy                              
-000024ad  I2C_masterSendSingleByte                   
-00002513  I2C_masterSendSingleByteWithTimeout        
-0000259f  I2C_masterSendMultiByteStart               
-000025ed  I2C_masterSendMultiByteStartWithTimeout    
-00002649  I2C_masterSendMultiByteNext                
-00002675  I2C_masterSendMultiByteNextWithTimeout     
-000026b3  I2C_masterSendMultiByteFinish              
-00002701  I2C_masterSendMultiByteFinishWithTimeout   
-0000276d  I2C_masterSendMultiByteStop                
-00002797  I2C_masterSendMultiByteStopWithTimeout     
-000027d3  I2C_masterReceiveStart                     
-000027ed  I2C_masterReceiveMultiByteNext             
-00002805  I2C_masterReceiveMultiByteFinish           
-00002843  I2C_masterReceiveMultiByteFinishWithTimeout
-000028a1  I2C_masterReceiveMultiByteStop             
-000028b5  I2C_masterReceiveSingle                    
-000028df  I2C_getReceiveBufferAddressForDMA          
-000028ed  I2C_getTransmitBufferAddressForDMA         
-000028fb  I2C_masterIsStopSent                       
-0000290d  I2C_masterIsStartSent                      
-00002925  I2C_masterSendStart                        
-00002939  I2C_enableMultiMasterMode                  
-00002959  I2C_disableMultiMasterMode                 
-00002979  I2C_enableInterrupt                        
-0000298f  I2C_disableInterrupt                       
-000029a5  I2C_clearInterruptFlag                     
-000029bb  I2C_getInterruptStatus                     
-000029d3  I2C_getEnabledInterruptStatus              
-000029e3  I2C_getMode                                
-000029f9  I2C_registerInterrupt                      
-00002a5f  I2C_unregisterInterrupt                    
-00002abb  I2C_slaveSendNAK                           
-00002aed  GPIO_setAsOutputPin                        
-00002b27  GPIO_setAsInputPin                         
-00002b6d  GPIO_setAsPeripheralModuleFunctionOutputPin
-00002bf1  GPIO_setAsPeripheralModuleFunctionInputPin 
-00002c75  GPIO_setOutputHighOnPin                    
-00002c97  GPIO_setOutputLowOnPin                     
-00002cb9  GPIO_toggleOutputOnPin                     
-00002cdb  GPIO_setAsInputPinWithPullDownResistor     
-00002d2d  GPIO_setAsInputPinWithPullUpResistor       
-00002d7f  GPIO_getInputPinValue                      
-00002dad  GPIO_enableInterrupt                       
-00002dcf  GPIO_disableInterrupt                      
-00002df1  GPIO_getInterruptStatus                    
-00002e0f  GPIO_clearInterruptFlag                    
-00002e31  GPIO_interruptEdgeSelect                   
-00002e67  GPIO_getEnabledInterruptStatus             
-00002ee3  GPIO_setDriveStrengthHigh                  
-00002f05  GPIO_setDriveStrengthLow                   
-00002f27  GPIO_registerInterrupt                     
-00002f47  GPIO_unregisterInterrupt                   
-00002f6d  UART_initModule                            
-00003055  UART_transmitData                          
-0000307f  UART_receiveData                           
-000030a5  UART_enableModule                          
-000030bb  UART_disableModule                         
-000030d1  UART_queryStatusFlags                      
-000030e5  UART_setDormant                            
-000030f9  UART_resetDormant                          
-0000310d  UART_transmitAddress                       
-0000312b  UART_transmitBreak                         
-00003171  UART_getReceiveBufferAddressForDMA         
-0000317f  UART_getTransmitBufferAddressForDMA        
-0000318d  UART_selectDeglitchTime                    
-000031a9  UART_enableInterrupt                       
-000031d9  UART_disableInterrupt                      
-00003209  UART_getInterruptStatus                    
-00003225  UART_getEnabledInterruptStatus             
-00003281  UART_clearInterruptFlag                    
-000032a1  UART_registerInterrupt                     
-0000331d  UART_unregisterInterrupt                   
-0000338b  Interrupt_enableMaster                     
-0000339b  Interrupt_disableMaster                    
-000033ab  Interrupt_registerInterrupt                
-000033fd  Interrupt_unregisterInterrupt              
-00003411  Interrupt_setPriorityGrouping              
-0000342b  Interrupt_getPriorityGrouping              
-00003463  Interrupt_setPriority                      
-000034b3  Interrupt_getPriority                      
-000034d9  Interrupt_enableInterrupt                  
-0000354b  Interrupt_disableInterrupt                 
-000035bd  Interrupt_isEnabled                        
-00003649  Interrupt_pendInterrupt                    
-000036b9  Interrupt_unpendInterrupt                  
-00003707  Interrupt_setPriorityMask                  
-00003717  Interrupt_getPriorityMask                  
-00003721  Interrupt_setVectorTableAddress            
-00003731  Interrupt_getVectorTableAddress            
-00003737  Interrupt_enableSleepOnIsrExit             
-00003749  Interrupt_disableSleepOnIsrExit            
-00003779  SystemCoreClockUpdate                      
-000039ed  SystemInit                                 
-00003aa1  __aeabi_uldivmod                           
-00003c95  I2C_initGPIO                               
-00003cad  I2C_init                                   
-00003cc5  I2C_write8                                 
-00003d09  I2C_write16                                
-00003d67  I2C_read8                                  
-00003daf  I2C_read16                                 
-00003e45  I2C_setslave                               
-00003e69  __aeabi_dsub                               
-00003e73  __aeabi_dadd                               
-0000401f  __aeabi_ddiv                               
-00004155  __aeabi_dmul                               
-00004251  ldexp                                      
-00004251  ldexpl                                     
-00004251  scalbn                                     
-00004251  scalbnl                                    
-0000434d  UART_initGPIO                              
-00004371  UART_init                                  
-000043a9  UART_transmitString                        
-000043c3  serialTx0                                  
-000043e3  serialTx1                                  
-0000441d  __aeabi_memcpy                             
-0000441d  __aeabi_memcpy4                            
-0000441d  __aeabi_memcpy8                            
-0000441d  memcpy                                     
-000044b9  __aeabi_cdcmpeq                            
-000044b9  __aeabi_cdcmple                            
-0000453f  __aeabi_cdrcmple                           
-000045c5  __aeabi_memclr                             
-000045c5  __aeabi_memclr4                            
-000045c5  __aeabi_memclr8                            
-000045c7  __aeabi_memset                             
-000045c7  __aeabi_memset4                            
-000045c7  __aeabi_memset8                            
-000045cd  memset                                     
-00004641  __TI_auto_init                             
-000046b1  __TI_decompress_lzss                       
-00004719  frexp                                      
-00004719  frexpl                                     
-0000477d  sprintf                                    
-000047dd  ltoa                                       
-00004835  _c_int00                                   
-00004889  C$$EXIT                                    
-0000488d  abort                                      
-00004895  exit                                       
-000048dd  atoi                                       
-00004929  copy_in                                    
-00004975  __aeabi_d2iz                               
-000049bd  CPU_cpsid                                  
-000049c9  CPU_primask                                
-000049d3  CPU_cpsie                                  
-000049df  CPU_wfi                                    
-000049e3  CPU_basepriSet                             
-000049f1  CPU_basepriGet                             
-000049fb  __aeabi_i2d                                
-00004a29  memccpy                                    
-00004a45  _args_main                                 
-00004a5d  strchr                                     
-00004a75  _register_unlock                           
-00004a7b  _register_lock                             
-00004a83  _nop                                       
-00004a89  copysign                                   
-00004a89  copysignl                                  
-00004a9d  strcpy                                     
-00004ab1  strlen                                     
-00004ad7  __TI_decompress_none                       
-00004ae5  __TI_zero_init                             
-00004af1  _system_pre_init                           
-00004af4  _ctypes_                                   
-00004c48  uartConfig                                 
-00004c6c  uartConfigGps                              
-00004ccc  i2cConfig                                  
-00004dc0  __TI_Handler_Table_Base                    
-00004dcc  __TI_Handler_Table_Limit                   
-00004de0  __TI_CINIT_Base                            
-00004df8  __TI_CINIT_Limit                           
+0000151d  CS_init                                    
+000015a5  GPIO_init                                  
+000016e1  BatInitFn                                  
+0000173b  BleReq                                     
+000017a5  gprsInit                                   
+000017f9  gsmInit                                    
+00001859  PowerOnGprs                                
+00001887  PowerCheck                                 
+0000189d  LogToServer                                
+00001b59  BQ27441_initConfig                         
+00001f75  BQ27441_initOpConfig                       
+00002151  BQ27441_control                            
+00002179  BQ27441_controlRead                        
+000021b7  BQ27441_command                            
+000021e1  BQ27441_write16                            
+00002211  BQ27441_read16                             
+00002289  BQ27441_readChecksum                       
+00002313  _system_post_cinit                         
+00002315  I2C_initMaster                             
+00002377  I2C_initSlave                              
+000023b1  I2C_enableModule                           
+000023c7  I2C_disableModule                          
+000023dd  I2C_setSlaveAddress                        
+000023f1  I2C_setMode                                
+0000240d  I2C_masterReceiveSingleByte                
+00002441  I2C_slavePutData                           
+00002457  I2C_slaveGetData                           
+0000246b  I2C_isBusBusy                              
+0000247d  I2C_masterSendSingleByte                   
+000024e3  I2C_masterSendSingleByteWithTimeout        
+0000256f  I2C_masterSendMultiByteStart               
+000025bd  I2C_masterSendMultiByteStartWithTimeout    
+00002619  I2C_masterSendMultiByteNext                
+00002645  I2C_masterSendMultiByteNextWithTimeout     
+00002683  I2C_masterSendMultiByteFinish              
+000026d1  I2C_masterSendMultiByteFinishWithTimeout   
+0000273d  I2C_masterSendMultiByteStop                
+00002767  I2C_masterSendMultiByteStopWithTimeout     
+000027a3  I2C_masterReceiveStart                     
+000027bd  I2C_masterReceiveMultiByteNext             
+000027d5  I2C_masterReceiveMultiByteFinish           
+00002813  I2C_masterReceiveMultiByteFinishWithTimeout
+00002871  I2C_masterReceiveMultiByteStop             
+00002885  I2C_masterReceiveSingle                    
+000028af  I2C_getReceiveBufferAddressForDMA          
+000028bd  I2C_getTransmitBufferAddressForDMA         
+000028cb  I2C_masterIsStopSent                       
+000028dd  I2C_masterIsStartSent                      
+000028f5  I2C_masterSendStart                        
+00002909  I2C_enableMultiMasterMode                  
+00002929  I2C_disableMultiMasterMode                 
+00002949  I2C_enableInterrupt                        
+0000295f  I2C_disableInterrupt                       
+00002975  I2C_clearInterruptFlag                     
+0000298b  I2C_getInterruptStatus                     
+000029a3  I2C_getEnabledInterruptStatus              
+000029b3  I2C_getMode                                
+000029c9  I2C_registerInterrupt                      
+00002a2f  I2C_unregisterInterrupt                    
+00002a8b  I2C_slaveSendNAK                           
+00002abd  GPIO_setAsOutputPin                        
+00002af7  GPIO_setAsInputPin                         
+00002b3d  GPIO_setAsPeripheralModuleFunctionOutputPin
+00002bc1  GPIO_setAsPeripheralModuleFunctionInputPin 
+00002c45  GPIO_setOutputHighOnPin                    
+00002c67  GPIO_setOutputLowOnPin                     
+00002c89  GPIO_toggleOutputOnPin                     
+00002cab  GPIO_setAsInputPinWithPullDownResistor     
+00002cfd  GPIO_setAsInputPinWithPullUpResistor       
+00002d4f  GPIO_getInputPinValue                      
+00002d7d  GPIO_enableInterrupt                       
+00002d9f  GPIO_disableInterrupt                      
+00002dc1  GPIO_getInterruptStatus                    
+00002ddf  GPIO_clearInterruptFlag                    
+00002e01  GPIO_interruptEdgeSelect                   
+00002e37  GPIO_getEnabledInterruptStatus             
+00002eb3  GPIO_setDriveStrengthHigh                  
+00002ed5  GPIO_setDriveStrengthLow                   
+00002ef7  GPIO_registerInterrupt                     
+00002f17  GPIO_unregisterInterrupt                   
+00002f3d  UART_initModule                            
+00003025  UART_transmitData                          
+0000304f  UART_receiveData                           
+00003075  UART_enableModule                          
+0000308b  UART_disableModule                         
+000030a1  UART_queryStatusFlags                      
+000030b5  UART_setDormant                            
+000030c9  UART_resetDormant                          
+000030dd  UART_transmitAddress                       
+000030fb  UART_transmitBreak                         
+00003141  UART_getReceiveBufferAddressForDMA         
+0000314f  UART_getTransmitBufferAddressForDMA        
+0000315d  UART_selectDeglitchTime                    
+00003179  UART_enableInterrupt                       
+000031a9  UART_disableInterrupt                      
+000031d9  UART_getInterruptStatus                    
+000031f5  UART_getEnabledInterruptStatus             
+00003251  UART_clearInterruptFlag                    
+00003271  UART_registerInterrupt                     
+000032ed  UART_unregisterInterrupt                   
+0000335b  Interrupt_enableMaster                     
+0000336b  Interrupt_disableMaster                    
+0000337b  Interrupt_registerInterrupt                
+000033cd  Interrupt_unregisterInterrupt              
+000033e1  Interrupt_setPriorityGrouping              
+000033fb  Interrupt_getPriorityGrouping              
+00003433  Interrupt_setPriority                      
+00003483  Interrupt_getPriority                      
+000034a9  Interrupt_enableInterrupt                  
+0000351b  Interrupt_disableInterrupt                 
+0000358d  Interrupt_isEnabled                        
+00003619  Interrupt_pendInterrupt                    
+00003689  Interrupt_unpendInterrupt                  
+000036d7  Interrupt_setPriorityMask                  
+000036e7  Interrupt_getPriorityMask                  
+000036f1  Interrupt_setVectorTableAddress            
+00003701  Interrupt_getVectorTableAddress            
+00003707  Interrupt_enableSleepOnIsrExit             
+00003719  Interrupt_disableSleepOnIsrExit            
+00003749  SystemCoreClockUpdate                      
+000039bd  SystemInit                                 
+00003a71  __aeabi_uldivmod                           
+00003c65  I2C_initGPIO                               
+00003c7d  I2C_init                                   
+00003c95  I2C_write8                                 
+00003cd9  I2C_write16                                
+00003d37  I2C_read8                                  
+00003d7f  I2C_read16                                 
+00003e15  I2C_setslave                               
+00003e39  __aeabi_dsub                               
+00003e43  __aeabi_dadd                               
+00003fef  __aeabi_ddiv                               
+00004125  __aeabi_dmul                               
+00004221  ldexp                                      
+00004221  ldexpl                                     
+00004221  scalbn                                     
+00004221  scalbnl                                    
+0000431d  UART_initGPIO                              
+00004341  UART_init                                  
+00004379  UART_transmitString                        
+00004393  serialTx0                                  
+000043b3  serialTx1                                  
+000043ed  __aeabi_memcpy                             
+000043ed  __aeabi_memcpy4                            
+000043ed  __aeabi_memcpy8                            
+000043ed  memcpy                                     
+00004489  __aeabi_cdcmpeq                            
+00004489  __aeabi_cdcmple                            
+0000450f  __aeabi_cdrcmple                           
+00004595  __aeabi_memclr                             
+00004595  __aeabi_memclr4                            
+00004595  __aeabi_memclr8                            
+00004597  __aeabi_memset                             
+00004597  __aeabi_memset4                            
+00004597  __aeabi_memset8                            
+0000459d  memset                                     
+00004611  __TI_auto_init                             
+00004681  __TI_decompress_lzss                       
+000046e9  frexp                                      
+000046e9  frexpl                                     
+0000474d  sprintf                                    
+000047ad  ltoa                                       
+00004805  _c_int00                                   
+00004859  C$$EXIT                                    
+0000485d  abort                                      
+00004865  exit                                       
+000048ad  atoi                                       
+000048f9  copy_in                                    
+00004945  __aeabi_d2iz                               
+0000498d  CPU_cpsid                                  
+00004999  CPU_primask                                
+000049a3  CPU_cpsie                                  
+000049af  CPU_wfi                                    
+000049b3  CPU_basepriSet                             
+000049c1  CPU_basepriGet                             
+000049cb  __aeabi_i2d                                
+000049f9  memccpy                                    
+00004a15  _args_main                                 
+00004a2d  strchr                                     
+00004a45  _register_unlock                           
+00004a4b  _register_lock                             
+00004a53  _nop                                       
+00004a59  copysign                                   
+00004a59  copysignl                                  
+00004a6d  strcpy                                     
+00004a81  strlen                                     
+00004aa7  __TI_decompress_none                       
+00004ab5  __TI_zero_init                             
+00004ac1  _system_pre_init                           
+00004ac4  _ctypes_                                   
+00004c18  uartConfig                                 
+00004c3c  uartConfigGps                              
+00004c9c  i2cConfig                                  
+00004d98  __TI_Handler_Table_Base                    
+00004da4  __TI_Handler_Table_Limit                   
+00004db8  __TI_CINIT_Base                            
+00004dd0  __TI_CINIT_Limit                           
 20000000  g_pfnRAMVectors                            
 200000e4  getUrl                                     
 200002d8  temp                                       
@@ -729,29 +728,28 @@ address   name
 200003bc  j                                          
 200003c0  q                                          
 200003c4  i                                          
-200003c8  rootUrl                                    
-200003dc  QIFGCNT                                    
-200003eb  QICSGP                                     
-200003f9  QIREGAPP                                   
-20000407  QIDEACT                                    
-20000414  __TI_cleanup_ptr                           
-20000418  __TI_dtors_ptr                             
-2000041c  __TI_enable_exit_profile_output            
-20000420  CGREG                                      
-2000042c  COPS                                       
-20000437  CPIN                                       
-20000442  CREG                                       
-2000044d  QIACT                                      
-20000458  CSQ                                        
-20000464  _lock                                      
-20000468  _unlock                                    
-2000046c  CMNET                                      
-20000474  ATE1                                       
-2000047b  ATV1                                       
-20000482  at                                         
-20000488  errno                                      
-2000048c  main_func_sp                               
-20000490  SystemCoreClock                            
+200003c8  QICSGP                                     
+200003e0  rootUrl                                    
+200003f4  QIFGCNT                                    
+20000403  QIREGAPP                                   
+20000411  QIDEACT                                    
+20000420  __TI_cleanup_ptr                           
+20000424  __TI_dtors_ptr                             
+20000428  __TI_enable_exit_profile_output            
+2000042c  CGREG                                      
+20000438  COPS                                       
+20000443  CPIN                                       
+2000044e  CREG                                       
+20000459  QIACT                                      
+20000464  CSQ                                        
+20000470  _lock                                      
+20000474  _unlock                                    
+20000478  ATE1                                       
+2000047f  ATV1                                       
+20000486  at                                         
+2000048c  errno                                      
+20000490  main_func_sp                               
+20000494  SystemCoreClock                            
 2000fe00  __stack                                    
 20010000  __STACK_END                                
 4000480c  WDTCTL_SYM                                 
@@ -764,4 +762,4 @@ ffffffff  binit
 UNDEFED   SHT$$INIT_ARRAY$$Base                      
 UNDEFED   SHT$$INIT_ARRAY$$Limit                     
 
-[255 symbols]
+[254 symbols]

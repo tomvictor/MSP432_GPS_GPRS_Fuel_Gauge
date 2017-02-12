@@ -228,7 +228,7 @@ void main(void)
         __delay_cycles(20000000); //nearly 3 seconds
 
 
-        sprintf(temp, "AT+QHTTPURL=%d,30\r\n", j);
+        sprintf(temp, "AT+QHTTPURL=%d,9\r\n", j);
 
         serialTx1(temp)    ; //printing above
 
@@ -238,9 +238,9 @@ void main(void)
 
         __delay_cycles(20000000); //nearly 3 seconds
 
-        serialTx1("AT+QHTTPGET=60\r\n")   ;
+        serialTx1("AT+QHTTPGET=12\r\n")   ;
         __delay_cycles(10000000); //nearly 3 seconds
-        serialTx1("AT+QHTTPREAD=30\r\n")   ;
+        serialTx1("AT+QHTTPREAD=8\r\n")   ;
         __delay_cycles(30000000); //nearly 3 seconds
 
 
