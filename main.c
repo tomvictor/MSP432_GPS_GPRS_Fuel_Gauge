@@ -75,7 +75,7 @@ char sleep[] = { "at+qsclk=1\n\r" },
         COPS[]  = {"AT+COPS?\n\r"},
         w[] = { "AT&W\n\r"},
         QIFGCNT[] = {"AT+QIFGCNT=0\n\r"},
-        QICSGP[] = {"AT+QICSGP=1,\"CMNET\"\n\r"} ,
+        QICSGP[] = {"AT+QICSGP=1,\"bsnlnet\"\n\r"} ,
         QIREGAPP[] = {"AT+QIREGAPP\n\r"},
         QIACT[]    = {"AT+QIACT\n\r"},
         QIDEACT[] = {"AT+QIDEACT\n\r"} ;
