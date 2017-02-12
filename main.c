@@ -238,7 +238,7 @@ void main(void)
 
         serialTx1("AT+QHTTPGET=5\r\n")   ;
         __delay_cycles(50000000); //nearly 3 seconds
-        serialTx1("AT+QHTTPREAD=10\r\n")   ;
+        serialTx1("AT+QHTTPREAD=2\r\n")   ;
         __delay_cycles(30000000); //nearly 3 seconds
 
 
