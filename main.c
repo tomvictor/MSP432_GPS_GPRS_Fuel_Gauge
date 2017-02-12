@@ -220,34 +220,34 @@ void main(void)
         //gprsinit function
 
         serialTx1(QIFGCNT)    ;
-        __delay_cycles(5000000);
+        __delay_cycles(30000000); //nearly 3 seconds
         serialTx1(QICSGP) ;
-        __delay_cycles(5000000);
+        __delay_cycles(30000000); //nearly 3 seconds
         serialTx1(CMNET)  ;
-        __delay_cycles(5000000);
+        __delay_cycles(30000000); //nearly 3 seconds
         serialTx1(QIREGAPP)   ;
-        __delay_cycles(5000000);
+        __delay_cycles(30000000); //nearly 3 seconds
         serialTx1(QIACT);
-        __delay_cycles(5000000);
+        __delay_cycles(50000000); //nearly 3 seconds
 
 
-        sprintf(temp, "AT+QHTTPURL=%d,10\r\n", j);
+        sprintf(temp, "AT+QHTTPURL=%d,15\r\n", j);
 
         serialTx1(temp)    ; //printing above
 
-        __delay_cycles(1000000);
+        __delay_cycles(30000000); //nearly 3 seconds
 
         serialTx1(getUrl)    ;   //printing the get data
 
-        __delay_cycles(2000000);
+        __delay_cycles(30000000); //nearly 3 seconds
 
         serialTx1("AT+QHTTPGET=10\r\n")   ;
-        __delay_cycles(1000000);
+        __delay_cycles(30000000); //nearly 3 seconds
         serialTx1("AT+QHTTPREAD=9\r\n")   ;
-        __delay_cycles(1000000);
+        __delay_cycles(30000000); //nearly 3 seconds
 
         serialTx1(QIDEACT)    ;
-        __delay_cycles(1000000);
+        __delay_cycles(30000000); //nearly 3 seconds
         //gprs code ends here
 
 
