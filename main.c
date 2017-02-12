@@ -97,7 +97,7 @@ char rootUrl[] ={"http://kranioz.com/"}, getUrl[500] ;
 unsigned char tempAt[10];
 int aCount =0;
 
-int idx = 0;
+int idx = 0,six = 6, eight =8;
 char c, Range = 0, GpStatus = 0 ;
 char gps_string[200];
 char temp[100] ;
@@ -216,8 +216,8 @@ void main(void)
         }
         else{
             //Gps cordinates not avilable
-            sprintf(latc,"%s",dlat) ;
-            sprintf(lngc,"%s",dlng)   ;
+            sprintf(latc,"8.5%d",six) ;
+            sprintf(lngc,"76.8%d",eight)   ;
 
         }
         //gps code ends here
