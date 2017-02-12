@@ -35,6 +35,15 @@
 #define PowerKeyPin      GPIO_PIN6
 #define PowerKeyPort     GPIO_PORT_P3
 
+#define GpsStatusPin    GPIO_PIN5
+#define GpsStatusPort   GPIO_PORT_P1
+
+#define GpsLatPin       GPIO_PIN1
+#define GpsLatPort     GPIO_PORT_P4
+
+#define GpsLngPin   GPIO_PIN3
+#define GpsLngPort   GPIO_PORT_P4
+
 
 
 void CS_init(void);
@@ -130,49 +139,49 @@ void main(void)
     while(1)
     {
 
-                short result16 = 0;
-                char str[64];
+        short result16 = 0;
+        char str[64];
 
-                char battState[10] = 0, battCap[10] = 0 ;
-
-
-                __delay_cycles(1000000);
-                /* Read Remaining Capacity */
-                if(!BQ27441_read16(REMAINING_CAPACITY, &result16, 1000))
-                    UART_transmitString("Error Reading Remaining Capacity \r\n");
-                else
-                {
-                    sprintf(battCap, "%dmAh", result16);
-                    __delay_cycles(1000000);
-
-                }
-
-                __delay_cycles(1000000);
-                /* Read State Of Charge */
-                if(!BQ27441_read16(STATE_OF_CHARGE, &result16, 1000))
-                    UART_transmitString("Error Reading State Of Charge \r\n");
-                else
-                {
-                    sprintf(battState, "%d%%",  (unsigned short)result16);
-                    __delay_cycles(1000000);
-                }
-
-                serialTx0(battState);
+        char battState[10] = 0, battCap[10] = 0 ;
 
 
-//
-//                Range = GPIO_getInputPinValue(BleStatusPort,BleStatusPin) ;
-//                if (Range == 1){
-//                    //device is in range, so turn on green led and turn off red led
-//                    GPIO_setOutputHighOnPin(GreenLedPort,GreenLedPin) ; //turn on green led(p2.1)
-//                    GPIO_setOutputLowOnPin(RedLedPort,RedLedPin) ; //turn off red led(p1.0)
-//                }
-//                else if(Range == 0){
-//                    //device is out of range, so turn off green led and turn on red led
-//                    GPIO_setOutputLowOnPin(GreenLedPort,GreenLedPin) ; //turn off green led(p2.1)
-//                    GPIO_setOutputHighOnPin(RedLedPort,RedLedPin) ; //turn on red led(p1.0)
-//                }
-//
+        __delay_cycles(1000000);
+        /* Read Remaining Capacity */
+        if(!BQ27441_read16(REMAINING_CAPACITY, &result16, 1000))
+            UART_transmitString("Error Reading Remaining Capacity \r\n");
+        else
+        {
+            sprintf(battCap, "%dmAh", result16);
+            __delay_cycles(1000000);
+
+        }
+
+        __delay_cycles(1000000);
+        /* Read State Of Charge */
+        if(!BQ27441_read16(STATE_OF_CHARGE, &result16, 1000))
+            UART_transmitString("Error Reading State Of Charge \r\n");
+        else
+        {
+            sprintf(battState, "%d%%",  (unsigned short)result16);
+            __delay_cycles(1000000);
+        }
+
+        serialTx0(battState);
+
+
+        //
+        //                Range = GPIO_getInputPinValue(BleStatusPort,BleStatusPin) ;
+        //                if (Range == 1){
+        //                    //device is in range, so turn on green led and turn off red led
+        //                    GPIO_setOutputHighOnPin(GreenLedPort,GreenLedPin) ; //turn on green led(p2.1)
+        //                    GPIO_setOutputLowOnPin(RedLedPort,RedLedPin) ; //turn off red led(p1.0)
+        //                }
+        //                else if(Range == 0){
+        //                    //device is out of range, so turn off green led and turn on red led
+        //                    GPIO_setOutputLowOnPin(GreenLedPort,GreenLedPin) ; //turn off green led(p2.1)
+        //                    GPIO_setOutputHighOnPin(RedLedPort,RedLedPin) ; //turn on red led(p1.0)
+        //                }
+        //
 
 
 
@@ -180,7 +189,7 @@ void main(void)
         //serialTx1("tom2\n\r")   ;
 
         //print echo on  ports
-       // UART_transmitData(EUSCI_A0_BASE,UART_receiveData(EUSCI_A0_BASE));
+        // UART_transmitData(EUSCI_A0_BASE,UART_receiveData(EUSCI_A0_BASE));
         //UART_transmitData(EUSCI_A2_BASE,UART_receiveData(EUSCI_A2_BASE));
 
 
@@ -234,6 +243,10 @@ void GPIO_init()
     GPIO_setAsOutputPin(BlueLedPort, BlueLedPin);   //Blue led pin as output
 
     GPIO_setAsOutputPin(PowerKeyPort,PowerKeyPin)   ; //power key pin as output
+
+    GPIO_setAsOutputPin(GpsLatPort,GpsLatPin); //latitude pin as output
+    GPIO_setAsOutputPin(GpsLngPort,GpsLngPin); //longitude pin as output
+    GPIO_setAsInputPin(GpsStatusPort,GpsStatusPin)  ; // gps status pin as input
 
 
 }
