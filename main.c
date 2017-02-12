@@ -195,11 +195,17 @@ void main(void)
         GpStatus  = GPIO_getInputPinValue(GpsStatusPort,GpsStatusPin) ;
         if(GpStatus == 1){
             //Gps cordinates avilable
+            GPIO_setOutputLowOnPin(GpsLatPort,GpslatPin) ;
+            __delay_cycles(1000000); //nearly < 1 seconds
+            GPIO_setOutputHighOnPin(GpsLatPort,GpsLatPin) ;
             latc[0] = UART_receiveData(EUSCI_A0_BASE) ;
             latc[1] = UART_receiveData(EUSCI_A0_BASE)   ;
             latc[2] = UART_receiveData(EUSCI_A0_BASE)   ;
             latc[3] = UART_receiveData(EUSCI_A0_BASE) ;
 
+            GPIO_setOutputLowOnPin(GpsLngPort,GpsLngpin) ;
+            __delay_cycles(1000000); //nearly < 1 seconds
+            GPIO_setOutputHighOnPin(GpsLngPort,GpsLngPin) ;
             lngc[0] = UART_receiveData(EUSCI_A0_BASE) ;
             lngc[1] = UART_receiveData(EUSCI_A0_BASE)   ;
             lngc[2] = UART_receiveData(EUSCI_A0_BASE)   ;
