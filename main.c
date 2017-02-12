@@ -107,7 +107,7 @@ char temp[100] ;
 unsigned char t = 0, lat = 1, lng = 2, bat = 3, status = 1;
 int j=0, q=0, i=0;
 
-char latc[],lngc[]    ;
+char latc[20],lngc[20]    ;
 
 char battState[10], battCap[10];
 
@@ -143,6 +143,12 @@ void main(void)
     /* Display Battery information */
     while(1)
     {
+
+        strcpy(getUrl,"0") ; //now getUrl will filled with none
+        strcpy(latc,"0") ; //now getUrl will filled with none
+        strcpy(lngc,"0") ; //now getUrl will filled with none
+        strcpy(temp,"0") ; //now getUrl will filled with none
+        strcpy(battState,"0") ; //now getUrl will filled with none
 
         short result16 = 0;
         char str[64];
@@ -195,11 +201,11 @@ void main(void)
         //temp2[100]={0};
         //memset
 
-        strcpy(getUrl,"0") ; //now getUrl will filled with none
 
+        __delay_cycles(4000000);
 
-        sprintf(getUrl,"%slog/?lat=%s&lng=%d&id=921&bat=%s&status=%d",rootUrl,lat,lng,battState,Range) ;
-        serialTx0(getUrl) ;
+        sprintf(getUrl,"%slog/?lat=%s&lng=%s&id=921&bat=%s&status=%d",rootUrl,latc,lngc,battState,Range) ;
+        //serialTx0(getUrl) ;
         //    serialTx1(temp2)    ;
 
         //    strcat(dest, src); appending
