@@ -358,7 +358,6 @@ void gprsInit(){
 
     serialTx1(QIFGCNT)    ;
     serialTx1(QICSGP) ;
-    serialTx1(CMNET)  ;
     serialTx1(QIREGAPP)   ;
     serialTx1(QIACT);
 
@@ -435,7 +434,6 @@ void LogToServer(void){
     __delay_cycles(1000000);
     serialTx1(QICSGP) ;
     __delay_cycles(1000000);
-    serialTx1(CMNET)  ;
     __delay_cycles(1000000);
     serialTx1(QIREGAPP)   ;
     __delay_cycles(1000000);
