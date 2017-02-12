@@ -223,10 +223,10 @@ void main(void)
         serialTx1(QIREGAPP)   ;
         __delay_cycles(10000000); //nearly 3 seconds
         serialTx1(QIACT);
-        __delay_cycles(10000000); //nearly 3 seconds
+        __delay_cycles(40000000); //nearly 3 seconds
 
 
-        sprintf(temp, "AT+QHTTPURL=%d,10\r\n", j);
+        sprintf(temp, "AT+QHTTPURL=%d,5\r\n", j);
 
         serialTx1(temp)    ; //printing above
 
