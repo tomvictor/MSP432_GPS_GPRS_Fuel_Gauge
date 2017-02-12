@@ -346,7 +346,7 @@ void BleReq(void){
     __delay_cycles(10000000);
     GPIO_setOutputHighOnPin(BleSwitchPort,BleSwitchPin) ;
 
-    __delay_cycles(1000000); //wait for 1 Second
+    __delay_cycles(30000000); //wait for 1 Second
 }
 
 
