@@ -136,21 +136,25 @@ void main(void)
                 char battState[10] = 0, battCap[10] = 0 ;
 
 
+                __delay_cycles(1000000);
                 /* Read Remaining Capacity */
                 if(!BQ27441_read16(REMAINING_CAPACITY, &result16, 1000))
                     UART_transmitString("Error Reading Remaining Capacity \r\n");
                 else
                 {
                     sprintf(battCap, "%dmAh", result16);
+                    __delay_cycles(1000000);
 
                 }
 
+                __delay_cycles(1000000);
                 /* Read State Of Charge */
                 if(!BQ27441_read16(STATE_OF_CHARGE, &result16, 1000))
                     UART_transmitString("Error Reading State Of Charge \r\n");
                 else
                 {
                     sprintf(battState, "%d%%",  (unsigned short)result16);
+                    __delay_cycles(1000000);
                 }
 
                 serialTx0(battState);
@@ -260,25 +264,6 @@ void BatInitFn(void){
 
 }
 
-
-
-//
-///* GPIO ISR */
-//void PORT1_IRQHandler(void)
-//{
-//    uint32_t status;
-//
-//    status = MAP_GPIO_getEnabledInterruptStatus(GPIO_PORT_P1);
-//    MAP_GPIO_clearInterruptFlag(GPIO_PORT_P1, status);
-//
-//    /* Toggling the output on the LED */
-//    if(status & GPIO_PIN1)
-//    {
-//        MAP_GPIO_toggleOutputOnPin(GPIO_PORT_P1, GPIO_PIN0);
-//    }
-//
-//}
-//
 
 
 void gprsInit(){
