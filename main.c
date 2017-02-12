@@ -59,6 +59,7 @@ void GetLocation(void)  ;
 
 void PowerOnGprs(void)  ;
 void BattInitFn(void)   ;
+void BleReq(void)   ;
 
 char sleep[] = { "at+qsclk=1\n\r" },
         sleep_Check[]= { "at+qsclk?\n\r" },
@@ -132,7 +133,8 @@ void main(void)
 
 
     BatInitFn();
-
+    PowerOnGprs(); //power on the Gprs module by giving high to low on power key
+    gsmInit();  //Sending gprs init functions after the initialization
 
 
     /* Display Battery information */
@@ -166,22 +168,29 @@ void main(void)
             __delay_cycles(1000000);
         }
 
-//        serialTx0(battState);
+        //        serialTx0(battState);
 
 
-        //
-        //                Range = GPIO_getInputPinValue(BleStatusPort,BleStatusPin) ;
-        //                if (Range == 1){
-        //                    //device is in range, so turn on green led and turn off red led
-        //                    GPIO_setOutputHighOnPin(GreenLedPort,GreenLedPin) ; //turn on green led(p2.1)
-        //                    GPIO_setOutputLowOnPin(RedLedPort,RedLedPin) ; //turn off red led(p1.0)
-        //                }
-        //                else if(Range == 0){
-        //                    //device is out of range, so turn off green led and turn on red led
-        //                    GPIO_setOutputLowOnPin(GreenLedPort,GreenLedPin) ; //turn off green led(p2.1)
-        //                    GPIO_setOutputHighOnPin(RedLedPort,RedLedPin) ; //turn on red led(p1.0)
-        //                }
-        //
+
+
+
+
+
+
+
+
+        Range = GPIO_getInputPinValue(BleStatusPort,BleStatusPin) ;
+        if (Range == 1){
+            //device is in range, so turn on green led and turn off red led
+            GPIO_setOutputHighOnPin(GreenLedPort,GreenLedPin) ; //turn on green led(p2.1)
+            GPIO_setOutputLowOnPin(RedLedPort,RedLedPin) ; //turn off red led(p1.0)
+        }
+        else if(Range == 0){
+            //device is out of range, so turn off green led and turn on red led
+            GPIO_setOutputLowOnPin(GreenLedPort,GreenLedPin) ; //turn off green led(p2.1)
+            GPIO_setOutputHighOnPin(RedLedPort,RedLedPin) ; //turn on red led(p1.0)
+        }
+
 
 
 
@@ -277,7 +286,13 @@ void BatInitFn(void){
 
 }
 
+void BleReq(void){
+    GPIO_setOutputLowOnPin(BleSwitchPort,BleSwitchPin) ;
+    __delay_cycles(10000000);
+    GPIO_setOutputHighOnPin(BleSwitchPort,BleSwitchPin) ;
 
+    __delay_cycles(10000000); //wait for 1 Second
+}
 
 void gprsInit(){
 
@@ -292,7 +307,6 @@ void gprsInit(){
     //sprintf(temp, "%d%%",  (unsigned short)result16);
 
     serialTx1("AT+QHTTPURL=51,30")    ;
-
 
 
     serialTx1(getUrl) ;
@@ -325,15 +339,6 @@ void PowerOnGprs(void){
 
 
 void LogToServer(void){
-
-    PowerOnGprs();
-
-
-
-    gsmInit()   ; // gprs init comands
-
-
-
 
 
 
