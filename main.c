@@ -102,14 +102,12 @@ char c, Range = 0 ;
 char gps_string[200];
 char temp[100] ;
 
-
 unsigned char t = 0, lat = 1, lng = 2, bat = 3, status = 1;
 int j=0, q=0, i=0;
 
 char latc[20],lngc[20]    ;
 
 char battState[10], battCap[10];
-
 
 void main(void)
 {
@@ -220,15 +218,15 @@ void main(void)
 
         serialTx1(QIFGCNT)    ;
         __delay_cycles(10000000); //nearly 3 seconds
-        serialTx1(QICSGP) ;
+        //serialTx1(QICSGP) ;
         __delay_cycles(10000000); //nearly 3 seconds
         serialTx1(QIREGAPP)   ;
         __delay_cycles(10000000); //nearly 3 seconds
         serialTx1(QIACT);
-        __delay_cycles(20000000); //nearly 3 seconds
+        __delay_cycles(10000000); //nearly 3 seconds
 
 
-        sprintf(temp, "AT+QHTTPURL=%d,5\r\n", j);
+        sprintf(temp, "AT+QHTTPURL=%d,10\r\n", j);
 
         serialTx1(temp)    ; //printing above
 
@@ -238,17 +236,17 @@ void main(void)
 
         __delay_cycles(10000000); //nearly 3 seconds
 
-        serialTx1("AT+QHTTPGET=3\r\n")   ;
+        serialTx1("AT+QHTTPGET=10\r\n")   ;
         __delay_cycles(10000000); //nearly 3 seconds
-        serialTx1("AT+QHTTPREAD=2\r\n")   ;
+        serialTx1("AT+QHTTPREAD=10\r\n")   ;
         __delay_cycles(30000000); //nearly 3 seconds
 
 
         __delay_cycles(150000000); //nearly 15 seconds
 
         serialTx1(QIDEACT)    ;
-              __delay_cycles(30000000); //nearly 3 seconds
-              //gprs code ends here
+        __delay_cycles(30000000); //nearly 3 seconds
+        //gprs code ends here
 
 
         //serialTx0("tom\n\r")    ;
@@ -259,7 +257,7 @@ void main(void)
         //UART_transmitData(EUSCI_A2_BASE,UART_receiveData(EUSCI_A2_BASE));
 
 
-              __delay_cycles(150000000); //nearly 15 seconds
+        __delay_cycles(150000000); //nearly 15 seconds
     }
 }
 

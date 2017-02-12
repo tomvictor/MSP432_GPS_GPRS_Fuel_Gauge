@@ -1,7 +1,7 @@
 ******************************************************************************
                   TI ARM Linker PC v16.9.0                     
 ******************************************************************************
->> Linked Sun Feb 12 19:24:57 2017
+>> Linked Sun Feb 12 19:44:49 2017
 
 OUTPUT FILE NAME:   <MSP432_GPS_GPRS_Fuel_Gauge.out>
 ENTRY POINT SYMBOL: "_c_int00"  address: 00004801
@@ -257,8 +257,8 @@ address   name
 0000220d  BQ27441_read16                             
 00002285  BQ27441_readChecksum                       
 000021dd  BQ27441_write16                            
-000016e5  BatInitFn                                  
-0000176f  BleReq                                     
+000016e1  BatInitFn                                  
+0000173b  BleReq                                     
 00004855  C$$EXIT                                    
 2000042c  CGREG                                      
 20000438  COPS                                       
@@ -467,8 +467,8 @@ ffffffff  binit
 000046e5  frexpl                                     
 20000000  g_pfnRAMVectors                            
 200000e4  getUrl                                     
-000017a3  gprsInit                                   
-000017fd  gsmInit                                    
+0000179f  gprsInit                                   
+000017f9  gsmInit                                    
 200003c4  i                                          
 00004c98  i2cConfig                                  
 200003b0  idx                                        
@@ -515,10 +515,10 @@ address   name
 0000127d  main                                       
 00001521  CS_init                                    
 000015a9  GPIO_init                                  
-000016e5  BatInitFn                                  
-0000176f  BleReq                                     
-000017a3  gprsInit                                   
-000017fd  gsmInit                                    
+000016e1  BatInitFn                                  
+0000173b  BleReq                                     
+0000179f  gprsInit                                   
+000017f9  gsmInit                                    
 00001853  PowerOnGprs                                
 00001885  PowerCheck                                 
 0000189b  LogToServer                                
