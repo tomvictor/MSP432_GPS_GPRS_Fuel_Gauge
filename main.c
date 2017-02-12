@@ -102,10 +102,13 @@ char c, Range = 0, GpStatus = 0 ;
 char gps_string[200];
 char temp[100] ;
 
+char dlat[]={"8.56"},dlng={"76.88"} ;
+
+
 unsigned char t = 0, lat = 1, lng = 2, bat = 3, status = 1;
 int j=0, q=0, i=0;
 
-char latc[],lngc[]    ;
+char latc[10],lngc[10]    ;
 
 char battState[10], battCap[10];
 
@@ -213,8 +216,8 @@ void main(void)
         }
         else{
             //Gps cordinates not avilable
-            sprintf(latc,"8.56") ;
-            sprintf(lngc,"76.88")   ;
+            sprintf(latc,"%s",dlat) ;
+            sprintf(lngc,"%s",dlng)   ;
 
         }
         //gps code ends here
