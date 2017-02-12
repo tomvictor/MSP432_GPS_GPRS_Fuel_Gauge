@@ -75,8 +75,7 @@ char sleep[] = { "at+qsclk=1\n\r" },
         COPS[]  = {"AT+COPS?\n\r"},
         w[] = { "AT&W\n\r"},
         QIFGCNT[] = {"AT+QIFGCNT=0\n\r"},
-        QICSGP[] = {"AT+QICSGP=1\n\r"} ,
-        CMNET[] = {"CMNET\n\r"},
+        QICSGP[] = {"AT+QICSGP=1,\"CMNET\"\n\r"} ,
         QIREGAPP[] = {"AT+QIREGAPP\n\r"},
         QIACT[]    = {"AT+QIACT\n\r"},
         QIDEACT[] = {"AT+QIDEACT\n\r"} ;
@@ -223,35 +222,33 @@ void main(void)
         __delay_cycles(10000000); //nearly 3 seconds
         serialTx1(QICSGP) ;
         __delay_cycles(10000000); //nearly 3 seconds
-        serialTx1(CMNET)  ;
-        __delay_cycles(10000000); //nearly 3 seconds
         serialTx1(QIREGAPP)   ;
         __delay_cycles(10000000); //nearly 3 seconds
         serialTx1(QIACT);
         __delay_cycles(20000000); //nearly 3 seconds
 
 
-        sprintf(temp, "AT+QHTTPURL=%d,5\r\n", j);
+        sprintf(temp, "AT+QHTTPURL=%d,30\r\n", j);
 
         serialTx1(temp)    ; //printing above
 
-        __delay_cycles(10000000); //nearly 3 seconds
+        __delay_cycles(30000000); //nearly 3 seconds
 
         serialTx1(getUrl)    ;   //printing the get data
 
         __delay_cycles(20000000); //nearly 3 seconds
 
-        serialTx1("AT+QHTTPGET=3\r\n")   ;
+        serialTx1("AT+QHTTPGET=60\r\n")   ;
         __delay_cycles(10000000); //nearly 3 seconds
-        serialTx1("AT+QHTTPREAD=2\r\n")   ;
+        serialTx1("AT+QHTTPREAD=30\r\n")   ;
         __delay_cycles(30000000); //nearly 3 seconds
+
+
+        __delay_cycles(150000000); //nearly 15 seconds
 
         serialTx1(QIDEACT)    ;
-        __delay_cycles(30000000); //nearly 3 seconds
-        //gprs code ends here
-
-
-
+              __delay_cycles(30000000); //nearly 3 seconds
+              //gprs code ends here
 
 
         //serialTx0("tom\n\r")    ;
@@ -262,7 +259,7 @@ void main(void)
         //UART_transmitData(EUSCI_A2_BASE,UART_receiveData(EUSCI_A2_BASE));
 
 
-        __delay_cycles(150000000); //nearly 15 seconds
+              __delay_cycles(150000000); //nearly 15 seconds
     }
 }
 
