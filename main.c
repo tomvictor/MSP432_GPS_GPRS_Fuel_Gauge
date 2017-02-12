@@ -48,6 +48,7 @@ void LogToServer(void)  ;
 void ProcessResponse(void);
 void GetLocation(void)  ;
 
+void PowerOnGprs(void)  ;
 void BattInitFn(void)   ;
 
 char sleep[] = { "at+qsclk=1\n\r" },
@@ -140,11 +141,8 @@ void main(void)
                     UART_transmitString("Error Reading Remaining Capacity \r\n");
                 else
                 {
-                    sprintf(str, "REMAINING_CAPACITY : %dmAh \r\n", result16);
-                    //battCap = result16 ;
                     sprintf(battCap, "%dmAh", result16);
 
-                    UART_transmitString(str);
                 }
 
                 /* Read State Of Charge */
@@ -152,12 +150,9 @@ void main(void)
                     UART_transmitString("Error Reading State Of Charge \r\n");
                 else
                 {
-                    sprintf(str, "State of Charge: %d%%\r\n", (unsigned short)result16);
                     sprintf(battState, "%d%%",  (unsigned short)result16);
-                    UART_transmitString(str);
                 }
 
-                serialTx0("tom");
                 serialTx0(battState);
 
 
@@ -320,8 +315,7 @@ void gsmInit(){
 }
 
 
-void LogToServer(void){
-
+void PowerOnGprs(void){
     //power key
 
     GPIO_setOutputLowOnPin(PowerKeyPort,PowerKeyPin) ;
@@ -329,6 +323,13 @@ void LogToServer(void){
     GPIO_setOutputHighOnPin(PowerKeyPort,PowerKeyPin) ;
 
     __delay_cycles(180000000); //wait for initialisation
+}
+
+
+void LogToServer(void){
+
+    PowerOnGprs();
+
 
 
     gsmInit()   ; // gprs init comands
